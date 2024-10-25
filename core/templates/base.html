@@ -1,0 +1,557 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=1920, maximum-scale=1.0">
+        <meta name="og:type" content="website">
+        <meta name="twitter:card" content="photo">
+        <title>{% block title %}{% endblock %}</title>
+        <style>
+            @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+            @font-face {
+                font-family: "SF Pro Display-Medium";
+                font-style: normal;
+                font-weight: 500;
+                src: url('https://anima-uploads.s3.amazonaws.com/projects/64f7ed1586d1fc0125de8d9c/fonts/sf-pro-display-medium.otf') format("opentype");
+            }
+            
+            @font-face {
+                font-family: "SF Pro Display-Regular";
+                font-style: normal;
+                font-weight: 400;
+                src: url('https://anima-uploads.s3.amazonaws.com/projects/62e5bd2f729e81c0f2cb0ddb/fonts/sf-pro-display-regular.ttf') format("truetype");
+            }
+            /* The following line is used to measure usage of this code. You can remove it if you want. */
+            
+
+            
+            .component-wrapper a {
+                display: contents;
+                pointer-events: auto;
+                text-decoration: none;
+            }
+            
+            .component-wrapper * {
+                -webkit-font-smoothing: antialiased;
+                box-sizing: border-box;
+                pointer-events: none;
+            }
+            
+            .component-wrapper a *,
+            .component-wrapper input,
+            .component-wrapper video,
+            .component-wrapper iframe {
+                pointer-events: auto;
+            }
+            
+            .component-wrapper.not-ready,
+            .component-wrapper.not-ready * {
+                visibility: hidden !important;
+            }
+            
+            .screen a {
+                display: contents;
+                text-decoration: none;
+            }
+            
+            .full-width-a {
+                width: 100%;
+            }
+            
+            .full-height-a {
+                height: 100%;
+            }
+            
+            .container-center-vertical {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                height: 100%;
+                pointer-events: none;
+            }
+            
+            .container-center-vertical > * {
+                flex-shrink: 0;
+                pointer-events: auto;
+            }
+            
+            .container-center-horizontal {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                pointer-events: none;
+                width: 100%;
+            }
+            
+            .container-center-horizontal > * {
+                flex-shrink: 0;
+                pointer-events: auto;
+            }
+            
+            .auto-animated div {
+                --z-index: -1;
+                opacity: 0;
+                position: absolute;
+            }
+            
+            .auto-animated input {
+                --z-index: -1;
+                opacity: 0;
+                position: absolute;
+            }
+            
+            .auto-animated .container-center-vertical,
+            .auto-animated .container-center-horizontal {
+                opacity: 1;
+            }
+            
+            .overlay-base {
+                display: none;
+                height: 100%;
+                opacity: 0;
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+            
+            .overlay-base.animate-appear {
+                align-items: center;
+                animation: reveal 0.3s ease-in-out 1 normal forwards;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                opacity: 0;
+            }
+            
+            .overlay-base.animate-disappear {
+                animation: reveal 0.3s ease-in-out 1 reverse forwards;
+                display: block;
+                opacity: 1;
+                pointer-events: none;
+            }
+            
+            .overlay-base.animate-disappear * {
+                pointer-events: none;
+            }
+            
+            @keyframes reveal {
+                from {
+                    opacity: 0
+                }
+                to {
+                    opacity: 1
+                }
+            }
+            
+            .animate-nodelay {
+                animation-delay: 0s;
+            }
+            
+            .align-self-flex-start {
+                align-self: flex-start;
+            }
+            
+            .align-self-flex-end {
+                align-self: flex-end;
+            }
+            
+            .align-self-flex-center {
+                align-self: flex-center;
+            }
+            
+            .valign-text-middle {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .valign-text-bottom {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+            
+            input:focus {
+                outline: none;
+            }
+            
+            .listeners-active,
+            .listeners-active * {
+                pointer-events: auto;
+            }
+            
+            .hidden,
+            .hidden * {
+                pointer-events: none;
+                visibility: hidden;
+            }
+            
+            .smart-layers-pointers,
+            .smart-layers-pointers * {
+                pointer-events: auto;
+                visibility: visible;
+            }
+            
+            .listeners-active-click,
+            .listeners-active-click * {
+                cursor: pointer;
+            }
+            
+            * {
+                box-sizing: border-box;
+            }
+            
+            :root {
+                --black: #000000;
+                --bunker: #141516;
+                --manatee: #979ea5;
+                --white: #ffffff;
+                --wild-sand: #f1f3f5;
+                --font-size-l: 4vh;
+                --font-size-m: 2vh;
+                --font-size-s: 1.8vh;
+                --font-size-xs: 1.6vh;
+                --font-family-sf_pro_display-medium: "SF Pro Display-Medium", Helvetica;
+                --font-family-sf_pro_display-regular: "SF Pro Display-Regular", Helvetica;
+            }
+            
+            .menu-font {
+                color: var(--manatee);
+                font-family: var(--font-family-sf_pro_display-medium);
+                font-size: 2vh;
+                font-style: normal;
+                font-weight: 500;
+            }
+
+            .bold {
+                background-color: transparent;
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-medium);
+                font-size: 2vh;
+                font-style: normal;
+                font-weight: 500;
+                letter-spacing: -0.20px;
+                line-height: 2vh;
+                position: relative;
+                text-align: right;
+                white-space: nowrap;
+                width: fit-content;
+            }
+            
+            :root {}
+            
+            ::placeholder {
+                color: #989FA6;
+            }
+
+            .main-frame {
+                background-color: var(--wild-sand);
+                height: 100vh;
+                overflow: hidden;
+                overflow-x: hidden;
+                position: relative;
+                width: 100vw;
+            }
+            
+            .main-frame .menu {
+                align-items: center;
+                background-color: var(--white);
+                border-radius: 5vh;
+                display: inline-flex;
+                left: 31.5625vw;
+                padding: 0.4vh;
+                position: absolute;
+                top: 1.5vh;
+            }
+            
+            .main-frame .have-icon {
+                align-items: center;
+                position: relative;
+            }
+
+            .main-frame .index-frame-menu-item {
+                align-items: center;
+                background-color: transparent;
+                border-radius: 5vh;
+                display: inline-flex;
+                flex: 0 0 auto;
+                gap: 0.8vh;
+                padding: 1vh 0.833333333vw;
+                position: relative;
+            }
+            
+            .main-frame .index-frame-menu-item-label {
+                letter-spacing: -0.20px;
+                line-height: 2.4vh;
+                margin-top: -1.00px;
+                position: relative;
+                text-align: right;
+                width: fit-content;
+            }
+            
+            .main-frame .index-frame-menu-item-icon {
+                background-color: transparent;
+                height: 1.6vh;
+                position: relative;
+                width: 0.833333333vw;
+            }
+            
+            .main-frame .qr-frame-menu-item {
+                background-color: transparent;
+                border-radius: 5vh;
+                display: inline-flex;
+                flex: 0 0 auto;
+                gap: 0.8vh;
+                padding: 1vh 0.833333333vw;
+            }
+            
+            .main-frame .qr-frame-menu-item-icon {
+                background-color: transparent;
+                height: 1.6vh;
+                position: relative;
+                width: 0.833333333vw;
+            }
+            
+            .main-frame .history-frame-menu-item {
+                background-color: transparent;
+                border-radius: 5vh;
+                display: inline-flex;
+                flex: 0 0 auto;
+                gap: 8px;
+                padding: 1vh 0.833333333vw;
+            }
+
+            .main-frame .selected {
+                background-color: var(--wild-sand) !important;
+            }
+            
+            .main-frame .history-frame-menu-item-label {
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-medium);
+                font-size: 2vh;
+                font-style: normal;
+                font-weight: 500;
+            }
+            
+            .main-frame .history-frame-menu-item-icon {
+                background-color: transparent;
+                height: 1.6vh;
+                position: relative;
+                width: 0.833333333vw;
+            }
+            
+            .main-frame .price-frame-menu-item {
+                border-radius: 5vh;
+                display: inline-flex;
+                flex: 0 0 auto;
+                gap: 0.8vh;
+                padding: 1vh 0.833333333vw;
+            }
+            
+            .main-frame .price-frame-menu-item .label {
+                letter-spacing: -0.20px;
+                line-height: 2.4vh;
+                margin-top: -1.00px;
+                position: relative;
+                text-align: right;
+                width: fit-content;
+            }
+            
+            .main-frame .price-frame-menu-item-icon {
+                background-color: transparent;
+                height: 1.6vh;
+                position: relative;
+                width: 0.833333333vw;
+            }
+            
+            .main-frame .qr-frame-menu-item-label {
+                background-color: transparent;
+                letter-spacing: -0.20px;
+                line-height: 2.4vh;
+                margin-top: -1.00px;
+                position: relative;
+                text-align: right;
+                white-space: nowrap;
+                width: fit-content;
+            }
+
+            .main-frame .text_label {
+                background-color: transparent;
+                white-space: nowrap;
+            }
+
+            .main-frame .logo {
+                background-color: transparent;
+                height: auto;
+                left: 1.041666666vh;
+                position: absolute;
+                top: 1.5vh;
+                width: auto;
+                max-width:2.864583333vw;
+                max-height:6vh;
+            }
+
+            .main-frame footer {
+                background-color: transparent;
+                height: 20vh;
+                left: 0px;
+                overflow: hidden;
+                position: absolute;
+                top: 80vh;
+                width: 100vw;
+            }
+
+            .main-frame .privacy-link {
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 1.6vh;
+                font-style: normal;
+                font-weight: 400;
+                height: auto;
+                left: 1.041666666vw;
+                letter-spacing: -0.16px;
+                line-height: 1.6vh;
+                opacity: 0.3;
+                position: absolute;
+                text-align: left;
+                top: 16.3vh;
+                width: 6.302083333vw;
+            }
+
+            .main-frame .company-link {
+                background-color: transparent;
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 1.6vh;
+                font-style: normal;
+                font-weight: 400;
+                height: 1.6vh;
+                left: 45.885416666vw;
+                letter-spacing: -0.16px;
+                line-height: 1.6vh;
+                opacity: 0.3;
+                position: absolute;
+                text-align: right;
+                top: 16.3vh;
+                white-space: nowrap;
+                width: 8.229166666vw;
+            }
+        
+            .main-frame .setting-background {
+                -webkit-backdrop-filter: blur(20px) brightness(100%);
+                backdrop-filter: blur(20px) brightness(100%);
+                background-color: var(--white);
+                border-radius: 50vh;
+                height: 4.4vh;
+                left: 96.666666666vw;
+                position: absolute;
+                top: 13.6vh;
+                width: 2.291666666vw;
+            }
+            
+            .main-frame .settings-button {
+                background-color: transparent;
+                height: 2vh;
+                left: 97.291666666vw;
+                position: absolute;
+                top: 14.8vh;
+                width: 1.041666666vw;
+            }
+
+            .main-frame header {
+                background-color: transparent;
+                height: 9vh;
+                left: 0px;
+                overflow: hidden;
+                position: absolute;
+                top: -0px;
+                width: 100vw;
+            }
+
+            .main-frame .account-frame-menu-item {
+                align-items: center;
+                background-color: var(--white);
+                border-radius: 5vh;
+                display: inline-flex;
+                gap: 1vh;
+                left: 88.75vw;
+                width: 10.208333333vw;
+                height: 5.2vh;
+                padding: 0.4vh 0.208333333vw 0.4vh 1.041666666vw;
+                position: absolute;
+                top: 1.5vh;
+            }
+
+            .main-frame .account-frame-menu-item-icon {
+                background-color: transparent;
+                position: absolute;
+                height: 4.4vh;
+                width: 2.291666666vw;
+                right: 0.260416666vw;
+            }
+
+        </style>
+        <style>{% block style %}{% endblock %}</style>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    </head>
+    <body style="margin: 0;background: #f1f3f5;">
+        <div class="container-center-horizontal">
+            <div class="main-frame screen" style="">
+                <div class="content">
+                    {% block content %}
+            
+                    {% endblock %}
+                </div>
+            	<footer>
+                    <a href="{% url 'privacy' %}">
+                        <div class="privacy-link text_label">Правила сервиса</div>
+                    </a>
+                    <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
+                        <div class="company-link">PR-агентство Operator</div>
+                    </a>
+                    <a href="#">
+                        <div class="setting-background"></div>
+                        <img class="settings-button" src="{% static 'images/svg/normal/settings-icon.svg' %}" alt="Настройки"/>
+                    </a>
+                </footer>
+                <header>
+                    <div class="account-frame-menu-item">
+                        <a href="{% url 'account' %}">
+                            <div class="text_label menu-font bold">{{ 'Войти' }}</div>
+                            <img class="account-frame-menu-item-icon" src="{% static 'images/svg/normal/account-icon.svg' %}" alt="Аккаунт">
+                        </a>
+                    </div>
+                    <div class="menu">
+                        <a href="{% url 'index' %}">
+                            <div class="index-frame-menu-item have-icon {% block index_selected %}{% endblock %}">
+                                <div class="text_label menu-font {% block index_bold %}{% endblock %}">Линкер</div>
+                                {% block index_icon %}<img class="index-frame-menu-item-icon" src="{% static 'images/svg/normal/index-icon.svg' %}" alt="Линкер">{% endblock %}
+                            </div>
+                        </a>
+                        <a href="{% url 'qr_generator' %}">
+                            <div class="qr-frame-menu-item have-icon {% block qr_selected %}{% endblock %}">
+                                <div class="text_label menu-font {% block qr_bold %}{% endblock %}">QR-генератор</div>
+                                {% block qr_icon %}<img class="qr-frame-menu-item-icon" src="{% static 'images/svg/normal/qr-icon.svg' %}" alt="QR-генератор">{% endblock %}
+                            </div>
+                        </a>
+                        <a href="{% url 'history' %}">
+                            <div class="history-frame-menu-item have-icon {% block history_selected %}{% endblock %}">
+                                <div class="text_label menu-font {% block history_bold %}{% endblock %}">Мои ссылки и QR-коды</div>
+                                {% block history_icon %}<img class="history-frame-menu-item-icon" src="{% static 'images/svg/normal/history-icon.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
+                            </div>
+                        </a>
+                        <a href="{% url 'price' %}">
+                            <div class="price-frame-menu-item have-icon {% block price_selected %}{% endblock %}">
+                                <div class="text_label menu-font {% block price_bold %}{% endblock %}">Тарифы</div>
+                                {% block price_icon %}<img class="price-frame-menu-item-icon" src="{% static 'images/svg/normal/price-icon.svg' %}" alt="Тарифы"/>{% endblock %}
+                            </div>
+                        </a>
+                    </div>
+                    <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
+                </header>
+            </div>
+        </div>
+    </body>
+</html>

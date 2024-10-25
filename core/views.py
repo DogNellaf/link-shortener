@@ -5,11 +5,11 @@ from core.models import ShortedUrl
 
 def index(request):
     """Отображение view главной страницы"""
-    return render(request, "index")
+    return render(request, "index.html")
 
 def qr_generator(request):
     """Отображение страницы QR-генератора"""
-    return render(request, "qr_generator")
+    return render(request, "qr_generator.html")
 
 def history(request):
     """Отображение страницы Мои ссылки и QR-коды"""
@@ -20,7 +20,7 @@ def history(request):
     else:
         urls = ShortedUrl.objects.filter(author__id = user.id)
 
-    return render(request, "history", {'urls': urls})
+    return render(request, "history.html", {'urls': urls})
 
 def price(request):
     """Отображение страницы Тарифы"""
@@ -32,8 +32,8 @@ def account(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account", {'user': user})
+    return render(request, "account.html", {'user': user})
 
 def privacy(request):
     """Отображение страницы правил сервиса"""
-    return render(request, "privacy")
+    return render(request, "privacy.html")
