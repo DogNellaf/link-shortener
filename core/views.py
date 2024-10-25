@@ -1,6 +1,7 @@
 """Содержит endpoints проекта"""
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from core.models import ShortedUrl
 
 def index(request):
     """Отображение view главной страницы"""
@@ -12,7 +13,14 @@ def qr_generator(request):
 
 def history(request):
     """Отображение страницы Мои ссылки и QR-коды"""
-    return render(request, "history")
+    user = request.user
+
+    if not user.is_authenticated:
+        urls = []
+    else:
+        urls = ShortedUrl.objects.filter(author__id = user.id)
+
+    return render(request, "history", {'urls': urls})
 
 def price(request):
     """Отображение страницы Тарифы"""
@@ -20,7 +28,11 @@ def price(request):
 
 def account(request):
     """Отображение страницы аккаунта пользователя"""
-    return render(request, "account")
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    return render(request, "account", {'user': user})
 
 def privacy(request):
     """Отображение страницы правил сервиса"""

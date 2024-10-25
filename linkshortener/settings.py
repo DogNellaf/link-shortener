@@ -69,6 +69,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'linkshortener.wsgi.application'
 
+LOGIN_REDIRECT_URL = '/'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
