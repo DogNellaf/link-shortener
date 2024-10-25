@@ -26,5 +26,5 @@ urlpatterns = [
     path('price',   core_views.price,        name = "price"),
     path('account', core_views.account,      name = "account"),
     path('privacy', core_views.privacy,      name = "privacy"),
-    path('accounts/',  include('django.contrib.auth.urls')),
+    path('auth/',  include('django.contrib.auth.urls')),
 ]
