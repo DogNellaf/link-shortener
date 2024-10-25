@@ -8,7 +8,8 @@ class ShortedUrl(models.Model):
     author = models.ForeignKey(
         to = User,
         verbose_name = "Автор ссылки",
-        on_delete = models.SET_NULL
+        on_delete = models.SET_NULL,
+        null = True
     )
 
     original_url = models.URLField(
@@ -38,4 +39,4 @@ class ShortedUrl(models.Model):
     
     class Meta:
         verbose_name = "Сокращенная ссылка"
-        verbose_name_prural = "Сокращенные ссылки"
+        verbose_name_plural = "Сокращенные ссылки"
