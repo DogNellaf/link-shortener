@@ -9,8 +9,29 @@ from core.models import ShortedUrl
 from linkshortener.settings import SHORT_URL_LENGTH
 
 def index(request):
-    """Отображение view главной страницы"""
-    return render(request, "index.html", {'url': ""})
+    """Стартовая страница, переадресующая пользователя с пустого пути / на линкер"""
+    return redirect("linker")
+
+def linker(request, url=""):
+    """Отображение view главной страницы линкера"""
+
+    original_url = ""
+
+    if url != "":
+        shorted_urls = ShortedUrl.objects.filter(short_url = url)
+        if not shorted_urls.exists():
+            return HttpResponseNotFound()
+        
+        shorted_url = shorted_urls.first()
+
+        original_url = shorted_url.original_url
+
+    return render(request, "index.html", {
+        'host': request.get_host(),
+        'url': url,
+        'original_url': original_url,
+        'is_authenticated': request.user.is_authenticated
+    })
 
 def generate_url(request):
     """Генерирует ссылку для текущего пользователя или анонимно"""
@@ -18,10 +39,12 @@ def generate_url(request):
         url = request.POST['url']
         is_exists = True
 
+        url_charset = string.ascii_letters + string.digits
+
         while is_exists:
             short_url = ""
             for _ in range(SHORT_URL_LENGTH):
-                short_url += random.choice(string.ascii_letters)
+                short_url += random.choice(url_charset)
 
             is_exists = ShortedUrl.objects.filter(short_url=short_url).exists()
 
@@ -35,12 +58,9 @@ def generate_url(request):
 
         shorted_url.save()
 
-        short_url = f"{request.get_host()}/{short_url}" 
+        return redirect(linker, url=short_url)
 
-        return render(request, "index.html", {'url': short_url})
-
-    url = request.GET['url']
-    return redirect(reverse(url))
+    return HttpResponseNotFound()
 
 def qr_generator(request):
     """Отображение страницы QR-генератора"""

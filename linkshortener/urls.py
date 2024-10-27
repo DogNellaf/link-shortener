@@ -21,8 +21,9 @@ import core.views as core_views
 urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', core_views.index, name = "index"),
-    path('url/create/', core_views.index, name = "index"),
-    path('url/create', core_views.generate_url, name="url_create"),
+    path('linker', core_views.linker, name = "linker"),
+    path('linker/create', core_views.generate_url, name="generate_url"),
+    path('linker/<str:url>', core_views.linker, name = "linker_with_url"),
     path('qr', core_views.qr_generator, name = "qr_generator"),
     path('history', core_views.history, name = "history"),
     path('price', core_views.price, name = "price"),

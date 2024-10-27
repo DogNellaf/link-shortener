@@ -128,4 +128,4 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Длина уникальной короткой ссылки
-SHORT_URL_LENGTH = 10
+SHORT_URL_LENGTH = 6
