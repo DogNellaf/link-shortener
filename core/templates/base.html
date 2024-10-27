@@ -228,7 +228,7 @@
                 background-color: transparent;
                 color: var(--bunker);
                 font-family: var(--font-family-sf_pro_display-medium);
-                font-size: 2vh;
+                font-size: 1.04166666667vw;
                 font-style: normal;
                 font-weight: 500;
                 letter-spacing: -0.20px;
@@ -389,7 +389,7 @@
                 width: fit-content;
             }
 
-            .text_label {
+            .text-label {
                 background-color: transparent;
                 white-space: nowrap;
             }
@@ -471,8 +471,9 @@
                 width: 100vw;
             }
 
-            .account-frame-menu-item {
+            .account-tab {
                 align-items: center;
+                text-align: center;
                 background-color: var(--white);
                 border-radius: 5vh;
                 display: inline-flex;
@@ -483,14 +484,21 @@
                 padding: 0.4vh 0.208333333vw 0.4vh 1.041666666vw;
                 position: absolute;
                 top: 1.5vh;
+                text-decoration: none;
             }
 
-            .account-frame-menu-item-icon {
+            .account-tab img {
+                display: inline-block;
                 background-color: transparent;
-                position: absolute;
                 height: 4.4vh;
                 width: 2.291666666vw;
-                right: 0.260416666vw;
+            }
+
+            .account-tab span {
+                display: inline-block;
+                height: 2vh;
+                width: 6.14583333333vw;
+                vertical-align: middle;
             }
 
         </style>
@@ -501,35 +509,35 @@
     <body style="margin: 0;background: #f1f3f5;">
         <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
         <header>
-            <div class="account-frame-menu-item">
+            <div class="account-tab">
                 <a href="{% url 'account' %}">
-                    <div class="text_label menu-font bold">{{ 'Войти' }}</div>
-                    <img class="account-frame-menu-item-icon" src="{% static 'images/svg/normal/account-icon.svg' %}" alt="Аккаунт">
+                    <span class="bold">{{ 'Войти' }}</span>
+                    <img src="{% static 'images/svg/normal/account.svg' %}" alt="Аккаунт">
                 </a>
             </div>
             <div class="menu">
                 <a href="{% url 'index' %}">
                     <div class="index-frame-menu-item have-icon {% block index_selected %}{% endblock %}">
-                        <div class="text_label menu-font {% block index_bold %}{% endblock %}">Линкер</div>
-                        {% block index_icon %}<img class="index-frame-menu-item-icon" src="{% static 'images/svg/normal/index-icon.svg' %}" alt="Линкер">{% endblock %}
+                        <div class="text-label menu-font {% block index_bold %}{% endblock %}">Линкер</div>
+                        {% block index_icon %}<img class="index-frame-menu-item-icon" src="{% static 'images/svg/normal/index.svg' %}" alt="Линкер">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'qr_generator' %}">
                     <div class="qr-frame-menu-item have-icon {% block qr_selected %}{% endblock %}">
-                        <div class="text_label menu-font {% block qr_bold %}{% endblock %}">QR-генератор</div>
-                        {% block qr_icon %}<img class="qr-frame-menu-item-icon" src="{% static 'images/svg/normal/qr-icon.svg' %}" alt="QR-генератор">{% endblock %}
+                        <div class="text-label menu-font {% block qr_bold %}{% endblock %}">QR-генератор</div>
+                        {% block qr_icon %}<img class="qr-frame-menu-item-icon" src="{% static 'images/svg/normal/qr.svg' %}" alt="QR-генератор">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'history' %}">
                     <div class="history-frame-menu-item have-icon {% block history_selected %}{% endblock %}">
-                        <div class="text_label menu-font {% block history_bold %}{% endblock %}">Мои ссылки и QR-коды</div>
-                        {% block history_icon %}<img class="history-frame-menu-item-icon" src="{% static 'images/svg/normal/history-icon.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
+                        <div class="text-label menu-font {% block history_bold %}{% endblock %}">Мои ссылки и QR-коды</div>
+                        {% block history_icon %}<img class="history-frame-menu-item-icon" src="{% static 'images/svg/normal/history.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'price' %}">
                     <div class="price-frame-menu-item have-icon {% block price_selected %}{% endblock %}">
-                        <div class="text_label menu-font {% block price_bold %}{% endblock %}">Тарифы</div>
-                        {% block price_icon %}<img class="price-frame-menu-item-icon" src="{% static 'images/svg/normal/price-icon.svg' %}" alt="Тарифы"/>{% endblock %}
+                        <div class="text-label menu-font {% block price_bold %}{% endblock %}">Тарифы</div>
+                        {% block price_icon %}<img class="price-frame-menu-item-icon" src="{% static 'images/svg/normal/price.svg' %}" alt="Тарифы"/>{% endblock %}
                     </div>
                 </a>
             </div>
@@ -541,7 +549,7 @@
         </div>
         <footer>
             <a href="{% url 'privacy' %}">
-                <div class="privacy-link text_label">Правила сервиса</div>
+                <div class="privacy-link text-label">Правила сервиса</div>
             </a>
             <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
                 <div class="company-link">PR-агентство Operator</div>
