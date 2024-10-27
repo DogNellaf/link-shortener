@@ -219,7 +219,7 @@
             .menu-font {
                 color: var(--manatee);
                 font-family: var(--font-family-sf_pro_display-medium);
-                font-size: 2vh;
+                font-size: 1.03166666667vw;
                 font-style: normal;
                 font-weight: 500;
             }
@@ -271,10 +271,15 @@
                 background-color: var(--white);
                 border-radius: 5vh;
                 display: inline-flex;
-                left: 31.5625vw;
                 padding: 0.4vh;
                 position: absolute;
+                width: 36.9270833333vw;
                 top: 1.5vh;
+                left: 31.5364583333vw;
+            }
+
+            .selected {
+                background-color: var(--wild-sand) !important;
             }
             
             .have-icon {
@@ -282,7 +287,7 @@
                 position: relative;
             }
 
-            .index-frame-menu-item {
+            .menu .index {
                 align-items: center;
                 background-color: transparent;
                 border-radius: 5vh;
@@ -291,101 +296,64 @@
                 gap: 0.8vh;
                 padding: 1vh 0.833333333vw;
                 position: relative;
+                margin-right: 0;
             }
             
-            .index-frame-menu-item-label {
-                letter-spacing: -0.20px;
-                line-height: 2.4vh;
-                margin-top: -1.00px;
-                position: relative;
-                text-align: right;
-                width: fit-content;
-            }
-            
-            .index-frame-menu-item-icon {
+            .menu .index img {
                 background-color: transparent;
                 height: 1.6vh;
                 position: relative;
-                width: 0.833333333vw;
+                width: auto;
             }
             
-            .qr-frame-menu-item {
+            .menu .qr {
                 background-color: transparent;
                 border-radius: 5vh;
                 display: inline-flex;
                 flex: 0 0 auto;
                 gap: 0.8vh;
                 padding: 1vh 0.833333333vw;
+                margin-right: 0;
             }
             
-            .qr-frame-menu-item-icon {
+            .menu .qr img {
                 background-color: transparent;
                 height: 1.6vh;
                 position: relative;
-                width: 0.833333333vw;
+                width: auto;
             }
             
-            .history-frame-menu-item {
+            .menu .history {
                 background-color: transparent;
                 border-radius: 5vh;
                 display: inline-flex;
                 flex: 0 0 auto;
                 gap: 8px;
                 padding: 1vh 0.833333333vw;
+                margin-right: 0;
             }
 
-            .selected {
-                background-color: var(--wild-sand) !important;
-            }
-            
-            .history-frame-menu-item-label {
-                color: var(--bunker);
-                font-family: var(--font-family-sf_pro_display-medium);
-                font-size: 2vh;
-                font-style: normal;
-                font-weight: 500;
-            }
-            
-            .history-frame-menu-item-icon {
+            .menu .history img {
                 background-color: transparent;
                 height: 1.6vh;
                 position: relative;
-                width: 0.833333333vw;
+                width: auto;
             }
             
-            .price-frame-menu-item {
+            .menu .price {
                 border-radius: 5vh;
                 display: inline-flex;
                 flex: 0 0 auto;
                 gap: 0.8vh;
                 padding: 1vh 0.833333333vw;
+                margin-right: 0;
             }
             
-            .price-frame-menu-item .label {
-                letter-spacing: -0.20px;
-                line-height: 2.4vh;
-                margin-top: -1.00px;
-                position: relative;
-                text-align: right;
-                width: fit-content;
-            }
-            
-            .price-frame-menu-item-icon {
+            .menu .price img {
                 background-color: transparent;
                 height: 1.6vh;
                 position: relative;
-                width: 0.833333333vw;
-            }
-            
-            .qr-frame-menu-item-label {
-                background-color: transparent;
-                letter-spacing: -0.20px;
-                line-height: 2.4vh;
-                margin-top: -1.00px;
-                position: relative;
-                text-align: right;
-                white-space: nowrap;
-                width: fit-content;
+                width: auto;
             }
 
             .text-label {
@@ -505,27 +473,27 @@
             </div>
             <div class="menu">
                 <a href="{% url 'index' %}">
-                    <div class="index-frame-menu-item have-icon {% block index_selected %}{% endblock %}">
-                        <div class="text-label menu-font {% block index_bold %}{% endblock %}">Линкер</div>
-                        {% block index_icon %}<img class="index-frame-menu-item-icon" src="{% static 'images/svg/normal/index.svg' %}" alt="Линкер">{% endblock %}
+                    <div class="index have-icon {% block index_selected %}{% endblock %}">
+                        <div class="menu-font text-label {% block index_bold %}{% endblock %}">Линкер</div>
+                        {% block index_icon %}<img src="{% static 'images/svg/normal/index.svg' %}" alt="Линкер">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'qr_generator' %}">
-                    <div class="qr-frame-menu-item have-icon {% block qr_selected %}{% endblock %}">
-                        <div class="text-label menu-font {% block qr_bold %}{% endblock %}">QR-генератор</div>
-                        {% block qr_icon %}<img class="qr-frame-menu-item-icon" src="{% static 'images/svg/normal/qr.svg' %}" alt="QR-генератор">{% endblock %}
+                    <div class="qr have-icon {% block qr_selected %}{% endblock %}">
+                        <div class="menu-font text-label {% block qr_bold %}{% endblock %}">QR-генератор</div>
+                        {% block qr_icon %}<img src="{% static 'images/svg/normal/qr.svg' %}" alt="QR-генератор">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'history' %}">
-                    <div class="history-frame-menu-item have-icon {% block history_selected %}{% endblock %}">
+                    <div class="history have-icon {% block history_selected %}{% endblock %}">
                         <div class="text-label menu-font {% block history_bold %}{% endblock %}">Мои ссылки и QR-коды</div>
-                        {% block history_icon %}<img class="history-frame-menu-item-icon" src="{% static 'images/svg/normal/history.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
+                        {% block history_icon %}<img src="{% static 'images/svg/normal/history.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'price' %}">
-                    <div class="price-frame-menu-item have-icon {% block price_selected %}{% endblock %}">
+                    <div class="price have-icon {% block price_selected %}{% endblock %}">
                         <div class="text-label menu-font {% block price_bold %}{% endblock %}">Тарифы</div>
-                        {% block price_icon %}<img class="price-frame-menu-item-icon" src="{% static 'images/svg/normal/price.svg' %}" alt="Тарифы"/>{% endblock %}
+                        {% block price_icon %}<img src="{% static 'images/svg/normal/price.svg' %}" alt="Тарифы"/>{% endblock %}
                     </div>
                 </a>
             </div>
