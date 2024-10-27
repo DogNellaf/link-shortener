@@ -237,6 +237,7 @@
                 text-align: right;
                 white-space: nowrap;
                 width: fit-content;
+                text-decoration: none;
             }
             
             :root {}
@@ -369,6 +370,7 @@
                 position: absolute;
                 top: 80vh;
                 width: 100vw;
+                z-index: -999;
             }
 
             .privacy {
@@ -467,7 +469,11 @@
         <header>
             <div class="account">
                 <a href="{% url 'account' %}">
-                    <span class="bold">{{ 'Войти' }}</span>
+                    {% if user.is_authenticated %}
+                        <span class="bold">{{ user.first_name }} {{ user.last_name|first }}.</span>
+                    {% else %}
+                        <span class="bold">Войти</span>
+                    {% endif %}
                     <img src="{% static 'images/svg/normal/account.svg' %}" alt="Аккаунт">
                 </a>
             </div>

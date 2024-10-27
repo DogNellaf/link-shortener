@@ -104,7 +104,3 @@ def redirect_to_url(request, url = ""):
 
     url_redirect_to = shorted_urls.first().original_url
     return redirect(url_redirect_to)
-
-def registration(request):
-    """Функция возвращает страницу регистрации"""
-    return render(request, "registration/registration.html")

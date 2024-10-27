@@ -34,15 +34,17 @@
     color: #989FA6;
   }
 
-  input[name="username"] {
-    margin-top: 3vh;
+  #emailInput {
+    {% if not error %}
+      margin-top: 3vh;
+    {% endif %}
   }
 
-  input[name="password"] {
+  #passwordInput {
     margin-top: 1.2vh;
   }
 
-  input[type="submit"] {
+  #submitInput {
     margin-top: 2vh;
     text-align: center;
     color: #989FA6;
@@ -71,19 +73,24 @@
     width: 60px;
   }
 
+  .error {
+    color: red;
+    opacity: 0.75;
+  }
+
 {% endblock %}
 {% block content %}
 
   <h1>Логин</h1>
 
-  {% if form.errors %}
-    <p>Ваши логин и пароль не совпадают. Попробуйте снова.</p>
+  {% if error %}
+    <p class="error">{{ error }}</p>
   {% endif %}
 
   <form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    {{ form.username }}
-    {{ form.password }}
+    <input id="emailInput" name="email" type="email" placeholder="Email" />
+    <input id="passwordInput" name="password" type="password" placeholder="Пароль" />
     <input id="submitInput" type="submit" value="Войти" />
     <input type="hidden" name="next" value="{{ next }}" />
   </form>
@@ -93,9 +100,4 @@
     <a id="registrationLink" href="{% url 'registration' %}">Регистрация</a>
   </div>
 
-  <script>
-    id_username.setAttribute('placeholder', 'Email');
-    id_password.setAttribute('placeholder', 'Пароль');
-  </script>
-    
 {% endblock %}

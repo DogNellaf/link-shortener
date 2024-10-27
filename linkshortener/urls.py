@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 import core.views as core_views
+import custom_auth.views as auth_views
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -29,7 +30,9 @@ urlpatterns = [
     path('price', core_views.price, name = "price"),
     path('account', core_views.account, name = "account"),
     path('privacy', core_views.privacy, name = "privacy"),
-    path('auth/', include('django.contrib.auth.urls')),
-    path('registration/', core_views.registration, name = "registration"),
+    # path('auth/', include('django.contrib.auth.urls')),
+    path('auth/registration/', auth_views.registration, name = "registration"),
+    path('auth/login/', auth_views.login, name="login"),
+    path('auth/password/reset', auth_views.reset_password, name="password_reset"),
     path('<str:url>', core_views.redirect_to_url, name = "redirect_to_url"),
 ]
