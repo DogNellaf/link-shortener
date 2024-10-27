@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta name="viewport" content="width=1920, maximum-scale=1.0">
-	<meta name="og:type" content="website">
-	<meta name="twitter:card" content="photo">
-
-	<style>
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Это линкер от VI–media{% endblock %}
+{% block style %}
 	@import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
 	@font-face {
 		font-family: "SF Pro Display-Medium";
@@ -14,7 +9,7 @@
 		font-weight: 500;
 		src: url('https://anima-uploads.s3.amazonaws.com/projects/64f7ed1586d1fc0125de8d9c/fonts/sf-pro-display-medium.otf') format("opentype");
 	}
-	
+
 	@font-face {
 		font-family: "SF Pro Display-Regular";
 		font-style: normal;
@@ -22,59 +17,59 @@
 		src: url('https://anima-uploads.s3.amazonaws.com/projects/62e5bd2f729e81c0f2cb0ddb/fonts/sf-pro-display-regular.ttf') format("truetype");
 	}
 	/* The following line is used to measure usage of this code. You can remove it if you want. */
-	
+
 	@import url("https://px.animaapp.com/60a92b94585976d8c3963153.60a92b95d756c491f319c2f5.vPVQTYZ.hch.png");
 	.screen textarea:focus,
 	.screen input:focus {
 		outline: none;
 	}
-	
+
 	.screen * {
 		-webkit-font-smoothing: antialiased;
 		box-sizing: border-box;
 	}
-	
+
 	.screen div {
 		-webkit-text-size-adjust: none;
 	}
-	
+
 	.component-wrapper a {
 		display: contents;
 		pointer-events: auto;
 		text-decoration: none;
 	}
-	
+
 	.component-wrapper * {
 		-webkit-font-smoothing: antialiased;
 		box-sizing: border-box;
 		pointer-events: none;
 	}
-	
+
 	.component-wrapper a *,
 	.component-wrapper input,
 	.component-wrapper video,
 	.component-wrapper iframe {
 		pointer-events: auto;
 	}
-	
+
 	.component-wrapper.not-ready,
 	.component-wrapper.not-ready * {
 		visibility: hidden !important;
 	}
-	
+
 	.screen a {
 		display: contents;
 		text-decoration: none;
 	}
-	
+
 	.full-width-a {
 		width: 100%;
 	}
-	
+
 	.full-height-a {
 		height: 100%;
 	}
-	
+
 	.container-center-vertical {
 		align-items: center;
 		display: flex;
@@ -82,12 +77,12 @@
 		height: 100%;
 		pointer-events: none;
 	}
-	
+
 	.container-center-vertical > * {
 		flex-shrink: 0;
 		pointer-events: auto;
 	}
-	
+
 	.container-center-horizontal {
 		display: flex;
 		flex-direction: row;
@@ -95,29 +90,29 @@
 		pointer-events: none;
 		width: 100%;
 	}
-	
+
 	.container-center-horizontal > * {
 		flex-shrink: 0;
 		pointer-events: auto;
 	}
-	
+
 	.auto-animated div {
 		--z-index: -1;
 		opacity: 0;
 		position: absolute;
 	}
-	
+
 	.auto-animated input {
 		--z-index: -1;
 		opacity: 0;
 		position: absolute;
 	}
-	
+
 	.auto-animated .container-center-vertical,
 	.auto-animated .container-center-horizontal {
 		opacity: 1;
 	}
-	
+
 	.overlay-base {
 		display: none;
 		height: 100%;
@@ -126,7 +121,7 @@
 		top: 0;
 		width: 100%;
 	}
-	
+
 	.overlay-base.animate-appear {
 		align-items: center;
 		animation: reveal 0.3s ease-in-out 1 normal forwards;
@@ -135,18 +130,18 @@
 		justify-content: center;
 		opacity: 0;
 	}
-	
+
 	.overlay-base.animate-disappear {
 		animation: reveal 0.3s ease-in-out 1 reverse forwards;
 		display: block;
 		opacity: 1;
 		pointer-events: none;
 	}
-	
+
 	.overlay-base.animate-disappear * {
 		pointer-events: none;
 	}
-	
+
 	@keyframes reveal {
 		from {
 			opacity: 0
@@ -155,65 +150,65 @@
 			opacity: 1
 		}
 	}
-	
+
 	.animate-nodelay {
 		animation-delay: 0s;
 	}
-	
+
 	.align-self-flex-start {
 		align-self: flex-start;
 	}
-	
+
 	.align-self-flex-end {
 		align-self: flex-end;
 	}
-	
+
 	.align-self-flex-center {
 		align-self: flex-center;
 	}
-	
+
 	.valign-text-middle {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 	}
-	
+
 	.valign-text-bottom {
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-end;
 	}
-	
+
 	input:focus {
 		outline: none;
 	}
-	
+
 	.listeners-active,
 	.listeners-active * {
 		pointer-events: auto;
 	}
-	
+
 	.hidden,
 	.hidden * {
 		pointer-events: none;
 		visibility: hidden;
 	}
-	
+
 	.smart-layers-pointers,
 	.smart-layers-pointers * {
 		pointer-events: auto;
 		visibility: visible;
 	}
-	
+
 	.listeners-active-click,
 	.listeners-active-click * {
 		cursor: pointer;
 	}
-	
+
 	* {
 		box-sizing: border-box;
 	}
-	
+
 	:root {
 		--black: #000000;
 		--bunker: #141516;
@@ -227,7 +222,7 @@
 		--font-family-sf_pro_display-medium: "SF Pro Display-Medium", Helvetica;
 		--font-family-sf_pro_display-regular: "SF Pro Display-Regular", Helvetica;
 	}
-	
+
 	.sfprodisplay-medium-manatee-20px {
 		color: var(--manatee);
 		font-family: var(--font-family-sf_pro_display-medium);
@@ -235,10 +230,10 @@
 		font-style: normal;
 		font-weight: 500;
 	}
-	
+
 	:root {}
 	/* screen - qr-frame */
-	
+
 	.qr-frame {
 		background-color: var(--wild-sand);
 		height: 1000px;
@@ -247,7 +242,7 @@
 		position: relative;
 		width: 1920px;
 	}
-	
+
 	.qr-frame .qr-frame .background {
 		background-color: var(--white);
 		border-radius: 50px;
@@ -257,7 +252,7 @@
 		top: 127px;
 		width: 820px;
 	}
-	
+
 	.qr-frame h1 {
 		background-color: transparent;
 		color: var(--bunker);
@@ -275,7 +270,7 @@
 		white-space: nowrap;
 		width: auto;
 	}
-	
+
 	.qr-frame .frame-12-nxQtxD {
 		align-items: center;
 		background-color: var(--white);
@@ -293,7 +288,7 @@
 		top: 395px;
 		width: 700px;
 	}
-	
+
 	.qr-frame .x1-oeNQx1 {
 		background-color: transparent;
 		height: 240px;
@@ -301,13 +296,13 @@
 		position: relative;
 		width: 240px;
 	}
-	
+
 	.qr-frame .frame-11-oeNQx1 {
 		background-color: transparent;
 		flex: 0 0 auto;
 		position: relative;
 	}
-	
+
 	.qr-frame .frame-8-nxQtxD {
 		display: flex;
 		gap: 12px;
@@ -316,7 +311,7 @@
 		top: 265px;
 		width: 700px;
 	}
-	
+
 	.qr-frame .frame-7-ae8mqk {
 		border-radius: 20px;
 		display: flex;
@@ -326,7 +321,7 @@
 		height: 70px;
 		padding: 26px;
 	}
-	
+
 	.qr-frame .httpsdocsgooglecomdo-Bxel4x {
 		background-color: transparent;
 		color: var(--bunker);
@@ -342,7 +337,7 @@
 		white-space: nowrap;
 		width: fit-content;
 	}
-	
+
 	.qr-frame .frame-3-ae8mqk {
 		align-items: center;
 		background-color: var(--wild-sand);
@@ -354,7 +349,7 @@
 		padding: 26px;
 		position: relative;
 	}
-	
+
 	.qr-frame .qr-9TZBXe {
 		color: var(--manatee);
 		font-family: var(--font-family-sf_pro_display-medium);
@@ -365,7 +360,7 @@
 		line-height: 18px;
 		text-align: left;
 	}
-	
+
 	.qr-frame .rectangle-5-nxQtxD {
 		background-color: var(--wild-sand);
 		height: 31px;
@@ -374,7 +369,7 @@
 		top: 284px;
 		width: 48px;
 	}
-	
+
 	.qr-frame .cross-small-1-nxQtxD {
 		background-color: transparent;
 		height: 24px;
@@ -383,7 +378,7 @@
 		top: 288px;
 		width: 24px;
 	}
-	
+
 	.qr-frame .footer-nxQtxD {
 		background-color: transparent;
 		height: 200px;
@@ -393,7 +388,7 @@
 		top: 800px;
 		width: 1920px;
 	}
-	
+
 	.qr-frame .text_label-UTZNxH {
 		color: var(--bunker);
 		font-family: var(--font-family-sf_pro_display-regular);
@@ -410,7 +405,7 @@
 		top: 163px;
 		width: auto;
 	}
-	
+
 	.qr-frame .pr-Operator-UTZNxH {
 		background-color: transparent;
 		color: var(--bunker);
@@ -429,7 +424,7 @@
 		white-space: nowrap;
 		width: auto;
 	}
-	
+
 	.qr-frame .rectangle-34-UTZNxH {
 		-webkit-backdrop-filter: blur(20px) brightness(100%);
 		backdrop-filter: blur(20px) brightness(100%);
@@ -441,7 +436,7 @@
 		top: 136px;
 		width: 44px;
 	}
-	
+
 	.qr-frame .settings-1-UTZNxH {
 		background-color: transparent;
 		height: 20px;
@@ -450,7 +445,7 @@
 		top: 148px;
 		width: 20px;
 	}
-	
+
 	.qr-frame .header-nxQtxD {
 		background-color: transparent;
 		height: 90px;
@@ -460,7 +455,7 @@
 		top: -0px;
 		width: 1920px;
 	}
-	
+
 	.qr-frame .frame-4-m9YJbb {
 		align-items: center;
 		background-color: var(--white);
@@ -472,7 +467,7 @@
 		position: absolute;
 		top: 15px;
 	}
-	
+
 	.qr-frame .x-nOLbR7 {
 		background-color: transparent;
 		color: var(--bunker);
@@ -487,14 +482,14 @@
 		white-space: nowrap;
 		width: fit-content;
 	}
-	
+
 	.qr-frame .frame-3-nOLbR7 {
 		background-color: transparent;
 		height: 44px;
 		position: relative;
 		width: 44px;
 	}
-	
+
 	.qr-frame .frame-3-m9YJbb {
 		align-items: center;
 		background-color: var(--white);
@@ -505,7 +500,7 @@
 		position: absolute;
 		top: 15px;
 	}
-	
+
 	.qr-frame .frame-5-pYxpjF {
 		align-items: center;
 		background-color: transparent;
@@ -516,7 +511,7 @@
 		padding: 10px 16px;
 		position: relative;
 	}
-	
+
 	.qr-frame .text_label-zSvKgN {
 		letter-spacing: -0.20px;
 		line-height: 24.0px;
@@ -525,14 +520,14 @@
 		text-align: right;
 		width: fit-content;
 	}
-	
+
 	.qr-frame .link-1-zSvKgN {
 		background-color: transparent;
 		height: 16px;
 		position: relative;
 		width: 16px;
 	}
-	
+
 	.qr-frame .frame-7-pYxpjF {
 		border-radius: 50px;
 		display: inline-flex;
@@ -540,7 +535,7 @@
 		gap: 8px;
 		padding: 10px 16px;
 	}
-	
+
 	.qr-frame .qr-pudIbP {
 		color: var(--bunker);
 		font-family: var(--font-family-sf_pro_display-medium);
@@ -551,14 +546,14 @@
 		line-height: 24.0px;
 		text-align: right;
 	}
-	
+
 	.qr-frame .qr-1-pudIbP {
 		background-color: transparent;
 		height: 16px;
 		position: relative;
 		width: 16px;
 	}
-	
+
 	.qr-frame .frame-6-pYxpjF {
 		align-items: center;
 		background-color: transparent;
@@ -569,20 +564,20 @@
 		padding: 10px 16px;
 		position: relative;
 	}
-	
+
 	.qr-frame .qr-VSjnzU {
 		letter-spacing: -0.20px;
 		line-height: 24.0px;
 		text-align: right;
 	}
-	
+
 	.qr-frame .folder-open-1-VSjnzU {
 		background-color: transparent;
 		height: 16px;
 		position: relative;
 		width: 16px;
 	}
-	
+
 	.qr-frame .frame-8-pYxpjF {
 		border-radius: 50px;
 		display: inline-flex;
@@ -591,7 +586,7 @@
 		padding: 10px 16px;
 		position: relative;
 	}
-	
+
 	.qr-frame .text_label-DDNJqp {
 		letter-spacing: -0.20px;
 		line-height: 24.0px;
@@ -600,14 +595,14 @@
 		text-align: right;
 		width: fit-content;
 	}
-	
+
 	.qr-frame .coins-1-DDNJqp {
 		background-color: transparent;
 		height: 16px;
 		position: relative;
 		width: 16px;
 	}
-	
+
 	.qr-frame .mask-group-m9YJbb {
 		background-color: transparent;
 		height: 60px;
@@ -616,18 +611,18 @@
 		top: 15px;
 		width: 55px;
 	}
-	
+
 	.qr-frame .frame-7 {
 		align-items: center;
 		background-color: var(--wild-sand);
 		position: relative;
 	}
-	
+
 	.qr-frame .frame-8 {
 		align-items: center;
 		background-color: transparent;
 	}
-	
+
 	.qr-frame .qr {
 		background-color: transparent;
 		margin-top: -1.00px;
@@ -635,89 +630,10 @@
 		white-space: nowrap;
 		width: fit-content;
 	}
-	
+
 	.qr-frame .text_label {
 		background-color: transparent;
 		white-space: nowrap;
-	}
-	</style>
-
-
-{% extends 'base.html' %}
-{% load static %}
-{% block title %}Это линкер от VI–media{% endblock %}
-{% block style %}
-	.index-frame .background {
-		background-color: var(--white);
-		border-radius: 5vh;
-		height: 26.8vh;
-		left: 28.645833333vw;
-		position: absolute;
-		top: 12.7vh;
-		width: 42.708333333vw;
-	}
-
-	.main-frame input.url {
-		border: #F1F3F5;
-		border-radius: 2vh;
-
-		width: 28.645833333vw;
-		height: 7vh;
-
-		position: absolute;
-		padding: 2.6vh;
-		left: 31.770833333vw;
-		top: 26.5vh;
-
-		font-family: var(--font-family-sf_pro_display-medium);
-		background-color: var(--wild-sand);
-		font-size: 1.8vh;
-		font-color: #141516;
-		line-height: 1.8vh;
-	}
-
-	.main-frame input.submit {
-		color: var(--manatee);
-
-		font-style: normal;
-		font-weight: 500;
-		
-		height: 7vh;
-		width: 7.1875vw;
-		position: absolute;
-		left: 61.041666666vw;
-		top: 26.5vh;
-		border: #F1F3F5;
-		border-radius: 2vh;
-
-		font-family: var(--font-family-sf_pro_display-medium);
-		background-color: var(--wild-sand);
-		font-size: 1.8vh;
-		line-height: 1.8vh;
-	}
-
-	.main-frame input.submit.active {
-		background-color: #1599F5;
-		color: var(--white);
-	}
-
-	.main-frame h1 {
-		background-color: transparent;
-		color: var(--bunker);
-		font-family: var(--font-family-sf_pro_display-medium);
-		font-size: 4vh;
-		font-style: normal;
-		font-weight: 500;
-		height: 4.8vh;
-		width: 21.354166666vw;
-		left: 31.770833333vw;
-		letter-spacing: -0.80px;
-		line-height: 4.8vh;
-		position: absolute;
-		text-align: left;
-		top: 18.7vh;
-		white-space: nowrap;
-		
 	}	
 {% endblock %}
 {% block qr_selected %}selected{% endblock %}
@@ -730,8 +646,8 @@
 		<div class="background"></div>
 		<h1>Это линкер от VI–media</h1>
 		<div class="frame-12-nxQtxD">
-			<img class="x1-oeNQx1" src="./QR-генератор - Нажали сократить_files/-------1.png" alt="1">
-			<img class="frame-11-oeNQx1" src="./QR-генератор - Нажали сократить_files/frame-11.svg" alt="Frame 11">
+			<img class="x1-oeNQx1" src="{% static 'images/svg/bold/qr-icon.svg' %}" alt="1">
+			<img class="frame-11-oeNQx1" src="{% static 'images/svg/bold/qr-icon.svg' %}" alt="Frame 11">
 		</div>
 		<div class="frame-8-nxQtxD frame-8">
 			<div class="frame-7-ae8mqk frame-7">
@@ -742,6 +658,6 @@
 			</div>
 		</div>
 		<div class="rectangle-5-nxQtxD"></div>
-		<img class="cross-small-1-nxQtxD" src="./QR-генератор - Нажали сократить_files/cross-small-1.svg" alt="cross-small 1">
+		<img class="cross-small-1-nxQtxD" src="{% static 'images/svg/normal/cross-small.svg' %}" alt="cross-small 1">
 	</div>
 {% endblock %}

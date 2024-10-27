@@ -2,27 +2,23 @@
 {% load static %}
 {% block title %}Это линкер от VI–media{% endblock %}
 {% block style %}
-	.index-frame .background {
-		background-color: var(--white);
-		border-radius: 5vh;
+	.index-frame {
 		height: 26.8vh;
-		left: 28.645833333vw;
-		position: absolute;
-		top: 12.7vh;
-		width: 42.708333333vw;
 	}
 
-	.main-frame input.url {
+	.index-frame .with-url {
+		height: 42.8vh !important;
+	}
+
+	.index-frame input.url {
 		border: #F1F3F5;
 		border-radius: 2vh;
 
 		width: 28.645833333vw;
 		height: 7vh;
 
-		position: absolute;
+		margin-top: 3vh;
 		padding: 2.6vh;
-		left: 31.770833333vw;
-		top: 26.5vh;
 
 		font-family: var(--font-family-sf_pro_display-medium);
 		background-color: var(--wild-sand);
@@ -31,17 +27,18 @@
 		line-height: 1.8vh;
 	}
 
-	.main-frame input.submit {
+	.index-frame input.submit {
 		color: var(--manatee);
 
 		font-style: normal;
 		font-weight: 500;
 		
+		margin-top: 3vh;
+		margin-left: 0.625vw;
+
 		height: 7vh;
 		width: 7.1875vw;
 		position: absolute;
-		left: 61.041666666vw;
-		top: 26.5vh;
 		border: #F1F3F5;
 		border-radius: 2vh;
 
@@ -51,12 +48,12 @@
 		line-height: 1.8vh;
 	}
 
-	.main-frame input.submit.active {
+	.index-frame input.submit.active {
 		background-color: #1599F5;
 		color: var(--white);
 	}
 
-	.main-frame h1 {
+	.index-frame h1 {
 		background-color: transparent;
 		color: var(--bunker);
 		font-family: var(--font-family-sf_pro_display-medium);
@@ -65,29 +62,25 @@
 		font-weight: 500;
 		height: 4.8vh;
 		width: 21.354166666vw;
-		left: 31.770833333vw;
 		letter-spacing: -0.80px;
 		line-height: 4.8vh;
-		position: absolute;
 		text-align: left;
-		top: 18.7vh;
 		white-space: nowrap;
 		
 	}	
 {% endblock %}
+{% block content_class %}index-frame{% endblock %}
 {% block index_selected %}selected{% endblock %}
 {% block index_bold %}bold{% endblock %}
 {% block index_icon %}
 	<img class="index-frame-menu-item-icon" src="{% static 'images/svg/bold/index-icon.svg' %}" alt="Линкер">
 {% endblock %}
 {% block content %}
-	<div class="index-frame">
-		<div class="background"></div>
-		<h1>Это линкер от VI–media</h1>
-		<div>
-			<input type="text" class="url" placeholder="Нажмите ctrl+v или вставьте ссылку"/>
-			<input type="submit" class="submit text_label" value="Сократить"/>
-		</div>
+	<h1>Это линкер от VI–media</h1>
+	<div>
+		<input type="text" class="url" placeholder="Нажмите ctrl+v или вставьте ссылку"/>
+		<img src="{% static 'images/svg/normal/cross-small.svg' %}" />
+		<input type="submit" class="submit text_label" value="Сократить"/>
 	</div>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
