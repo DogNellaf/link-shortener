@@ -247,12 +247,11 @@
 
             .logo {
                 background-color: transparent;
-                height: auto;
                 left: 1.041666666vh;
                 position: absolute;
                 top: 1.5vh;
+                height: auto;
                 width: auto;
-                max-width:2.864583333vw;
                 max-height:6vh;
                 z-index: 999;
             }
@@ -471,7 +470,7 @@
                 width: 100vw;
             }
 
-            .account-tab {
+            .account {
                 align-items: center;
                 text-align: center;
                 background-color: var(--white);
@@ -486,14 +485,14 @@
                 text-decoration: none;
             }
 
-            .account-tab img {
+            .account img {
                 display: inline-block;
                 background-color: transparent;
                 height: 4.4vh;
                 width: 2.291666666vw;
             }
 
-            .account-tab span {
+            .account span {
                 display: inline-block;
                 height: 2vh;
                 vertical-align: middle;
@@ -507,7 +506,7 @@
     <body style="margin: 0;background: #f1f3f5;">
         <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
         <header>
-            <div class="account-tab">
+            <div class="account">
                 <a href="{% url 'account' %}">
                     <span class="bold">{{ 'Войти' }}</span>
                     <img src="{% static 'images/svg/normal/account.svg' %}" alt="Аккаунт">
