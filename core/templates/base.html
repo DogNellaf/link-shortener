@@ -403,61 +403,52 @@
                 width: 100vw;
             }
 
-            .privacy-link {
+            .privacy {
                 color: var(--bunker);
                 font-family: var(--font-family-sf_pro_display-regular);
-                font-size: 1.6vh;
+                font-size: 0.83333333333vw;
                 font-style: normal;
                 font-weight: 400;
-                height: auto;
-                left: 1.041666666vw;
-                letter-spacing: -0.16px;
                 line-height: 1.6vh;
                 opacity: 0.3;
-                position: absolute;
                 text-align: left;
-                top: 16.3vh;
-                width: 6.302083333vw;
+                position: absolute;
+                left: 1.041666666vw;
+                bottom: 2vh;
             }
 
-            .company-link {
+            .company {
                 background-color: transparent;
                 color: var(--bunker);
                 font-family: var(--font-family-sf_pro_display-regular);
-                font-size: 1.6vh;
+                font-size: 0.83333333333vw;
                 font-style: normal;
                 font-weight: 400;
-                height: 1.6vh;
-                left: 45.885416666vw;
-                letter-spacing: -0.16px;
-                line-height: 1.6vh;
+                line-height: 0.83333333333vw;
                 opacity: 0.3;
-                position: absolute;
                 text-align: right;
-                top: 16.3vh;
                 white-space: nowrap;
-                width: 8.229166666vw;
-            }
-        
-            .setting-background {
-                -webkit-backdrop-filter: blur(20px) brightness(100%);
-                backdrop-filter: blur(20px) brightness(100%);
-                background-color: var(--white);
-                border-radius: 50vh;
-                height: 4.4vh;
-                left: 96.666666666vw;
                 position: absolute;
-                top: 13.6vh;
-                width: 2.291666666vw;
+                left: 45.885416666vw;
+                bottom: 2vh;
             }
             
-            .settings-button {
-                background-color: transparent;
-                height: 2vh;
+            .settings {
+                -webkit-backdrop-filter: blur(20px) brightness(100%);
+                backdrop-filter: blur(20px) brightness(100%);
+                background-color: white;
+                border: none;
+                border-radius: 50vh;
+                height: 4.4vh;    
                 left: 97.291666666vw;
                 position: absolute;
                 top: 14.8vh;
-                width: 1.041666666vw;
+                width: 4.4vh;
+            }
+
+            .settings img {
+                height: 1.04166666667vw;
+                width: 1.04166666667vw;
             }
 
             header {
@@ -546,15 +537,14 @@
         </div>
         <footer>
             <a href="{% url 'privacy' %}">
-                <div class="privacy-link text-label">Правила сервиса</div>
+                <div class="privacy text-label">Правила сервиса</div>
             </a>
             <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
-                <div class="company-link">PR-агентство Operator</div>
+                <div class="company">PR-агентство Operator</div>
             </a>
-            <a href="#">
-                <div class="setting-background"></div>
-                <img class="settings-button" src="{% static 'images/svg/normal/settings-icon.svg' %}" alt="Настройки"/>
-            </a>
+            <button class="settings" href="#">
+                <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
+            </button>
         </footer>
     </body>
 </html>
