@@ -1,0 +1,345 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=1920, maximum-scale=1.0">
+        <meta name="og:type" content="website">
+        <meta name="twitter:card" content="photo">
+        <title>{% block title %}{% endblock %}</title>
+        <style>
+            @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+            @font-face {
+                font-family: "SF Pro Display-Medium";
+                font-style: normal;
+                font-weight: 500;
+                src: url('https://anima-uploads.s3.amazonaws.com/projects/64f7ed1586d1fc0125de8d9c/fonts/sf-pro-display-medium.otf') format("opentype");
+            }
+            
+            @font-face {
+                font-family: "SF Pro Display-Regular";
+                font-style: normal;
+                font-weight: 400;
+                src: url('https://anima-uploads.s3.amazonaws.com/projects/62e5bd2f729e81c0f2cb0ddb/fonts/sf-pro-display-regular.ttf') format("truetype");
+            }
+            /* The following line is used to measure usage of this code. You can remove it if you want. */
+            
+
+            
+            .component-wrapper a {
+                display: contents;
+                pointer-events: auto;
+                text-decoration: none;
+            }
+            
+            .component-wrapper * {
+                -webkit-font-smoothing: antialiased;
+                box-sizing: border-box;
+                pointer-events: none;
+            }
+            
+            .component-wrapper a *,
+            .component-wrapper input,
+            .component-wrapper video,
+            .component-wrapper iframe {
+                pointer-events: auto;
+            }
+            
+            .component-wrapper.not-ready,
+            .component-wrapper.not-ready * {
+                visibility: hidden !important;
+            }
+            
+            .screen a {
+                display: contents;
+                text-decoration: none;
+            }
+            
+            .full-width-a {
+                width: 100%;
+            }
+            
+            .full-height-a {
+                height: 100%;
+            }
+            
+            .container-center-vertical {
+                align-items: center;
+                display: flex;
+                flex-direction: row;
+                height: 100%;
+                pointer-events: none;
+            }
+            
+            .container-center-vertical > * {
+                flex-shrink: 0;
+                pointer-events: auto;
+            }
+            
+            .container-center-horizontal {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                pointer-events: none;
+                width: 100%;
+            }
+            
+            .container-center-horizontal > * {
+                flex-shrink: 0;
+                pointer-events: auto;
+            }
+            
+            .auto-animated div {
+                --z-index: -1;
+                opacity: 0;
+                position: absolute;
+            }
+            
+            .auto-animated input {
+                --z-index: -1;
+                opacity: 0;
+                position: absolute;
+            }
+            
+            .auto-animated .container-center-vertical,
+            .auto-animated .container-center-horizontal {
+                opacity: 1;
+            }
+            
+            .overlay-base {
+                display: none;
+                height: 100%;
+                opacity: 0;
+                position: fixed;
+                top: 0;
+                width: 100%;
+            }
+            
+            .overlay-base.animate-appear {
+                align-items: center;
+                animation: reveal 0.3s ease-in-out 1 normal forwards;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                opacity: 0;
+            }
+            
+            .overlay-base.animate-disappear {
+                animation: reveal 0.3s ease-in-out 1 reverse forwards;
+                display: block;
+                opacity: 1;
+                pointer-events: none;
+            }
+            
+            .overlay-base.animate-disappear * {
+                pointer-events: none;
+            }
+            
+            @keyframes reveal {
+                from {
+                    opacity: 0
+                }
+                to {
+                    opacity: 1
+                }
+            }
+            
+            .animate-nodelay {
+                animation-delay: 0s;
+            }
+            
+            .align-self-flex-start {
+                align-self: flex-start;
+            }
+            
+            .align-self-flex-end {
+                align-self: flex-end;
+            }
+            
+            .align-self-flex-center {
+                align-self: flex-center;
+            }
+            
+            .valign-text-middle {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            
+            .valign-text-bottom {
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+            }
+            
+            input:focus {
+                outline: none;
+            }
+            
+            .listeners-active,
+            .listeners-active * {
+                pointer-events: auto;
+            }
+            
+            .hidden,
+            .hidden * {
+                pointer-events: none;
+                visibility: hidden;
+            }
+            
+            .smart-layers-pointers,
+            .smart-layers-pointers * {
+                pointer-events: auto;
+                visibility: visible;
+            }
+            
+            .listeners-active-click,
+            .listeners-active-click * {
+                cursor: pointer;
+            }
+            
+            * {
+                box-sizing: border-box;
+            }
+            
+            :root {
+                --black: #000000;
+                --bunker: #141516;
+                --manatee: #979ea5;
+                --white: #ffffff;
+                --wild-sand: #f1f3f5;
+                --font-size-l: 4vh;
+                --font-size-m: 2vh;
+                --font-size-s: 1.8vh;
+                --font-size-xs: 1.6vh;
+                --font-family-sf_pro_display-medium: "SF Pro Display-Medium", Helvetica;
+                --font-family-sf_pro_display-regular: "SF Pro Display-Regular", Helvetica;
+            }
+            
+            .menu-font {
+                color: var(--manatee);
+                font-family: var(--font-family-sf_pro_display-medium);
+                font-size: 1.03166666667vw;
+                font-style: normal;
+                font-weight: 500;
+            }
+
+            .bold {
+                background-color: transparent;
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-medium);
+                font-size: 1.04166666667vw;
+                font-style: normal;
+                font-weight: 500;
+                letter-spacing: -0.20px;
+                line-height: 2vh;
+                position: relative;
+                text-align: right;
+                white-space: nowrap;
+                width: fit-content;
+            }
+            
+            :root {}
+            
+            ::placeholder {
+                color: #989FA6;
+            }
+
+            .logo {
+                background-color: transparent;
+                left: 48.59375vw;
+                position: absolute;
+                top: 1.5vh;
+                height: auto;
+                width: auto;
+                max-height:6vh;
+                z-index: 999;
+            }
+
+            .content {
+                background-color: white;
+                top: 12.7vh;
+                left: 38.0208333333vw;
+                width: 23.9583333333vw !important;
+                height: 49.8vh;
+                border-radius: 5vh;
+                position: absolute; 
+                padding: 6vh;
+            }
+
+            .selected {
+                background-color: var(--wild-sand) !important;
+            }
+            
+            .have-icon {
+                align-items: center;
+                position: relative;
+            }
+
+            .text-label {
+                background-color: transparent;
+                white-space: nowrap;
+            }
+
+            footer {
+                background-color: transparent;
+                height: 20vh;
+                left: 0px;
+                overflow: hidden;
+                position: absolute;
+                top: 80vh;
+                width: 100vw;
+            }
+
+            .privacy {
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 0.83333333333vw;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 1.6vh;
+                opacity: 0.3;
+                text-align: left;
+                position: absolute;
+                left: 1.041666666vw;
+                bottom: 2vh;
+            }
+
+            .company {
+                background-color: transparent;
+                color: var(--bunker);
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 0.83333333333vw;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 0.83333333333vw;
+                opacity: 0.3;
+                text-align: right;
+                white-space: nowrap;
+                position: absolute;
+                right: 1.04166666667vw;
+                bottom: 2vh;
+            }
+
+        </style>
+        <style>{% block style %}{% endblock %}</style>
+        <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+        <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    </head>
+    <body style="margin: 0;background: #f1f3f5;">
+        <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
+        <div class="content {% block content_class %}{% endblock %}">
+            {% block content %}
+    
+            {% endblock %}
+        </div>
+        <footer>
+            <a href="{% url 'privacy' %}">
+                <div class="privacy text-label">Правила сервиса</div>
+            </a>
+            <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
+                <div class="company">PR-агентство Operator</div>
+            </a>
+        </footer>
+    </body>
+</html>

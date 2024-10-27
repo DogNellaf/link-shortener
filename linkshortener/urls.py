@@ -30,5 +30,6 @@ urlpatterns = [
     path('account', core_views.account, name = "account"),
     path('privacy', core_views.privacy, name = "privacy"),
     path('auth/', include('django.contrib.auth.urls')),
+    path('registration/', core_views.registration, name = "registration"),
     path('<str:url>', core_views.redirect_to_url, name = "redirect_to_url"),
 ]
