@@ -19,12 +19,15 @@ from django.urls import path, include
 import core.views as core_views
 
 urlpatterns = [
-    path('admin/',  admin.site.urls),
-    path('',        core_views.index,        name = "index"),
-    path('qr',      core_views.qr_generator, name = "qr_generator"),
-    path('history', core_views.history,      name = "history"),
-    path('price',   core_views.price,        name = "price"),
-    path('account', core_views.account,      name = "account"),
-    path('privacy', core_views.privacy,      name = "privacy"),
-    path('auth/',  include('django.contrib.auth.urls')),
+    # path('admin/', admin.site.urls),
+    path('', core_views.index, name = "index"),
+    path('url/create/', core_views.index, name = "index"),
+    path('url/create', core_views.generate_url, name="url_create"),
+    path('qr', core_views.qr_generator, name = "qr_generator"),
+    path('history', core_views.history, name = "history"),
+    path('price', core_views.price, name = "price"),
+    path('account', core_views.account, name = "account"),
+    path('privacy', core_views.privacy, name = "privacy"),
+    path('auth/', include('django.contrib.auth.urls')),
+    path('<str:url>', core_views.redirect_to_url, name = "redirect_to_url"),
 ]

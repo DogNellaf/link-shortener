@@ -2,6 +2,7 @@
 
 from django.contrib.auth.models import User
 from django.db import models
+from linkshortener.settings import SHORT_URL_LENGTH
 
 class ShortedUrl(models.Model):
     """Представляет класс сокращенной ссылки"""
@@ -19,7 +20,7 @@ class ShortedUrl(models.Model):
 
     short_url = models.CharField(
         verbose_name = 'Сокращенная ссылка',
-        max_length = 15,
+        max_length = SHORT_URL_LENGTH,
         unique = True
     )
 

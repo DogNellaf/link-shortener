@@ -10,6 +10,12 @@
 		height: 42.8vh !important;
 	}
 
+	.index-frame .url {
+		display: inline-block;
+		margin-top: 3vh;
+		width: 37.458333333vw;
+	}
+
 	.index-frame input.url {
 		border: #F1F3F5;
 		border-radius: 2vh;
@@ -17,8 +23,9 @@
 		width: 28.645833333vw;
 		height: 7vh;
 
-		margin-top: 3vh;
 		padding: 2.6vh;
+		padding-right: 2.447916666vw;
+		margin-top: 0;
 
 		font-family: var(--font-family-sf_pro_display-medium);
 		background-color: var(--wild-sand);
@@ -29,22 +36,19 @@
 
 	.index-frame input.submit {
 		color: var(--manatee);
-
-		font-style: normal;
-		font-weight: 500;
-		
-		margin-top: 3vh;
 		margin-left: 0.625vw;
 
 		height: 7vh;
 		width: 7.1875vw;
-		position: absolute;
 		border: #F1F3F5;
 		border-radius: 2vh;
+		margin-top: 0;
 
 		font-family: var(--font-family-sf_pro_display-medium);
 		background-color: var(--wild-sand);
 		font-size: 1.8vh;
+		font-style: normal;
+		font-weight: 500;
 		line-height: 1.8vh;
 	}
 
@@ -66,8 +70,16 @@
 		line-height: 4.8vh;
 		text-align: left;
 		white-space: nowrap;
-		
+		margin-bottom: 0;
 	}	
+
+	.index-frame .cross-small {
+		position: absolute;
+		left: 29.895833333vw;
+		top: 16.1vh;
+		height: 2.4vh;
+		width: 1.25vw;
+	}
 {% endblock %}
 {% block content_class %}index-frame{% endblock %}
 {% block index_selected %}selected{% endblock %}
@@ -76,24 +88,28 @@
 	<img class="index-frame-menu-item-icon" src="{% static 'images/svg/bold/index-icon.svg' %}" alt="Линкер">
 {% endblock %}
 {% block content %}
+	{{ url }}
 	<h1>Это линкер от VI–media</h1>
-	<div>
-		<input type="text" class="url" placeholder="Нажмите ctrl+v или вставьте ссылку"/>
-		<img src="{% static 'images/svg/normal/cross-small.svg' %}" />
-		<input type="submit" class="submit text_label" value="Сократить"/>
-	</div>
+	<form class="url" method="POST" action="{% url 'url_create' %}">
+		{% csrf_token %}
+		<input name="url" id="inputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку"/>
+		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross-small.svg' %}" />
+		<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
+	</form>
 	<script>
 		document.addEventListener("DOMContentLoaded", function () {
-			const inputField = document.querySelector(".main-frame input.url");
-			const submitButton = document.querySelector(".main-frame input.submit");
-	
 			inputField.addEventListener("input", function () {
 				if (inputField.value.trim() !== "") {
 					submitButton.classList.add("active");
 				} else {
 					submitButton.classList.remove("active");
 				}
+				inputField.value
 			});
+		});
+		crossButton.addEventListener("click", function () {
+			inputField.value = "";
+			submitButton.classList.remove("active");
 		});
 	</script>
 {% endblock %}
