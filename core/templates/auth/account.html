@@ -53,6 +53,43 @@
 		display: inline-block;
 	}
 
+	.account-frame .image-without-avatar {
+		margin-left: 11.9791666667vw;
+		height: 11.5vw;
+		width: 11.5vw;
+		display: inline-block;
+		background-color: #F1F3F5;
+		border-radius: 500px;
+		object-fit: cover;		
+	}
+
+	.account-frame .image-without-avatar .upload {
+		padding-left: 3.38541666667vw;
+		padding-right: 3.38541666667vw;
+		padding-top: 9.1vh;
+		padding-bottom: 9.1vh;
+		height: 11.5vw;
+		width: 11.5vw;
+		display: grid;
+		text-align: center;	
+		items-align: center;
+	}
+
+	.account-frame .image-without-avatar .upload img{
+		margin-left: 1.63541666667vw;
+	}
+
+	.account-frame .image-without-avatar .upload p{
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 0.72916666666vw;
+		font-weight: 500;
+		line-height: 0.72916666666vw;
+		letter-spacing: -0.01em;
+		text-align: center;
+		width: 11.5vw;
+		margin-left: -3.5vw;
+	}
+
 	.account-frame .image img {
 		height: 11.5vw;
 		width: 11.5vw;
@@ -116,20 +153,17 @@
 {% block data_selected %}selected-item{% endblock %}
 {% block account_content %}
 	<div class="avatar">
+		<input type="file" id="avatarInput" name="avatar" accept="image/png,image/jpg,image/jpeg" style="display: none;" />
+		{% if user.avatar %}
 		<div class="change">
 			<button id="changeButton">
 				<img src="{% static 'images/svg/normal/upload.svg' %}" />
 			</button>
-			<input type="file" id="avatarInput" name="avatar" accept="image/png" style="display: none;" />
 			<p>Изменить</p>
 		</div>
 		
 		<div class="image">
-			{% if user.avatar %}
 				<img src="{{ user.avatar }}">
-			{% else %}
-				<img src="{% static 'images/svg/normal/avatar-background.svg' %}">
-			{% endif %}
 		</div>
 
 		<div class="remove">
@@ -141,6 +175,14 @@
 				<p>Удалить</p>
 			</form>
 		</div>
+		{% else %}
+			<div id="changeButton" class="image-without-avatar">
+				<div class="upload">
+					<img src="{% static 'images/svg/bold/upload.svg' %}">
+					<p>Загрузить аватар</p>
+				</div>
+			</div>
+		{% endif %}
 	</div>
 	{% if error %}
 	<p class="error">{{ error }}</p>
