@@ -6,6 +6,7 @@ from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
+from urllib.parse import urlparse
 from core.models import ShortedUrl
 from linkshortener import settings
 from linkshortener.settings import SHORT_URL_LENGTH
@@ -176,4 +177,9 @@ def redirect_to_url(request, url = ""):
         return HttpResponseNotFound()
 
     url_redirect_to = shorted_urls.first().original_url
+
+    parsed_url = urlparse(url_redirect_to)
+    if not parsed_url.scheme:
+        url_redirect_to = "http://" + url_redirect_to
+
     return redirect(url_redirect_to)
