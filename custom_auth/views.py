@@ -1,5 +1,7 @@
 """Класс содержит методы модуля авторизации"""
+from base64 import encode
 from django.shortcuts import render, redirect
+from django.http import HttpResponseNotFound
 from django.contrib.auth import authenticate, login as login_method
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
@@ -63,3 +65,33 @@ def login(request):
 def reset_password(request):
     """Функция возвращает страницу восстановления пароля"""
     return render(request, "auth/reset_password.html")
+
+def account_update_password(request):
+    """Обновляет пароль пользователя"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        current_password = request.POST['current_password']
+        password1 = request.POST['password1']
+        password2 = request.POST['password2']
+
+        if not user.check_password(current_password):
+            return render(request, "auth/account_password.html", {
+                'user': user, 'answer': 'Указан неверный текущий пароль'
+            })
+
+        if password1 != password2:
+            return render(request, "auth/account_password.html", {
+                'user': user, 'answer': 'Пароли не совпадают'
+            })
+
+        user.password = make_password(password1)
+        user.save()
+
+        return render(request, "auth/account_password.html", {
+            'user': user, 'answer': 'Пароль успешно изменен', 'is_success': True
+        })
+
+    return HttpResponseNotFound()

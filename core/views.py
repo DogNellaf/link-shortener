@@ -3,7 +3,6 @@ import random
 import string
 
 from django.http import HttpResponseNotFound
-from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from core.models import ShortedUrl
@@ -105,7 +104,9 @@ def account_update_data(request):
         if same_users.exists():
             same_user = same_users.first()
             if same_user.pk != user.pk:
-                return render(request, "auth/account.html", {'user': user, 'error': 'Email уже занят'})
+                return render(request, "auth/account.html", {
+                    'user': user, 'answer': 'Email уже занят'
+                })
 
         user.email = email
 
@@ -113,9 +114,6 @@ def account_update_data(request):
         return redirect(account)
 
     return HttpResponseNotFound()
-
-
-    # return render(request, "auth/account.html", {'user': user})
 
 def account_price(request):
     """Отображение страницы тарифа аккаунта пользователя"""

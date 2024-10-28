@@ -30,6 +30,7 @@ urlpatterns = [
     path('price', core_views.price, name = "price"),
     path('account', core_views.account, name = "account"),
     path('account/data/update', core_views.account_update_data, name="account_update_data"),
+    path('account/password/update', auth_views.account_update_password, name="account_update_password"),
     path('account/price', core_views.account_price, name = "account_price"),
     path('account/password', core_views.account_password, name = "account_password"),
     path('privacy', core_views.privacy, name = "privacy"),
