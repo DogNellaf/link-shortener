@@ -5,6 +5,7 @@ import string
 from django.http import HttpResponseNotFound
 from django.urls import reverse
 from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
 from core.models import ShortedUrl
 from linkshortener.settings import SHORT_URL_LENGTH
 
@@ -79,7 +80,7 @@ def history(request):
 
 def price(request):
     """Отображение страницы Тарифы"""
-    return HttpResponseNotFound()
+    return render(request, "price.html")
 
 def account(request):
     """Отображение страницы аккаунта пользователя"""
@@ -87,7 +88,50 @@ def account(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account.html", {'user': user})
+    return render(request, "auth/account.html", {'user': user})
+
+def account_update_data(request):
+    """Обновляет данные пользователя"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        user.first_name = request.POST['first_name']
+        user.last_name = request.POST['last_name']
+        email = request.POST['email']
+
+        same_users = User.objects.filter(email=email)
+        if same_users.exists():
+            same_user = same_users.first()
+            if same_user.pk != user.pk:
+                return render(request, "auth/account.html", {'user': user, 'error': 'Email уже занят'})
+
+        user.email = email
+
+        user.save()
+        return redirect(account)
+
+    return HttpResponseNotFound()
+
+
+    # return render(request, "auth/account.html", {'user': user})
+
+def account_price(request):
+    """Отображение страницы тарифа аккаунта пользователя"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    return render(request, "auth/account_price.html", {'user': user})
+
+def account_password(request):
+    """Отображение страницы пароля аккаунта пользователя"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    return render(request, "auth/account_password.html", {'user': user})
 
 def privacy(request):
     """Отображение страницы правил сервиса"""

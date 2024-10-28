@@ -14,7 +14,7 @@ def registration(request):
         password_another = request.POST['passwordAnother']
 
         if password != password_another:
-            return render(request, "registration/registration.html", {
+            return render(request, "auth/registration.html", {
                 "error": "Пароли не совпадают",
                 "first_name": first_name,
                 "last_name": last_name,
@@ -23,7 +23,7 @@ def registration(request):
 
         same_users = User.objects.filter(email=email)
         if same_users.exists():
-            return render(request, "registration/registration.html", {
+            return render(request, "auth/registration.html", {
                 "error": "Пользователь с такой почтой уже существует",
                 "first_name": first_name,
                 "last_name": last_name,
@@ -44,7 +44,7 @@ def registration(request):
             login_method(request, user)
             return redirect('account')
 
-    return render(request, "registration/registration.html")
+    return render(request, "auth/registration.html")
 
 def login(request):
     """Функция возвращает страницу авторизации"""
@@ -56,10 +56,10 @@ def login(request):
             login_method(request, user)
             return redirect('account')
         else:
-            return render(request, "registration/login.html", {"error": "Пользователь с такими данными не найден"})
+            return render(request, "auth/login.html", {"error": "Пользователь с такими данными не найден"})
 
-    return render(request, "registration/login.html")
+    return render(request, "auth/login.html")
 
 def reset_password(request):
     """Функция возвращает страницу восстановления пароля"""
-    return render(request, "registration/reset_password.html")
+    return render(request, "auth/reset_password.html")

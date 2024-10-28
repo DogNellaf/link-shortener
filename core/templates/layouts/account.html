@@ -1,0 +1,102 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}Аккаунт{% endblock %}
+{% block style %}
+	.account-frame {
+		height: 80.9vh;
+	}
+
+	.account-frame a {
+		text-decoration: none;
+	}
+
+	.account-frame h1 {
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		text-align: left;
+		color: #141516;
+	}
+
+	.account-frame .account-menu {
+		margin-top: 3.2vh;
+		display: inline-block;
+		background-color: #F1F3F5;
+		border-radius: 1vh;
+	}
+
+	.account-frame .account-menu div {
+		width: 11.83vw;
+		text-align: center;
+		background-color: #F1F3F5;
+		margin-top: 0;
+		margin-left: 0;
+		margin-right: 0;
+		border-radius: 1vh;
+		gap: 0.8vh;
+	}
+
+	.account-frame .account-menu .selected-item {
+		background-color: white;
+		box-shadow: 0px 4px 15px 0px #2424241A;
+	}
+
+    .account-frame .account-menu .selected-item p {
+        color: #141516 !important;
+	}
+
+	.account-frame .account-menu div p {
+		padding-top: 1vh;
+		vertical-align: middle;
+		height: 4vh;
+		margin-bottom: 0;
+		font-family: SF Pro Display;
+		font-size: 0.83333333333vw;
+		font-weight: 500;
+		line-height: 1vw;
+		letter-spacing: -0.01em;
+		color: #989FA6;
+	}
+
+	.account-frame .account-menu .data {
+		display: inline-block;
+	}
+
+	.account-frame .account-menu .price {
+		display: inline-block;
+	}
+
+	.account-frame .account-menu .password {
+		display: inline-block;
+	}
+
+	{% block account_style %}
+
+	{% endblock %}
+{% endblock %}
+{% block content_class %}account-frame{% endblock %}
+{% block content %}
+	<h1>Профиль</h1>
+	<div class="account-menu">
+		<a href="{% url 'account' %}">
+			<div class="data {% block data_selected %}{% endblock %}">
+				<p>Мои данные</p>
+			</div>
+		</a>
+		<a href="{% url 'account_price' %}">
+			<div class="price {% block price_selected %}{% endblock %}">
+				<p>Тариф</p>
+			</div>
+		</a>
+		<a href="{% url 'account_password' %}">
+			<div class="password {% block password_selected %}{% endblock %}">
+				<p>Пароль</p>
+			</div>
+		</a>
+	</div>
+    {% block account_content %}
+
+    {% endblock %}
+{% endblock %}

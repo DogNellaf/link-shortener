@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}Тарифы{% endblock %}
+{% block style %}
+	.price-frame {
+		height: 26.8vh;
+	}
+
+	.price-frame .layout-placeholder {
+		margin-top: 4vh;
+	}
+{% endblock %}
+{% block content_class %}price-frame{% endblock %}
+{% block price_selected %}selected{% endblock %}
+{% block price_bold %}bold{% endblock %}
+{% block price_icon %}
+	<img src="{% static 'images/svg/bold/price.svg' %}" alt="Тарифы">
+{% endblock %}
+{% block content %}
+	<p class="layout-placeholder">Функционал не описан</h1>
+{% endblock %}

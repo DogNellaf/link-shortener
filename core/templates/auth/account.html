@@ -1,0 +1,154 @@
+{% extends 'layouts/account.html' %}
+{% load static %}
+{% block account_style %}
+	.account-frame .avatar {
+		margin-top: 4vh;
+		vertical-align: middle;
+	}
+
+	.account-frame .avatar .change {
+		height: 6.2vh;
+		width: 4.16666666667vw;
+		display: inline-block;
+		margin-left: 6.77083333333vw;
+		margin-right: 1.04166666667vw;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	.account-frame .avatar .remove {
+		height: 6.2vh;
+		width: 4.16666666667vw;
+		display: inline-block;
+		margin-left: 1.04166666667vw;
+		margin-right: 6.77083333333vw;
+		text-align: center;
+		vertical-align: middle;
+	}
+
+	.account-frame .avatar button {
+		height: 4vh;
+		width: 2.08333333333vw;
+		background-color: #F1F3F5;
+		border: none;
+		border-radius: 5vh;
+	}
+
+	.account-frame .avatar button img {
+		height: 1.8vh;
+		width: auto;
+	}
+
+	.account-frame .avatar p {
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 0.72916666666vw;
+		font-weight: 500;
+		line-height: 0.72916666666vw;
+		letter-spacing: -0.01em;
+		text-align: center;
+		margin-top: 0.8vh;
+	}
+
+	.account-frame .image {
+		display: inline-block;
+	}
+
+	.account-frame .image img {
+		height: 11.5vw;
+		width: 11.5vw;
+		display: inline-block;
+	}
+
+	.account-frame .data {
+		{% if not error %}
+		margin-top: 4vh;
+		{% endif %}
+		display: inline-block;
+	}
+
+	.account-frame .data input {
+		background-color: #F1F3F5;
+		border: none;
+		border-radius: 2vh;
+		width: 17.9166666667vw;
+		height: 7vh;
+		padding: 2.6vh;
+	}
+
+	.account-frame .data .namesRow {
+		height: 7vh;
+		width: 36.4583333332vw;	
+	}
+
+	.account-frame .data .namesRow #firstNameInput {
+		height: 7vh;
+		width: 17.9166666666vw;
+		margin-right: 0.375vw;
+	}
+
+	.account-frame .data .namesRow #lastNameInput {
+		height: 7vh;
+		width: 17.9166666666vw;
+	}	
+
+	.account-frame .data .emailRow {
+		margin-top: 1.2vh;
+		width: 36.4583333332vw;
+	}
+
+	.account-frame .data .emailRow #emailInput {
+		height: 7vh;
+		width: 36.4583333332vw;
+	}
+
+	.account-frame .data .submitRow {
+		margin-top: 2vh;
+		width: 36.4583333332vw;
+	}
+
+	.account-frame .data .submitRow #submitButton {
+		height: 7vh;
+		width: 36.4583333332vw;
+	}
+{% endblock %}
+{% block data_selected %}selected-item{% endblock %}
+{% block account_content %}
+	<div class="avatar">
+		<div class="change">
+			<button onclick="alert('Аватар в разработке');">
+				<img src="{% static 'images/svg/normal/upload.svg' %}" />
+			</button>
+			<p>Изменить</p>
+		</div>
+		
+		<div class="image">
+			<img src="{% static 'images/svg/normal/avatar-background.svg' %}">
+		</div>
+
+		<div class="remove">
+			<button onclick="alert('Аватар в разработке');">
+				<img src="{% static 'images/svg/bold/trash.svg' %}" />
+			</button>
+			<p>Удалить</p>
+		</div>
+	</div>
+	{% if error %}
+	<p class="error">{{ error }}</p>
+	{% endif %}
+	<form class="data" method="POST" action="{% url 'account_update_data' %}">
+		{% csrf_token %}
+		<div class="namesRow">
+			<input id="firstNameInput" name="first_name" type="text" placeholder="Имя" value="{{ user.first_name }}" />
+			<input id="lastNameInput" name="last_name" type="text" placeholder="Фамилия" value="{{ user.last_name }}"/>
+		</div>
+		<div class="emailRow">
+			<input id="emailInput" name="email" type="email" placeholder="Email" value="{{ user.email }}"/>
+		</div>
+		<div class="submitRow">
+			<input id="submitButton" type="submit" class="active submit text_label" value="Обновить"/>
+		</div>
+	</form>
+	<script>
+
+	</script>
+{% endblock %}

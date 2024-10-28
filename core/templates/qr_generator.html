@@ -1,28 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'layouts/base.html' %}
 {% load static %}
-{% block title %}Это линкер от VI–media{% endblock %}
+{% block title %}Генератор QR{% endblock %}
+{% block style %}
+	.qr-frame {
+		height: 26.8vh;
+	}
+
+	.qr-frame .layout-placeholder {
+		margin-top: 4vh;
+	}
+{% endblock %}
 {% block qr_selected %}selected{% endblock %}
 {% block qr_bold %}bold{% endblock %}
 {% block qr_icon %}
-	<img class="qr-frame-menu-item-icon" src="{% static 'images/svg/bold/qr-icon.svg' %}" alt="QR-генератор">
+	<img src="{% static 'images/svg/bold/qr.svg' %}" alt="QR-генератор">
 {% endblock %}
 {% block content %}
-	<div class="qr-frame screen">
-		<div class="background"></div>
-		<h1>Это линкер от VI–media</h1>
-		<div class="frame-12-nxQtxD">
-			<img class="x1-oeNQx1" src="{% static 'images/svg/bold/qr-icon.svg' %}" alt="1">
-			<img class="frame-11-oeNQx1" src="{% static 'images/svg/bold/qr-icon.svg' %}" alt="Frame 11">
-		</div>
-		<div class="frame-8-nxQtxD frame-8">
-			<div class="frame-7-ae8mqk frame-7">
-				<div class="httpsdocsgooglecomdo-Bxel4x">https://docs.google.com/document/d/1XMBBJMsYzPO5w</div>
-			</div>
-			<div class="frame-3-ae8mqk">
-				<div class="qr-9TZBXe qr">Создать QR-код</div>
-			</div>
-		</div>
-		<div class="rectangle-5-nxQtxD"></div>
-		<img class="cross-small-1-nxQtxD" src="{% static 'images/svg/normal/cross-small.svg' %}" alt="cross-small 1">
-	</div>
+	<p class="layout-placeholder">Функционал не описан</h1>
 {% endblock %}

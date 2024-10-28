@@ -459,6 +459,20 @@
                 vertical-align: middle;
             }
 
+            .active {
+                background-color: #1599F5 !important;
+                color: var(--white) !important;
+            }
+
+            .error {
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 0.83333333333vw;
+                font-weight: 500;
+                line-height: 0.83333333333vw;
+                text-align: left;
+                color: #EC1E1E;
+            }
+
         </style>
         <style>{% block style %}{% endblock %}</style>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -516,7 +530,7 @@
             <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
                 <div class="company">PR-агентство Operator</div>
             </a>
-            <button class="settings" href="#">
+            <button class="settings" onclick="alert('Функционал в разработке');">
                 <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
             </button>
         </footer>
