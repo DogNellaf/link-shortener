@@ -147,7 +147,10 @@ def make_url_favorite(request):
         shorted_url.is_favorite = True
         shorted_url.save()
 
-    return redirect(linker, url=short_url)
+    if shorted_url.is_only_qr:
+        return redirect(qr_generator, url=short_url)
+    else:
+        return redirect(linker, url=short_url)
 
 def remove_url_favorite(request):
     """Удаляет ссылку из избранного"""
@@ -166,7 +169,10 @@ def remove_url_favorite(request):
         shorted_url.is_favorite = False
         shorted_url.save()
 
-    return redirect(linker, url=short_url)
+    if shorted_url.is_only_qr:
+        return redirect(qr_generator, url=short_url)
+    else:
+        return redirect(linker, url=short_url)
 
 def account_update_data(request):
     """Обновляет данные пользователя"""
