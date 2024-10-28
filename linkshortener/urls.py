@@ -25,12 +25,14 @@ urlpatterns = [
     # path('admin/', admin.site.urls),
     path('', core_views.index, name = "index"),
     path('linker', core_views.linker, name = "linker"),
-    path('linker/create', core_views.generate_url, name="generate_url"),
+    path('linker/url/create', core_views.generate_url, name="generate_url"),
+    path('linker/qr/create', core_views.generate_qr, name="generate_qr"),
     path('linker/favorite/add', core_views.make_url_favorite, name = 'make_url_favorite'),
     path('linker/favorite/remove', core_views.remove_url_favorite, name = 'remove_url_favorite'),
     path('linker/<str:url>', core_views.linker, name = "linker_with_url"),
 
     path('qr', core_views.qr_generator, name = "qr_generator"),
+    path('qr/<str:url>', core_views.qr_generator, name = "qr_generator"),
     path('history', core_views.history, name = "history"),
     path('price', core_views.price, name = "price"),
 

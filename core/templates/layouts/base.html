@@ -561,12 +561,136 @@
                 height: 1.04166666667vw;
             }
 
+            .download-qr-background {
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                background-color: #141516;
+                opacity: 0.4;
+                z-index: 1000;
+            }
+        
+            .download-qr-frame {
+                width: 23.9583333333vw;
+                height: 22.2vh;
+                position: absolute;
+                top: 34.3vh;
+                left: 38.0208333333vw;
+                gap: 0.4vh;
+                border-radius: 2vh;
+                opacity: 0px;
+                z-index: 1001;
+                background-color: white;
+                padding: 4vh;
+            }
+
+            .download-qr-frame #closeDownloadQrFrameButton {
+                position: absolute;
+                right: 1.04166666667vw;
+                top: 2vh;
+                height: 3.2vh;
+                width: auto;
+            }
+
+            .download-qr-frame h1 {
+                font-family: var(--font-family-sf_pro_display-medium);
+                font-size: 1.5625vw;
+                font-weight: 500;
+                line-height: 1.875vw;
+                letter-spacing: -0.02em;
+                text-align: left;
+                color: #141516;
+            }
+
+            .download-qr-frame button {
+                margin-top: 4vh !important;
+                width: 9.58333333333vw;
+                height: 6.6vh;
+                border: #F1F3F5;
+                border-radius: 2vh;
+                padding: 2.4vh;
+                gap: 1vh;
+                padding-left: 3.72395833333vw;
+                padding-right: 3.72395833333vw;
+        
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 0.9375vw;
+                font-weight: 500;
+                line-height: 0.9375vw;
+                letter-spacing: -0.01em;
+                letter-spacing: -0.01em;
+                color: #141516;
+            }
+
         </style>
         <style>{% block style %}{% endblock %}</style>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body style="margin: 0;background: #f1f3f5;">
+        <div id="download_qr_block" hidden>
+            <div class="download-qr-background"></div>
+            <div class="download-qr-frame">
+                <h1>Скачать QR код</h1>
+                <img id="closeDownloadQrFrameButton" src="{% static 'images/svg/normal/cross-small.svg' %}" />
+                <button id="downloadPngButton">
+                    <p>.PNG</p>
+                </button>
+                <button id="downloadSvgButton">
+                    <p>.SVG</p>
+                </button>                
+            </div>
+            <script>
+                closeDownloadQrFrameButton.addEventListener("click", function () {
+                    download_qr_block.setAttribute("hidden", "hidden");
+                });
+
+                downloadSvgButton.addEventListener('click', function() {
+                    let svg = document.getElementsByClassName('segno')[0];
+                    svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+                    svg.setAttribute("width", "256");
+                    svg.setAttribute("height", "256");
+                    let blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+                    let url = URL.createObjectURL(blob);
+                    
+                    let a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'qr.svg';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    download_qr_block.setAttribute("hidden", "hidden");
+                });
+
+                downloadPngButton.addEventListener('click', function() {
+                    let svgElement = document.getElementsByClassName('segno')[0];
+                    let svgData = new XMLSerializer().serializeToString(svgElement);
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+                    let img = new Image();
+
+                    img.onload = function() {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        ctx.drawImage(img, 0, 0);
+                        let pngData = canvas.toDataURL('image/png');
+                        
+                        let a = document.createElement('a');
+                        a.href = pngData;
+                        a.download = 'qr.png';
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                    };
+
+                    img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
+                    download_qr_block.setAttribute("hidden", "hidden");
+                });
+            </script>
+        </div>
+
         <div id="add_favorite_block" hidden>
             <div class="add-favorite-background"></div>
             <form class="add-favorite-frame" method="POST" action="{% url 'make_url_favorite' %}">

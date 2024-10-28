@@ -40,11 +40,17 @@ class ShortedUrl(models.Model):
         default = False
     )
 
+    is_only_qr = models.BooleanField(
+        verbose_name = 'Ссылка создавалась исключительно для QR кода',
+        default = False
+    )
+
     def __str__(self):
         """Строковое представление объекта"""
         return f"{self.short_url} - {self.original_url}"
-    
+
     class Meta:
+        """Мета данные сокращенной ссылки"""
         verbose_name = "Сокращенная ссылка"
         verbose_name_plural = "Сокращенные ссылки"
 

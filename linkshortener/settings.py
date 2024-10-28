@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+from qr_code.qrcode.utils import QRCodeOptions
 
 import django
 import django.utils
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'qr_code',
     'core',
     'custom_auth'
 ]
@@ -138,3 +140,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Длина уникальной короткой ссылки
 SHORT_URL_LENGTH = 6
+
+# Параметры генератора QR
+QR_CODE_OPTIONS = QRCodeOptions(size=256)

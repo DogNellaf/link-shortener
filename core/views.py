@@ -7,11 +7,13 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import urlparse
+
+from qr_code.qrcode.maker import make_embedded_qr_code
 from core.models import Qr, ShortedUrl
-from core.utils import generate_short_url
+from core.utils import create_shorted_url
 from custom_auth.models import CustomUser
 from linkshortener import settings
-from linkshortener.settings import SHORT_URL_LENGTH
+from linkshortener.settings import QR_CODE_OPTIONS
 
 def index(request):
     """Стартовая страница, переадресующая пользователя с пустого пути / на линкер"""
@@ -46,43 +48,60 @@ def generate_url(request):
     """Генерирует ссылку для текущего пользователя или анонимно"""
     if request.method == "POST":
         url = request.POST['url']
-        short_url = generate_short_url(url)
-
-        user = request.user
-
-        shorted_url = ShortedUrl(
-            author = user if user.is_authenticated else None,
-            original_url = url,
-            short_url = short_url
+        shorted_url = create_shorted_url(
+            user=request.user, 
+            original_url=url
         )
 
-        shorted_url.save()
-
-        return redirect(linker, url=short_url)
+        return redirect(linker, url=shorted_url.short_url)
 
     return HttpResponseNotFound()
 
-def qr_generator(request):
+def qr_generator(request, url = ""):
     """Отображение страницы QR-генератора"""
-    return render(request, "qr_generator.html")
+
+    original_url = ""
+    is_favorite = False
+    url_title = ""
+    qr = None
+
+    if url != "":
+        shorted_urls = ShortedUrl.objects.filter(short_url = url, is_only_qr=True)
+        if not shorted_urls.exists():
+            return HttpResponseNotFound()
+
+        shorted_url = shorted_urls.first()
+        original_url = shorted_url.original_url
+        is_favorite = shorted_url.is_favorite
+        url_title = shorted_url.title
+
+        qr = make_embedded_qr_code(
+            data=f"http://{request.get_host()}/{url}",
+            qr_code_options=QR_CODE_OPTIONS
+        )
+
+    return render(request, "qr_generator.html", {
+        'host': request.get_host(),
+        'qr': qr,
+        'url': url,
+        'original_url': original_url,
+        'is_favorite': is_favorite,
+        'url_title': url_title,
+    })
 
 def generate_qr(request):
     """Создает QR код по ссылке"""
     if request.method == "POST":
         url = request.POST['url']
-        short_url = generate_short_url(url)
-
-        user = request.user
-
-        qr = Qr(
-            author = user if user.is_authenticated else None,
-            original_url = url,
-            short_url = short_url
+        shorted_url = create_shorted_url(
+            user=request.user, 
+            original_url=url
         )
 
-        qr.save()
+        shorted_url.is_only_qr = True
+        shorted_url.save()
 
-        return redirect(linker, url=short_url)
+        return redirect(qr_generator, url=shorted_url.short_url)
 
     return HttpResponseNotFound()
 

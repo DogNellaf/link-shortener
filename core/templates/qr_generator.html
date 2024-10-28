@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load qr_code %}
 {% block title %}Это QR-генератор от VI–media{% endblock %}
 {% block style %}
 	.qr-frame {
@@ -7,7 +8,7 @@
 	}
 
 	.with-url {
-		height: 42.8vh !important;
+		height: 62.8vh !important;
 	}
 
 	.qr-frame .url {
@@ -190,6 +191,12 @@
 	.qr-frame .share-frame button:hover {
 		background-color: #F1F3F5;
 	}
+
+	.segno {
+		height: 30.5894848646vh;
+		width: 15.932023367vw;
+		position: relative;
+	}
 {% endblock %}
 {% block content_class %}qr-frame{% if url != "" %} with-url{% endif %}{% endblock %}
 {% block qr_selected %}selected{% endblock %}
@@ -200,32 +207,31 @@
 {% block content %}
 	<h1>Это QR-генератор от VI–media</h1>
 	{% if url == "" %}
-	<form class="url" method="POST" action="{% url 'generate_url' %}">
-	{% csrf_token %}
+		<form class="url" method="POST" action="{% url 'generate_qr' %}">
+		{% csrf_token %}
 	{% else %}
-	<div class="url">
+		<div class="url">
 	{% endif %}
 		<input name="url" id="inputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}" {% if original_url != "" %} readonly {% endif %} />
 		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross-small.svg' %}" />
 		<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
 	{% if url == "" %}
-	</form>
+		</form>
 	{% else %}
-	</div>
+		</div>
 	{% endif %}
 	{% if url != "" %}
 		<hr>
 		<div class="result-frame">
 			<div style="display: inline-block;">
 				<div class="short-url-frame">
-					<a id="short_url" href="http://{{ host }}/{{ url }}">{{ host }}/{{ url }}</a>
-					<br>
-					<span id="short_url_copy_info" hidden>ссылка скопирована в буфер обмена</span>
+					{{ qr }}
+					{% comment %} <a id="short_url" href="http://{{ host }}/{{ url }}">{{ host }}/{{ url }}</a> {% endcomment %}
 				</div>
 			</div>
 			<div class="buttons">
-				<button id="copyButton">
-					<img src="{% static 'images/svg/bold/copy.svg' %}" />
+				<button id="downloadButton">
+					<img src="{% static 'images/svg/bold/download.svg' %}" />
 				</button>
 				<button id="shareButton">
 					<img src="{% static 'images/svg/bold/share.svg' %}" />
@@ -247,13 +253,13 @@
 			</div>
 		</div>
 		<div id="share_frame" class="share-frame" hidden>
-			<a href="https://t.me/share/url?url=http://{{ host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
+			<a href="https://t.me/share/url?url=http://{{ host }}/qr/{{ url }}&text=Делюсь с вами ссылкой на QR через сервис link.example.com">
 				<button id="shareToTelegramButton">
 					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
 					<span>Отправить в Telegram</span>
 				</button>
 			</a>
-			<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ host }}/{{ url }} через сервис link.example.com">
+			<a href="https://api.whatsapp.com/send?text=Делюсь с вами QR http://{{ host }}/qr/{{ url }} через сервис link.example.com">
 				<button id="shareToWhatsAppButton">
 					<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
 					<span>Отправить в WhatsApp</span>
@@ -274,9 +280,8 @@
 					});
 				{% endif %}
 			{% endif %}
-			copyButton.addEventListener('click', function(event) {
-				navigator.clipboard.writeText(short_url.innerHTML);
-				short_url_copy_info.removeAttribute("hidden");
+			downloadButton.addEventListener('click', function(event) {
+				download_qr_block.removeAttribute("hidden");
 			})
 			shareButton.addEventListener('click', function(event) {
 				if (is_share_frame_hidden) {
