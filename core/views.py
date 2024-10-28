@@ -37,7 +37,6 @@ def linker(request, url=""):
         url_title = shorted_url.title
 
     return render(request, "index.html", {
-        'host': request.get_host(),
         'url': url,
         'original_url': original_url,
         'is_favorite': is_favorite,
@@ -105,16 +104,35 @@ def generate_qr(request):
 
     return HttpResponseNotFound()
 
-def history(request):
-    """Отображение страницы Мои ссылки и QR-коды"""
+def favorite_urls(request):
+    """Отображение страницы Мои ссылки - избранное"""
     user = request.user
 
     if not user.is_authenticated:
-        urls = []
+        urls = [] # TODO: уточнить, что должно происходить в этом случае
     else:
-        urls = ShortedUrl.objects.filter(author__id = user.id)
+        urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = False)
 
-    return render(request, "history.html", {'urls': urls})
+    return render(request, "history/favorite_urls.html", {'urls': urls})
+
+def history_urls(request):
+    """Отображение страницы Мои ссылки - история"""
+    user = request.user
+
+    if not user.is_authenticated:
+        urls = [] # TODO: уточнить, что должно происходить в этом случае
+    else:
+        urls = ShortedUrl.objects.filter(author = user)
+
+    return render(request, "history/history_urls.html", {'urls': urls})
+
+def favorite_qrs(request):
+    """Отображение страницы Мои QR-коды - избранное"""
+    pass
+
+def history_qrs(request):
+    """Отображение страницы Мои QR-коды - история"""
+    pass
 
 def price(request):
     """Отображение страницы Тарифы"""

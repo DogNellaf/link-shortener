@@ -744,7 +744,7 @@
                         {% block qr_icon %}<img src="{% static 'images/svg/normal/qr.svg' %}" alt="QR-генератор">{% endblock %}
                     </div>
                 </a>
-                <a href="{% url 'history' %}">
+                <a href="{% url 'favorite_urls' %}">
                     <div class="history have-icon {% block history_selected %}{% endblock %}">
                         <div class="text-label menu-font {% block history_bold %}{% endblock %}">Мои ссылки и QR-коды</div>
                         {% block history_icon %}<img src="{% static 'images/svg/normal/history.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}

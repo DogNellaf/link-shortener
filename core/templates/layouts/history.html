@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}Мои ссылки и QR коды{% endblock %}
+{% block style %}
+	.history-frame {
+		height: 73vh;
+	}
+
+	.history-frame a {
+		text-decoration: none;
+	}
+
+	.history-frame .title-bar {
+		color: #989FA6;
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		display: inline;		
+	}
+
+	.history-frame .title-bar h1 {
+		display: inline;
+		color: #989FA6;
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		display: inline;	
+	}
+
+	.history-frame .title-bar span {
+		margin-left: 0.83333333333vw;
+		margin-right: 0.83333333333vw;
+	}
+
+	.history-frame .bold {
+		color: #141516 !important;
+	}
+
+	{% block additional_style %}
+
+	{% endblock %}
+{% endblock %}
+{% block content_class %}history-frame{% endblock %}
+{% block history_selected %}selected{% endblock %}
+{% block history_bold %}bold{% endblock %}
+{% block history_icon %}
+	<img src="{% static 'images/svg/bold/history.svg' %}" alt="Мои ссылки и QR-коды">
+{% endblock %}
+{% block content %}
+	<div class="title-bar">
+		<a href="{% url 'favorite_urls' %}"><h1 {% block urls_bold %} {% endblock %}>Мои ссылки</h1></a>
+		<span>/</span> 
+		<a href="{% url 'favorite_qrs' %}"><h1 {% block qrs_bold %} {% endblock %}>Мои QR-коды</h1></a>
+	</div>
+	<hr>
+	{% block history_content %}
+
+	{% endblock %}
+{% endblock %}

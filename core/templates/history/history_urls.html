@@ -1,0 +1,88 @@
+{% extends 'layouts/history.html' %}
+{% load static %}
+{% block additional_style %}
+	.history-frame {
+		height: 73vh;
+	}
+
+	.history-frame a {
+		text-decoration: none;
+	}
+
+	.history-frame .title-bar {
+		color: #989FA6;
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		display: inline;		
+	}
+
+	.history-frame .title-bar h1 {
+		display: inline;
+		color: #989FA6;
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		display: inline;	
+	}
+
+	.history-frame .title-bar span {
+		margin-left: 0.83333333333vw;
+		margin-right: 0.83333333333vw;
+	}
+
+	.history-frame .bold {
+		color: #141516 !important;
+	}
+{% endblock %}
+{% block urls_bold %}class="bold"{% endblock %}
+{% block history_content %}
+	<div class="result-frame">
+		<div style="display: inline-block;">
+			<div class="short-url-frame">
+				{{ qr }}
+				{% comment %} <a id="short_url" href="http://{{ host }}/{{ url }}">{{ host }}/{{ url }}</a> {% endcomment %}
+			</div>
+		</div>
+		<div class="buttons">
+			<button id="downloadButton">
+				<img src="{% static 'images/svg/bold/download.svg' %}" />
+			</button>
+			<button id="shareButton">
+				<img src="{% static 'images/svg/bold/share.svg' %}" />
+			</button>
+			{% if user.is_authenticated %}
+			<button id="favoriteButton">
+				{% if not is_favorite %}
+					<img src="{% static 'images/svg/bold/heart.svg' %}" />
+				{% else %}
+					<img src="{% static 'images/svg/bold/heart-fill.svg' %}" />	
+					<form method="POST" action="{% url 'remove_url_favorite' %}" hidden>
+						{% csrf_token %}
+						<input name="url" type="text" value="{{ url }}"/>
+						<input id="sendRemoveUrlButton" type="submit"/>
+					</form>
+				{% endif %}
+			</button>
+			{% endif %}
+		</div>
+	</div>
+	<div id="share_frame" class="share-frame" hidden>
+		<a href="https://t.me/share/url?url=http://{{ host }}/qr/{{ url }}&text=Делюсь с вами ссылкой на QR через сервис link.example.com">
+			<button id="shareToTelegramButton">
+				<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
+				<span>Отправить в Telegram</span>
+			</button>
+		</a>
+		<a href="https://api.whatsapp.com/send?text=Делюсь с вами QR http://{{ host }}/qr/{{ url }} через сервис link.example.com">
+			<button id="shareToWhatsAppButton">
+				<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
+				<span>Отправить в WhatsApp</span>
+			</button>
+		</a>
+	</div>
+{% endblock %}

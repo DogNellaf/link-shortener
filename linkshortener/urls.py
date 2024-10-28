@@ -33,7 +33,12 @@ urlpatterns = [
 
     path('qr', core_views.qr_generator, name = "qr_generator"),
     path('qr/<str:url>', core_views.qr_generator, name = "qr_generator"),
-    path('history', core_views.history, name = "history"),
+
+    path('urls/history', core_views.history_urls, name = "history_urls"),
+    path('urls/favorite', core_views.favorite_urls, name = "favorite_urls"),
+    path('qrs/history', core_views.history_qrs, name = "history_qrs"),
+    path('qrs/favorite', core_views.favorite_qrs, name = "favorite_qrs"),
+
     path('price', core_views.price, name = "price"),
 
     path('account', core_views.account, name = "account"),

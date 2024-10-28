@@ -218,7 +218,7 @@
 		<div class="result-frame">
 			<div style="display: inline-block;">
 				<div class="short-url-frame">
-					<a id="short_url" href="http://{{ host }}/{{ url }}">{{ host }}/{{ url }}</a>
+					<a id="short_url" href="http://{{ request.get_host }}/{{ url }}">{{ request.get_host }}/{{ url }}</a>
 					<br>
 					<span id="short_url_copy_info" hidden>ссылка скопирована в буфер обмена</span>
 				</div>
@@ -247,13 +247,13 @@
 			</div>
 		</div>
 		<div id="share_frame" class="share-frame" hidden>
-			<a href="https://t.me/share/url?url=http://{{ host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
+			<a href="https://t.me/share/url?url=http://{{ request.get_host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
 				<button id="shareToTelegramButton">
 					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
 					<span>Отправить в Telegram</span>
 				</button>
 			</a>
-			<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ host }}/{{ url }} через сервис link.example.com">
+			<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ request.get_host }}/{{ url }} через сервис link.example.com">
 				<button id="shareToWhatsAppButton">
 					<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
 					<span>Отправить в WhatsApp</span>

@@ -1,0 +1,248 @@
+{% extends 'layouts/history.html' %}
+{% load static %}
+{% block additional_style %}
+	.history-frame {
+		height: 73vh;
+	}
+
+	.history-frame a {
+		text-decoration: none;
+	}
+
+	.history-frame .title-bar {
+		color: #989FA6;
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		display: inline;		
+	}
+
+	.history-frame .title-bar h1 {
+		display: inline;
+		color: #989FA6;
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-size: 2.08333333333vw;
+		font-weight: 500;
+		line-height: 2.5vw;
+		letter-spacing: -0.02em;
+		display: inline;	
+	}
+
+	.history-frame .title-bar span {
+		margin-left: 0.83333333333vw;
+		margin-right: 0.83333333333vw;
+	}
+
+	.history-frame .bold {
+		color: #141516 !important;
+	}
+
+	.history-frame .favorite-menu {
+		height: 5.1vh;
+		width: 36.4583333333vw;
+		background: #F1F3F5;
+		border-radius: 1vh;
+		text-align: center;
+	}
+
+	.history-frame .favorite-menu div {
+		height: 5.1vh;
+		width: 18.0729166667vw;
+		padding: 1.4vh;
+		gap: 0.8vh;
+
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 0.83333333333vw;
+		font-weight: 500;
+		line-height: 1vw;
+		letter-spacing: -0.01em;
+		color: #989FA6;
+		border-radius: 1vh;
+	}
+
+	.history-frame .favorite-menu .selected {
+		background: #FFFFFF !important;
+		box-shadow: 0px 4px 15px 0px #2424241A;
+		color: #141516 !important;
+	}
+
+	.history-frame .favorite-menu .favorite-menu-item {
+		display: inline-block;
+	}
+
+	.history-frame .favorite-menu .history-menu-item {
+		display: inline-block;
+	}
+
+	.history-frame .search {
+		margin-top: 2vh;
+		width: 36.4583333333vw;
+		height: 6vh;
+		padding: 0;
+	}
+
+	.history-frame .search input {
+		width: 100%;
+		height: 100%;
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		gap: 0px;
+		border: none;
+		border-bottom: 2px solid #F1F3F5;
+
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 0.83333333333vw;
+		font-weight: 500;
+		line-height: 1vw;
+		letter-spacing: -0.01em;
+		color: #141516;
+	}
+
+	.history-frame .search img {
+		width: 1.04166666667vw;
+		height: auto;
+		position: absolute;
+		right: 3.125vw;
+		top: 23.1vh;
+	}
+
+	.history-frame .search input::placeholder {
+		color: #989FA6;
+	}
+
+	.history-frame .list {
+		margin-top: 6vh;
+		display: grid;
+	}
+
+	.history-frame .list .list-item {
+		height: 11.3vh;
+		width: 100%;
+		border: none;
+		border-bottom: 2px solid #F1F3F5;
+	}
+
+	.history-frame .list .list-item .left {
+		display: inline-block;
+		width: 11.6145833333vw;
+		margin-top: 2.8vh;
+	}	
+
+	.history-frame .list .list-item .left .title {
+		width: 100%;
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 1.04166666667vw;
+		font-weight: 500;
+		line-height: 1.04166666667vw;
+		letter-spacing: -0.01em;
+		text-align: left;
+		color: #141516;
+	}
+
+	.history-frame .list .list-item .left .title p {
+		margin: 0;
+	}	
+
+	.history-frame .list .list-item .left .url {
+		width: 100%;
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 1.25vw;
+		font-weight: 500;
+		line-height: 1.5vw;
+		letter-spacing: -0.02em;
+		text-align: left;		
+		color: #989FA6;
+		margin-top: 0.8vh;
+	}		
+
+	.history-frame .list .list-item .left .url p {
+		margin: 0;
+	}		
+
+	.history-frame .list .list-item .right {
+		display: inline-block;
+		width: 11.25vw;
+		margin-left: auto;
+		margin-top: 3.25vh;
+		margin-right: 0;
+		float: right;
+	}	
+
+	.history-frame .list .list-item .right button {
+		height: 4.8vh;
+		width: 2.5vw;
+		display: inline-block;
+		{% comment %} padding: 1.6vh 0px 0px 0px; {% endcomment %}
+		gap: 0.8vh;
+		border: none;
+		border-radius: 5000px;
+		opacity: 0px;
+	}	
+
+	.history-frame .list .list-item .right button img {
+		height: 1.6vh;
+		width: auto;
+	}	
+
+{% endblock %}
+{% block urls_bold %}class="bold"{% endblock %}
+{% block history_content %}
+	<div class="favorite-frame">
+		<div class="favorite-menu">
+			<div class="favorite-menu-item selected">
+				Избранное
+			</div>
+			<div class="history-menu-item">
+				Все ссылки
+			</div>
+		</div>
+		<div class="search">
+			<input type="text" placeholder="Поиск" />
+			<img src="{% static 'images/svg/normal/search.svg' %}" />
+		</div>
+		<div class="list">
+			{% for url in urls %}
+			<div class="list-item">
+				<div class="left">
+					<div class="title">
+						<p>{{ url.title }}</p>
+					</div>
+					<div class="url">
+						<p>{{ request.get_host }}/{{ url.short_url }}</p>
+					</div>
+				</div>
+				<div class="right">
+					<button id="editButton">
+						<img src="{% static 'images/svg/bold/edit.svg' %}" />
+					</button>
+					<button id="copyButton">
+						<img src="{% static 'images/svg/bold/copy.svg' %}" />
+					</button>
+					<button id="shareButton">
+						<img src="{% static 'images/svg/bold/share.svg' %}" />
+					</button>
+					<button id="deleteButton">
+						<img src="{% static 'images/svg/bold/delete.svg' %}" />
+					</button>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+	<div id="share_frame" class="share-frame" hidden>
+		<a href="https://t.me/share/url?url=http://{{ host }}/qr/{{ url }}&text=Делюсь с вами ссылкой на QR через сервис link.example.com">
+			<button id="shareToTelegramButton">
+				<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
+				<span>Отправить в Telegram</span>
+			</button>
+		</a>
+		<a href="https://api.whatsapp.com/send?text=Делюсь с вами QR http://{{ host }}/qr/{{ url }} через сервис link.example.com">
+			<button id="shareToWhatsAppButton">
+				<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
+				<span>Отправить в WhatsApp</span>
+			</button>
+		</a>
+	</div>
+{% endblock %}	
