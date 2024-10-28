@@ -290,18 +290,25 @@
 		</script>
 	{% else %}
 		<script>
+			function changeActive() {
+				if (inputField.value.trim() !== "") {
+					submitButton.classList.add("active");
+					submitButton.removeAttribute("disabled");
+				} else {
+					submitButton.classList.remove("active");
+					submitButton.setAttribute("disabled", "disabled");
+				}
+			};
+
 			document.addEventListener("DOMContentLoaded", function () {
-				inputField.addEventListener("input", function () {
-					if (inputField.value.trim() !== "") {
-						submitButton.classList.add("active");
-					} else {
-						submitButton.classList.remove("active");
-					}
-				});
+				changeActive();
+				inputField.addEventListener("input", changeActive);
 			});
+
 			crossButton.addEventListener("click", function () {
 				inputField.value = "";
 				submitButton.classList.remove("active");
+				submitButton.setAttribute("disabled", "disabled");
 			});
 		</script>
 	{% endif %}
