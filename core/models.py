@@ -13,6 +13,12 @@ class ShortedUrl(models.Model):
         null = True
     )
 
+    title = models.CharField(
+        verbose_name="Название ссылки",
+        default="",
+        max_length=50
+    )
+
     original_url = models.URLField(
         verbose_name = 'Оригинальная ссылка',
         max_length = 200

@@ -24,7 +24,7 @@ def linker(request, url=""):
         shorted_urls = ShortedUrl.objects.filter(short_url = url)
         if not shorted_urls.exists():
             return HttpResponseNotFound()
-        
+
         shorted_url = shorted_urls.first()
 
         original_url = shorted_url.original_url
@@ -33,7 +33,7 @@ def linker(request, url=""):
         'host': request.get_host(),
         'url': url,
         'original_url': original_url,
-        'is_authenticated': request.user.is_authenticated
+        'is_favorite': shorted_url.is_favorite
     })
 
 def generate_url(request):
@@ -91,6 +91,27 @@ def account(request):
         return redirect('login')
 
     return render(request, "auth/account.html", {'user': user})
+
+def make_url_favorite(request):
+    """Делает ссылку избранной"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        short_url = request.POST['url']
+        title = request.POST['title']
+
+        shorted_urls = ShortedUrl.objects.filter(short_url = short_url)
+        if not shorted_urls.exists():
+            return redirect(linker, url=short_url)
+
+        shorted_url = shorted_urls.first()
+        shorted_url.title = title
+        shorted_url.is_favorite = True
+        shorted_url.save()
+
+    return redirect(linker, url=short_url)
 
 def account_update_data(request):
     """Обновляет данные пользователя"""

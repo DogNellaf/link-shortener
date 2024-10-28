@@ -154,6 +154,10 @@
 		box-shadow: 0px 4px 14px 0px #14151626;
 	}
 
+	.index-frame .share-frame a {
+		text-decoration: none;
+	}
+
 	.index-frame .share-frame button {
 		width: 15.208333333vw;
 		height: 5vh;
@@ -226,30 +230,58 @@
 				<button id="shareButton">
 					<img src="{% static 'images/svg/bold/share.svg' %}" />
 				</button>
-				{% if is_authenticated %}
+				{% if user.is_authenticated %}
 				<button id="favoriteButton">
-					<img src="{% static 'images/svg/bold/heart.svg' %}" />
+					{% if is_favorite %}
+						<img src="{% static 'images/svg/bold/heart.svg' %}" />
+					{% else %}
+						<img src="{% static 'images/svg/bold/heart-fill.svg' %}" />	
+					{% endif %}
 				</button>
 				{% endif %}
 			</div>
 		</div>
 		<div id="share_frame" class="share-frame" hidden>
-			<button id="shareToTelegramButton" onclick="alert('В разработке...');">
-				<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
-				<span>Отправить в Telegram</span>
-			</button>
-			<button id="shareToWhatsAppButton" onclick="alert('В разработке...');">
-				<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
-				<span>Отправить в WhatsApp</span>
-			</button>
+			<a href="https://t.me/share/url?url=http://{{ host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
+				<button id="shareToTelegramButton">
+					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
+					<span>Отправить в Telegram</span>
+				</button>
+			</a>
+			<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ host }}/{{ url }} через сервис link.example.com">
+				<button id="shareToWhatsAppButton">
+					<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
+					<span>Отправить в WhatsApp</span>
+				</button>
+			</a>
 		</div>
+		<script>
+			var is_share_frame_hidden = true;
+			{% if user.is_authenticated %}
+				{% if is_favorite %}
+					favoriteButton.addEventListener("click", function () {
+						add_favorite_block.removeAttribute("hidden");
+					});
+				{% else %}
+
+				{% endif %}
+			{% endif %}
+			copyButton.addEventListener('click', function(event) {
+				navigator.clipboard.writeText(short_url.innerHTML);
+				short_url_copy_info.removeAttribute("hidden");
+			})
+			shareButton.addEventListener('click', function(event) {
+				if (is_share_frame_hidden) {
+					share_frame.removeAttribute("hidden");
+					is_share_frame_hidden = false;
+				} else {
+					share_frame.setAttribute("hidden", "hidden");
+					is_share_frame_hidden = true;
+				}
+			})
+		</script>
 	{% else %}
 		<script>
-			{% if is_authenticated %}
-			favoriteButton.addEventListener("click", function () {
-				
-			});
-			{% endif %}
 			document.addEventListener("DOMContentLoaded", function () {
 				inputField.addEventListener("input", function () {
 					if (inputField.value.trim() !== "") {
@@ -265,20 +297,4 @@
 			});
 		</script>
 	{% endif %}
-	<script>
-		var is_share_frame_hidden = true;
-		copyButton.addEventListener('click', function(event) {
-			navigator.clipboard.writeText(short_url.innerHTML);
-			short_url_copy_info.removeAttribute("hidden");
-		})
-		shareButton.addEventListener('click', function(event) {
-			if (is_share_frame_hidden) {
-				share_frame.removeAttribute("hidden");
-				is_share_frame_hidden = false;
-			} else {
-				share_frame.setAttribute("hidden", "hidden");
-				is_share_frame_hidden = true;
-			}
-		})
-	</script>
 {% endblock %}

@@ -482,12 +482,104 @@
                 color: #09EC3B;
             }
 
+            .add-favorite-background {
+                position: absolute;
+                width: 100vw;
+                height: 100vh;
+                top: 0;
+                left: 0;
+                background-color: #141516;
+                opacity: 0.4;
+                z-index: 1000;
+            }
+        
+            .add-favorite-frame {
+                width: 23.9583333333vw;
+                height: 31.4vh;
+                position: absolute;
+                top: 34.3vh;
+                left: 38.0208333333vw;
+                gap: 0.4vh;
+                border-radius: 2vh;
+                opacity: 0px;
+                z-index: 1001;
+                background-color: white;
+                padding: 4vh;
+            }
+
+            .add-favorite-frame h1 {
+                font-family: var(--font-family-sf_pro_display-regular);
+                font-size: 1.5625vw;
+                font-weight: 500;
+                line-height: 1.875vw;
+                letter-spacing: -0.02em;
+                text-align: left;
+                color: #141516;
+            }
+
+            .add-favorite-frame input {
+                margin-top: 4vh !important;
+                width: 19.7916666667vw;
+                height: 7vh;
+                border: #F1F3F5;
+                border-radius: 2vh;
+                padding: 2.6vh;
+                padding-right: 2.447916666vw;
+                margin-top: 0;
+        
+                font-family: var(--font-family-sf_pro_display-medium);
+                background-color: var(--wild-sand);
+                font-size: 0.9375vw;
+                font-color: #141516;
+                line-height: 0.9375vw;  
+            }
+
+            .add-favorite-frame button {
+                margin-top: 2vh !important;
+                width: 19.7916666667vw;
+                height: 6.8vh;
+                border: #F1F3F5;
+                border-radius: 2vh;
+                padding: 2.6vh;
+                padding-right: 2.447916666vw;
+                margin-top: 0;
+        
+                font-family: var(--font-family-sf_pro_display-medium);
+                background-color: var(--wild-sand);
+                font-size: 0.9375vw;
+                font-weight: 500;
+                line-height: 0.9375vw;
+                letter-spacing: -0.01em;
+                color: #989FA6;
+            }
+
+            .add-favorite-frame button span {
+                margin-right: 0.52083333333vw;
+            }
+
+            .add-favorite-frame button img {
+                height: 1.04166666667vw;
+            }
+
         </style>
         <style>{% block style %}{% endblock %}</style>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body style="margin: 0;background: #f1f3f5;">
+        <div id="add_favorite_block" hidden>
+            <div class="add-favorite-background"></div>
+            <form class="add-favorite-frame" method="POST" action="{% url 'make_url_favorite' %}">
+                {% csrf_token %}
+                <h1>Назовите ссылку</h1>
+                <input name="title" type="text" placeholder="Название ссылки"/>
+                <input name="url" type="hidden" value=""/>
+                <button type="submit">
+                    <span>Добавить в избранное</span>
+                    <img src="{% static 'images/svg/normal/heart.svg' %}"/>
+                </button>
+            </form>
+        </div>
         <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
         <header>
             <div class="account">
