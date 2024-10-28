@@ -5,7 +5,9 @@ import string
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
+from django.core.files.storage import FileSystemStorage
 from core.models import ShortedUrl
+from linkshortener import settings
 from linkshortener.settings import SHORT_URL_LENGTH
 
 def index(request):
@@ -110,6 +112,35 @@ def account_update_data(request):
 
         user.email = email
 
+        user.save()
+        return redirect(account)
+
+    return HttpResponseNotFound()
+
+def avatar_remove(request):
+    """Удаляет аватар пользователя"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        user.avatar = None
+        user.save()
+        return redirect(account)
+
+    return HttpResponseNotFound()
+
+def avatar_update(request):
+    """Загружает аватар пользователя"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        avatar = request.FILES['avatar']
+        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
+        filename = fs.save(avatar.name, avatar)
+        user.avatar = fs.url(filename)
         user.save()
         return redirect(account)
 

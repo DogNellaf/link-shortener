@@ -1,13 +1,13 @@
 """Содержит описание моделей базы данных"""
 
-from django.contrib.auth.models import User
 from django.db import models
 from linkshortener.settings import SHORT_URL_LENGTH
+from custom_auth.models import CustomUser
 
 class ShortedUrl(models.Model):
     """Представляет класс сокращенной ссылки"""
     author = models.ForeignKey(
-        to = User,
+        to = CustomUser,
         verbose_name = "Автор ссылки",
         on_delete = models.SET_NULL,
         null = True

@@ -1,3 +1,12 @@
+"""Содержит описание моделей кастомной авторизации"""
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+class CustomUser(AbstractUser):
+    """Описывает кастомного пользователя"""
+    avatar = models.ImageField(
+        verbose_name="Аватар пользователя",
+        upload_to='avatars/',
+        null=True,
+        blank=True
+    )

@@ -1,10 +1,9 @@
 """Класс содержит методы модуля авторизации"""
-from base64 import encode
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
 from django.contrib.auth import authenticate, login as login_method
-from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
+from custom_auth.models import CustomUser
 
 def registration(request):
     """Функция возвращает страницу регистрации"""
@@ -23,7 +22,7 @@ def registration(request):
                 "email": email,
             })
 
-        same_users = User.objects.filter(email=email)
+        same_users = CustomUser.objects.filter(email=email)
         if same_users.exists():
             return render(request, "auth/registration.html", {
                 "error": "Пользователь с такой почтой уже существует",
@@ -32,7 +31,7 @@ def registration(request):
                 "email": email
             })
 
-        user = User.objects.create(
+        user = CustomUser.objects.create(
             username=email,  # Используем email в качестве username
             email=email,
             first_name=first_name,

@@ -57,6 +57,8 @@
 		height: 11.5vw;
 		width: 11.5vw;
 		display: inline-block;
+		border-radius: 500px;
+		object-fit: cover;
 	}
 
 	.account-frame .data {
@@ -115,21 +117,29 @@
 {% block account_content %}
 	<div class="avatar">
 		<div class="change">
-			<button onclick="alert('Аватар в разработке');">
+			<button id="changeButton">
 				<img src="{% static 'images/svg/normal/upload.svg' %}" />
 			</button>
+			<input type="file" id="avatarInput" name="avatar" accept="image/png" style="display: none;" />
 			<p>Изменить</p>
 		</div>
 		
 		<div class="image">
-			<img src="{% static 'images/svg/normal/avatar-background.svg' %}">
+			{% if user.avatar %}
+				<img src="{{ user.avatar }}">
+			{% else %}
+				<img src="{% static 'images/svg/normal/avatar-background.svg' %}">
+			{% endif %}
 		</div>
 
 		<div class="remove">
-			<button onclick="alert('Аватар в разработке');">
-				<img src="{% static 'images/svg/bold/trash.svg' %}" />
-			</button>
-			<p>Удалить</p>
+			<form method="POST" action="{% url 'avatar_remove' %}">
+				{% csrf_token %}
+				<button id="removeButton" type="submit">
+					<img src="{% static 'images/svg/bold/trash.svg' %}" />
+				</button>
+				<p>Удалить</p>
+			</form>
 		</div>
 	</div>
 	{% if error %}
@@ -149,6 +159,33 @@
 		</div>
 	</form>
 	<script>
+        changeButton.addEventListener('click', function() {
+            document.getElementById('avatarInput').click();
+        });
 
+		avatarInput.addEventListener('change', function(event) {
+			const fileInput = event.target;
+            if (fileInput.files.length > 0) {
+                const formData = new FormData();
+                formData.append('avatar', fileInput.files[0]);
+
+                fetch("{% url 'avatar_update' %}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}'
+                    },
+                    body: formData
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.reload();
+                    } else {
+                        alert("Ошибка при загрузке аватара.");
+                    }
+                }).catch(error => {
+                    console.error('Ошибка:', error);
+                    alert("Ошибка при загрузке аватара.");
+                });
+            }
+		});
 	</script>
 {% endblock %}

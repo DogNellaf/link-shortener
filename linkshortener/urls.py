@@ -15,6 +15,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf import settings
+from django.conf.urls.static import static
 from django.urls import path, include
 import core.views as core_views
 import custom_auth.views as auth_views
@@ -28,15 +30,19 @@ urlpatterns = [
     path('qr', core_views.qr_generator, name = "qr_generator"),
     path('history', core_views.history, name = "history"),
     path('price', core_views.price, name = "price"),
+
     path('account', core_views.account, name = "account"),
+    path('account/data/avatar/remove', core_views.avatar_remove, name="avatar_remove"),
+    path('account/data/avatar/update', core_views.avatar_update, name="avatar_update"),
     path('account/data/update', core_views.account_update_data, name="account_update_data"),
     path('account/password/update', auth_views.account_update_password, name="account_update_password"),
     path('account/price', core_views.account_price, name = "account_price"),
     path('account/password', core_views.account_password, name = "account_password"),
+
     path('privacy', core_views.privacy, name = "privacy"),
     # path('auth/', include('django.contrib.auth.urls')),
     path('auth/registration/', auth_views.registration, name = "registration"),
     path('auth/login/', auth_views.login, name="login"),
     path('auth/password/reset', auth_views.reset_password, name="password_reset"),
     path('<str:url>', core_views.redirect_to_url, name = "redirect_to_url"),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
