@@ -197,10 +197,26 @@
 			<input id="emailInput" name="email" type="email" placeholder="Email" value="{{ user.email }}"/>
 		</div>
 		<div class="submitRow">
-			<input id="submitButton" type="submit" class="active submit text_label" value="Обновить"/>
+			<input id="submitButton" type="submit" class="submit text_label" value="Обновить"/>
 		</div>
 	</form>
 	<script>
+		function changeActive() {
+			if (firstNameInput.value.trim() !== "" && lastNameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
+				submitButton.classList.add("active");
+				submitButton.removeAttribute("disabled");
+			} else {
+				submitButton.classList.remove("active");
+				submitButton.setAttribute("disabled", "disabled");
+			}
+		};
+
+		changeActive();
+
+		firstNameInput.addEventListener("input", changeActive);
+		lastNameInput.addEventListener("input", changeActive);
+		emailInput.addEventListener("input", changeActive);
+
         changeButton.addEventListener('click', function() {
             document.getElementById('avatarInput').click();
         });
