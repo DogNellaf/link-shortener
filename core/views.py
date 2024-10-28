@@ -7,7 +7,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import urlparse
-from core.models import ShortedUrl
+from core.models import Qr, ShortedUrl
+from core.utils import generate_short_url
 from custom_auth.models import CustomUser
 from linkshortener import settings
 from linkshortener.settings import SHORT_URL_LENGTH
@@ -45,16 +46,7 @@ def generate_url(request):
     """Генерирует ссылку для текущего пользователя или анонимно"""
     if request.method == "POST":
         url = request.POST['url']
-        is_exists = True
-
-        url_charset = string.ascii_letters + string.digits
-
-        while is_exists:
-            short_url = ""
-            for _ in range(SHORT_URL_LENGTH):
-                short_url += random.choice(url_charset)
-
-            is_exists = ShortedUrl.objects.filter(short_url=short_url).exists()
+        short_url = generate_short_url(url)
 
         user = request.user
 
@@ -73,6 +65,26 @@ def generate_url(request):
 def qr_generator(request):
     """Отображение страницы QR-генератора"""
     return render(request, "qr_generator.html")
+
+def generate_qr(request):
+    """Создает QR код по ссылке"""
+    if request.method == "POST":
+        url = request.POST['url']
+        short_url = generate_short_url(url)
+
+        user = request.user
+
+        qr = Qr(
+            author = user if user.is_authenticated else None,
+            original_url = url,
+            short_url = short_url
+        )
+
+        qr.save()
+
+        return redirect(linker, url=short_url)
+
+    return HttpResponseNotFound()
 
 def history(request):
     """Отображение страницы Мои ссылки и QR-коды"""
