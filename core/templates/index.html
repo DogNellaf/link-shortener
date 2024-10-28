@@ -232,10 +232,15 @@
 				</button>
 				{% if user.is_authenticated %}
 				<button id="favoriteButton">
-					{% if is_favorite %}
+					{% if not is_favorite %}
 						<img src="{% static 'images/svg/bold/heart.svg' %}" />
 					{% else %}
 						<img src="{% static 'images/svg/bold/heart-fill.svg' %}" />	
+						<form method="POST" action="{% url 'remove_url_favorite' %}" hidden>
+							{% csrf_token %}
+							<input name="url" type="text" value="{{ url }}"/>
+							<input id="sendRemoveUrlButton" type="submit"/>
+						</form>
 					{% endif %}
 				</button>
 				{% endif %}
@@ -260,10 +265,13 @@
 			{% if user.is_authenticated %}
 				{% if is_favorite %}
 					favoriteButton.addEventListener("click", function () {
-						add_favorite_block.removeAttribute("hidden");
+						sendRemoveUrlButton.click();
 					});
 				{% else %}
-
+					favoriteButton.addEventListener("click", function () {
+						favoriteUrlInput.value = "{{ url }}";
+						add_favorite_block.removeAttribute("hidden");
+					});
 				{% endif %}
 			{% endif %}
 			copyButton.addEventListener('click', function(event) {

@@ -572,13 +572,29 @@
             <form class="add-favorite-frame" method="POST" action="{% url 'make_url_favorite' %}">
                 {% csrf_token %}
                 <h1>Назовите ссылку</h1>
-                <input name="title" type="text" placeholder="Название ссылки"/>
-                <input name="url" type="hidden" value=""/>
-                <button type="submit">
+                <input id="favoriteTitleInput" name="title" type="text" placeholder="Название ссылки" minlength="1" value="{{ url_title }}"/>
+                <input id="favoriteUrlInput" name="url" type="hidden" value=""/>
+                <button id="favoriteSubmitButton" type="submit">
                     <span>Добавить в избранное</span>
-                    <img src="{% static 'images/svg/normal/heart.svg' %}"/>
+                    <img id="favoriteSubmitIcon" src="{% static 'images/svg/normal/heart.svg' %}"/>
                 </button>
             </form>
+            <script>
+
+                function changeFavoriteActive() {
+					if (favoriteTitleInput.value.trim() !== "") {
+						favoriteSubmitButton.classList.add("active");
+                        favoriteSubmitIcon.setAttribute("src", "{% static 'images/svg/normal/heart-white.svg' %}");
+					} else {
+						favoriteSubmitButton.classList.remove("active");
+                        favoriteSubmitIcon.setAttribute("src", "{% static 'images/svg/normal/heart.svg' %}");
+					}
+                };
+
+                changeFavoriteActive();
+
+                favoriteTitleInput.addEventListener("input", changeFavoriteActive);
+            </script>
         </div>
         <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
         <header>

@@ -19,6 +19,8 @@ def linker(request, url=""):
     """Отображение view главной страницы линкера"""
 
     original_url = ""
+    is_favorite = False
+    url_title = ""
 
     if url != "":
         shorted_urls = ShortedUrl.objects.filter(short_url = url)
@@ -26,14 +28,16 @@ def linker(request, url=""):
             return HttpResponseNotFound()
 
         shorted_url = shorted_urls.first()
-
         original_url = shorted_url.original_url
+        is_favorite = shorted_url.is_favorite
+        url_title = shorted_url.title
 
     return render(request, "index.html", {
         'host': request.get_host(),
         'url': url,
         'original_url': original_url,
-        'is_favorite': shorted_url.is_favorite
+        'is_favorite': is_favorite,
+        'url_title': url_title
     })
 
 def generate_url(request):
@@ -109,6 +113,25 @@ def make_url_favorite(request):
         shorted_url = shorted_urls.first()
         shorted_url.title = title
         shorted_url.is_favorite = True
+        shorted_url.save()
+
+    return redirect(linker, url=short_url)
+
+def remove_url_favorite(request):
+    """Удаляет ссылку из избранного"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        short_url = request.POST['url']
+
+        shorted_urls = ShortedUrl.objects.filter(short_url = short_url)
+        if not shorted_urls.exists():
+            return redirect(linker, url=short_url)
+
+        shorted_url = shorted_urls.first()
+        shorted_url.is_favorite = False
         shorted_url.save()
 
     return redirect(linker, url=short_url)
