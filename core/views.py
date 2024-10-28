@@ -8,6 +8,7 @@ from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import urlparse
 from core.models import ShortedUrl
+from custom_auth.models import CustomUser
 from linkshortener import settings
 from linkshortener.settings import SHORT_URL_LENGTH
 
@@ -147,7 +148,7 @@ def account_update_data(request):
         user.last_name = request.POST['last_name']
         email = request.POST['email']
 
-        same_users = User.objects.filter(email=email)
+        same_users = CustomUser.objects.filter(email=email)
         if same_users.exists():
             same_user = same_users.first()
             if same_user.pk != user.pk:
