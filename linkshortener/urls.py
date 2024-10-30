@@ -35,12 +35,15 @@ urlpatterns = [
     path('qr/<str:url>', core_views.qr_generator, name = "qr_generator"),
 
     path('urls/title/update', core_views.update_url_title, name = "update_url_title"),
-    path('urls/title/delete', core_views.delete_url_title, name = "delete_url_title"),
-
+    path('urls/delete', core_views.delete_url, name = "delete_url_title"),
     path('urls/history', core_views.history_urls, name = "history_urls"),
     path('urls/favorite', core_views.favorite_urls, name = "favorite_urls"),
+
+    # path('qrs/title/update', core_views.update_url_title, name = "update_url_title"),
+    path('qrs/delete', core_views.delete_qr, name = "delete_qr"),
     path('qrs/history', core_views.history_qrs, name = "history_qrs"),
     path('qrs/favorite', core_views.favorite_qrs, name = "favorite_qrs"),
+
 
     path('price', core_views.price, name = "price"),
 

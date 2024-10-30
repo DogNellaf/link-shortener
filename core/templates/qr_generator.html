@@ -224,9 +224,8 @@
 		<hr>
 		<div class="result-frame">
 			<div style="display: inline-block;">
-				<div class="short-url-frame">
+				<div id="qr_image" class="short-url-frame">
 					{{ qr }}
-					{% comment %} <a id="short_url" href="http://{{ host }}/{{ url }}">{{ host }}/{{ url }}</a> {% endcomment %}
 				</div>
 			</div>
 			<div class="buttons">
@@ -281,6 +280,7 @@
 				{% endif %}
 			{% endif %}
 			downloadButton.addEventListener('click', function(event) {
+				download_qr_image.innerHTML = qr_image.innerHTML;
 				download_qr_block.removeAttribute("hidden");
 			})
 			shareButton.addEventListener('click', function(event) {

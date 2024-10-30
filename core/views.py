@@ -121,7 +121,7 @@ def update_url_title(request):
 
     return redirect(request.META['HTTP_REFERER'])
 
-def delete_url_title(request):
+def delete_url(request):
     """Метод удаляет ссылку"""
     user = request.user
 
@@ -173,7 +173,35 @@ def history_urls(request):
 
 def favorite_qrs(request):
     """Отображение страницы Мои QR-коды - избранное"""
-    pass
+    user = request.user
+
+    if not user.is_authenticated:
+        urls = [] # TODO: уточнить, что должно происходить в этом случае
+    else:
+        urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = True)
+
+    urls_qrs = {}
+    for url in urls:
+        qr = make_embedded_qr_code(
+            data=f"http://{request.get_host()}/{url.short_url}",
+            qr_code_options=QR_CODE_OPTIONS
+        )
+        urls_qrs[url] = qr
+
+    return render(request, "history/favorite_qrs.html", {'urls': urls_qrs})
+
+def delete_qr(request):
+    """Метод удаляет QR-код"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url, is_only_qr = True)
+        if urls.exists():
+            urls.first().delete()
+
+    return redirect(request.META['HTTP_REFERER'])
 
 def history_qrs(request):
     """Отображение страницы Мои QR-коды - история"""

@@ -624,6 +624,14 @@
                 color: #141516;
             }
 
+            .cross {
+                position: absolute;
+                top: 2vh;
+                right: 2vh;
+                height: 3.2vh;
+                width: 3.2vh;
+            }	
+
         </style>
         <style>{% block style %}{% endblock %}</style>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -632,9 +640,10 @@
     <body style="margin: 0;background: #f1f3f5;">
         <div id="download_qr_block" hidden>
             <div class="download-qr-background"></div>
+            <div id="download_qr_image" hidden></div>
             <div class="download-qr-frame">
                 <h1>Скачать QR код</h1>
-                <img id="closeDownloadQrFrameButton" src="{% static 'images/svg/normal/cross-small.svg' %}" />
+                <img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(download_qr_block)"/>
                 <button id="downloadPngButton">
                     <p>.PNG</p>
                 </button>
@@ -643,12 +652,8 @@
                 </button>                
             </div>
             <script>
-                closeDownloadQrFrameButton.addEventListener("click", function () {
-                    download_qr_block.setAttribute("hidden", "hidden");
-                });
-
                 downloadSvgButton.addEventListener('click', function() {
-                    let svg = document.getElementsByClassName('segno')[0];
+                    let svg = download_qr_image.getElementsByClassName('segno')[0];
                     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
                     svg.setAttribute("width", "256");
                     svg.setAttribute("height", "256");
@@ -665,8 +670,8 @@
                 });
 
                 downloadPngButton.addEventListener('click', function() {
-                    let svgElement = document.getElementsByClassName('segno')[0];
-                    let svgData = new XMLSerializer().serializeToString(svgElement);
+                    let svg = download_qr_image.getElementsByClassName('segno')[0];
+                    let svgData = new XMLSerializer().serializeToString(svg);
                     let canvas = document.createElement('canvas');
                     let ctx = canvas.getContext('2d');
                     let img = new Image();
@@ -774,5 +779,10 @@
                 <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
             </button>
         </footer>
+        <script>
+            function closeFrame(frame) {
+                frame.setAttribute("hidden", "hidden");
+            }
+        </script>
     </body>
 </html>
