@@ -87,9 +87,9 @@ AUTH_USER_MODEL = 'custom_auth.CustomUser'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
+        'NAME': 'linkshortener',
+        'USER': 'linkshortener',
+        'PASSWORD': 'CHANGE_ME_DB_PASSWORD',
         'HOST': 'localhost',
         'PORT': '5432',
     }
