@@ -122,7 +122,7 @@ def update_url_title(request):
     return redirect(request.META['HTTP_REFERER'])
 
 def delete_url(request):
-    """Метод удаляет ссылку"""
+    """Метод удаляет ссылку из избранного"""
     user = request.user
 
     if request.method == "POST" and user.is_authenticated:
@@ -130,7 +130,9 @@ def delete_url(request):
 
         urls = ShortedUrl.objects.filter(author = user, short_url = url)
         if urls.exists():
-            urls.first().delete()
+            url = urls.first()
+            url.is_favorite = False
+            url.save()
 
     return redirect(request.META['HTTP_REFERER'])
 
@@ -191,7 +193,7 @@ def favorite_qrs(request):
     return render(request, "history/favorite_qrs.html", {'urls': urls_qrs})
 
 def delete_qr(request):
-    """Метод удаляет QR-код"""
+    """Метод удаляет QR-код из избранного"""
     user = request.user
 
     if request.method == "POST" and user.is_authenticated:
@@ -199,7 +201,9 @@ def delete_qr(request):
 
         urls = ShortedUrl.objects.filter(author = user, short_url = url, is_only_qr = True)
         if urls.exists():
-            urls.first().delete()
+            url = urls.first()
+            url.is_favorite = False
+            url.save()
 
     return redirect(request.META['HTTP_REFERER'])
 
