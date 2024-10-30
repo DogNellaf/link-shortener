@@ -2,7 +2,6 @@
 {% load static %}
 {% block account_style %}
 .account-frame .avatar {
-    display: flex; /* Используем Flexbox для центровки */
     flex-direction: column; /* Вертикальное направление */
     align-items: center; /* Центрирование по горизонтали */
     margin-top: 4vh;
@@ -31,10 +30,14 @@
 
 .account-frame .avatar button {
     height: 4vh;
-    width: 2.08333333333vw;
+    width: 4vh;
     background-color: #F1F3F5;
     border: none;
     border-radius: 5vh;
+    padding: 0; /* Убираем padding */
+    margin: 0; /* Убираем автоматические отступы */
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center; /* Выравнивание по вертикали */
 }
 
 .account-frame .avatar button img {
