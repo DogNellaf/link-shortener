@@ -22,7 +22,7 @@ import core.views as core_views
 import custom_auth.views as auth_views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('', core_views.index, name = "index"),
     path('linker', core_views.linker, name = "linker"),
     path('linker/url/create', core_views.generate_url, name="generate_url"),

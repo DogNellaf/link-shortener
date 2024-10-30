@@ -1,6 +1,7 @@
 """Содержит endpoints проекта"""
 import random
 import string
+import pymorphy3
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
@@ -151,9 +152,24 @@ def history_urls(request):
     if not user.is_authenticated:
         urls = [] # TODO: уточнить, что должно происходить в этом случае
     else:
-        urls = ShortedUrl.objects.filter(author = user)
+        urls = ShortedUrl.objects.filter(author = user).order_by('-created_at')[:100]
 
-    return render(request, "history/history_urls.html", {'urls': urls})
+    morph = pymorphy3.MorphAnalyzer(lang='ru')
+
+    urls_by_dates = {}
+
+    for url in urls:
+        created_at_date = url.created_at.date()
+        month = morph.parse(created_at_date.strftime('%B'))[0].inflect({'gent'}).word
+        day = created_at_date.strftime('%d')
+        created_at_date_title = f"{day} {month}"
+        dates = urls_by_dates.keys()
+        if created_at_date_title in dates:
+            urls_by_dates[created_at_date_title].append(url)
+        else:
+            urls_by_dates[created_at_date_title] = [url]
+
+    return render(request, "history/history_urls.html", {'urls_by_dates': urls_by_dates})
 
 def favorite_qrs(request):
     """Отображение страницы Мои QR-коды - избранное"""
