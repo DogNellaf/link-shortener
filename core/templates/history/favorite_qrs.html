@@ -78,6 +78,9 @@
 	.history-frame .list {
 		margin-top: 6vh;
 		display: grid;
+        height: 33.9vh;
+		overflow-y: auto;
+		scrollbar-width: none;
 	}
 
 	.history-frame .list .list-item {
@@ -95,7 +98,7 @@
 
 	.history-frame .list .list-item .left .title {
 		width: 100%;
-		font-family: var(--font-family-sf_pro_display-regular);
+		font-family: var(--font-family-sf_pro_display-medium);
 		font-size: 1.04166666667vw;
 		font-weight: 500;
 		line-height: 1.04166666667vw;
@@ -134,20 +137,22 @@
 	}	
 
 	.history-frame .list .list-item .right button {
-		height: 4.8vh;
+		height: 2.5vw;
 		width: 2.5vw;
 		display: inline-block;
-		{% comment %} padding: 1.6vh 0px 0px 0px; {% endcomment %}
 		padding: 0;
 		gap: 0.8vh;
 		border: none;
 		border-radius: 5000px;
-		opacity: 0px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
 	}	
 
 	.history-frame .list .list-item .right button img {
 		height: 1.6vh;
 		width: 1.6vh;
+        margin: 0;
 	}	
 
 	#delete_frame .background {
@@ -232,52 +237,6 @@
 		box-shadow: 0px 4px 14px 0px #14151626;
 	}
 
-    #show_frame .background {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 100vw;
-		height: 100vh;
-		background: #141516;
-		opacity: 0.4;
-		z-index: 1000;
-	}
-
-	#show_frame #qrFrame {
-		position: fixed;
-		left: 38.0208333333vw;
-		top: 31.8vh;
-		width: 23.9583333333vw;
-		height: 44.2vh;
-		background: #FFFFFF;
-		opacity: 1;
-		box-shadow: 0px 4px 14px 0px #14151626;
-		z-index: 1001;
-		border-radius: 2vh;
-		padding: 4vh;
-	}
-
-	#show_frame h1 {
-		font-family: var(--font-family-sf_pro_display-middle);
-		font-size: 1.5625vw;
-		font-weight: 500;
-		line-height: 1.875vw;
-		letter-spacing: -0.02em;
-		text-align: left;
-	}
-
-    #show_frame #qrImageFrame {
-		width: 100%;
-        height: 90%;
-        z-index: 1001;
-	}
-
-    #show_frame .segno {
-		width: 100%;
-        height: 100%;
-        z-index: 1001;
-	}
-
 {% endblock %}
 {% block qrs_bold %}class="bold"{% endblock %}
 {% block favorite_url %}{% url 'favorite_qrs' %}{% endblock %}
@@ -318,14 +277,6 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div id="show_frame" class="edit-frame" hidden>
-		<div class="background"></div>
-        <div id="qrFrame">
-            <img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(show_frame)"/>
-            <h1>Ваш QR</h1>
-            <div id="qrImageFrame"></div>
-        </div>
-	</div>
 	<div id="delete_frame" class="delete-frame" hidden>
 		<div class="background"></div>
 		<img onclick="closeDeleteFrame()" />
@@ -339,19 +290,24 @@
 		</form>
 	</div>
 	<script>
-		function showDownload(shortUrl) {
-            download_qr_image.innerHTML = document.getElementById(shortUrl + "-qr").innerHTML;
-			download_qr_block.removeAttribute("hidden");
-		}
-
-		function showQR(shortUrl) {
-            qrImageFrame.innerHTML = document.getElementById(shortUrl + "-qr").innerHTML;
-			show_frame.removeAttribute("hidden");
-		}
-
 		function showDeleteFrame(shortUrl) {
 			url_to_delete.value = shortUrl;
 			delete_frame.removeAttribute("hidden");
 		}
 	</script>
+    <script>
+        document.querySelector('.search input').addEventListener('input', function () {
+            const searchText = this.value.toLowerCase();
+            const listItems = document.querySelectorAll('.list .list-item');
+    
+            listItems.forEach(item => {
+                const titleText = item.querySelector('.title p').textContent.toLowerCase();
+                if (titleText.includes(searchText)) {
+                    item.style.display = 'block'; // Показать элемент
+                } else {
+                    item.style.display = 'none'; // Скрыть элемент
+                }
+            });
+        });
+    </script>
 {% endblock %}	
