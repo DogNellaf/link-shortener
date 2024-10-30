@@ -36,28 +36,28 @@
 		margin-right: 0;
 		border-radius: 1vh;
 		gap: 0.8vh;
+		vertical-align: middle;
+		height: 5.1vh;
+		margin-bottom: 0;
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 0.83333333333vw;
+		font-weight: 500;
+		line-height: 5.1vh;
+		color: #989FA6;	
 	}
 
 	.account-frame .account-menu .selected-item {
 		background-color: white;
 		box-shadow: 0px 4px 15px 0px #2424241A;
+		margin: 0;
+		color: #141516;
+		font-family: var(--font-family-sf_pro_display-regular);
+		font-size: 0.83333333333vw;
+		font-weight: 500;
 	}
 
     .account-frame .account-menu .selected-item p {
         color: #141516 !important;
-	}
-
-	.account-frame .account-menu div p {
-		padding-top: 1vh;
-		vertical-align: middle;
-		height: 4vh;
-		margin-bottom: 0;
-		font-family: SF Pro Display;
-		font-size: 0.83333333333vw;
-		font-weight: 500;
-		line-height: 1vw;
-		letter-spacing: -0.01em;
-		color: #989FA6;
 	}
 
 	.account-frame .account-menu .data {
@@ -82,17 +82,17 @@
 	<div class="account-menu">
 		<a href="{% url 'account' %}">
 			<div class="data {% block data_selected %}{% endblock %}">
-				<p>Мои данные</p>
+				Мои данные
 			</div>
 		</a>
 		<a href="{% url 'account_price' %}">
 			<div class="price {% block price_selected %}{% endblock %}">
-				<p>Тариф</p>
+				Тариф
 			</div>
 		</a>
 		<a href="{% url 'account_password' %}">
 			<div class="password {% block password_selected %}{% endblock %}">
-				<p>Пароль</p>
+				Пароль
 			</div>
 		</a>
 	</div>
