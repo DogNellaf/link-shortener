@@ -279,12 +279,12 @@
 	</div>
 	<div id="delete_frame" class="delete-frame" hidden>
 		<div class="background"></div>
-		<img onclick="closeDeleteFrame()" />
+		<img onclick="closeFrame(delete_frame)" />
 		<form method="post" action="{% url 'delete_qr' %}">
             <img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(delete_frame)"/>
 			{% csrf_token %}
 			<h1>Удалить QR?</h1>
-			<input id="delete-cancel" type="button" value="Отмена" onclick="closeDeleteFrame()"/>
+			<input id="delete-cancel" type="button" value="Отмена" onclick="closeFrame(delete_frame)"/>
 			<input id="delete-submit" type="submit" value="Удалить"/>
 			<input id="url_to_delete" name="url" type="text" hidden/>
 		</form>
