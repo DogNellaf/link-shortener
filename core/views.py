@@ -1,20 +1,16 @@
 """Содержит endpoints проекта"""
-import random
-import string
-import pymorphy3
 
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
-from django.contrib.auth.models import User
 from django.core.files.storage import FileSystemStorage
 from urllib.parse import urlparse
 
 from qr_code.qrcode.maker import make_embedded_qr_code
-from core.models import Qr, ShortedUrl
+from core.models import ShortedUrl
 from core.utils import create_shorted_url
 from custom_auth.models import CustomUser
 from linkshortener import settings
-from linkshortener.settings import QR_CODE_OPTIONS
+from linkshortener.settings import QR_CODE_OPTIONS, MONTHS
 
 def index(request):
     """Стартовая страница, переадресующая пользователя с пустого пути / на линкер"""
@@ -156,14 +152,12 @@ def history_urls(request):
     else:
         urls = ShortedUrl.objects.filter(author = user, is_only_qr=False).order_by('-created_at')[:100]
 
-    morph = pymorphy3.MorphAnalyzer(lang='ru')
-
     urls_by_dates = {}
 
     for url in urls:
         created_at_date = url.created_at.date()
-        month = morph.parse(created_at_date.strftime('%B'))[0].inflect({'gent'}).word
-        day = created_at_date.strftime('%d')
+        month = MONTHS[created_at_date.month]
+        day = created_at_date.day
         created_at_date_title = f"{day} {month}"
         dates = urls_by_dates.keys()
         if created_at_date_title in dates:
@@ -216,14 +210,12 @@ def history_qrs(request):
     else:
         urls = ShortedUrl.objects.filter(author = user, is_only_qr=True).order_by('-created_at')[:100]
 
-    morph = pymorphy3.MorphAnalyzer(lang='ru')
-
     urls_by_dates = {}
 
     for url in urls:
         created_at_date = url.created_at.date()
-        month = morph.parse(created_at_date.strftime('%B'))[0].inflect({'gent'}).word
-        day = created_at_date.strftime('%d')
+        month = MONTHS[created_at_date.month]
+        day = created_at_date.day
         created_at_date_title = f"{day} {month}"
         dates = urls_by_dates.keys()
         if created_at_date_title in dates:
