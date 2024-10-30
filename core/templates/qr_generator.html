@@ -132,8 +132,11 @@
 		background-color: #F1F3F5;
 		border-radius: 50vh;
 		border: none;
-		padding: 2vh;
+		padding: 0; /* Убираем padding */
 		margin: 0; /* Убираем автоматические отступы */
+		display: flex; /* Добавлено для flex контейнера */
+		justify-content: center; /* Выравнивание по горизонтали */
+		align-items: center; /* Выравнивание по вертикали */
 	}
 
 	.qr-frame .result-frame .buttons button img {
@@ -144,7 +147,7 @@
 	.qr-frame .share-frame {
 		width: 16.875vw;
 		height: 13.6vh;
-		top: 39.6vh;
+		top: 50.6vh;
 		left: 30.625vw;
 		border-radius: 2vh;
 		padding: 1.6vh;
