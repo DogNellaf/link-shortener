@@ -7,7 +7,7 @@
 		height: 74.4vh !important;
 	}
 
-	h1 {
+	.register-h {
 		font-family: var(--font-family-sf_pro_display-regular);
 		font-size: 2.08333333333vw;
 		font-weight: 500;
@@ -16,7 +16,7 @@
 		text-align: left;
 	}
 
-	input {
+	.register-form input {
 		width: 17.7083333333vw;
 		height: 7vh;
 		border: none;
@@ -100,13 +100,13 @@
 {% endblock %}
 {% block content %}
 
-  <h1>Регистрация</h1>
+  <h1 class="register-h">Регистрация</h1>
 
   {% if error %}
     <p class="error">{{ error }}</p>
   {% endif %}
 
-  <form method="post" action="{% url 'registration' %}">
+  <form class="register-form" method="post" action="{% url 'registration' %}">
     {% csrf_token %}
 	<input id="firstNameInput" name="firstName" type="text" placeholder="Имя" value="{{ first_name }}"/>
 	<input id="lastNameInput" name="lastName" type="text" placeholder="Фамилия" value="{{ last_name }}" />
