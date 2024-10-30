@@ -78,6 +78,13 @@
 	.history-frame .list {
 		margin-top: 2vh;
 		display: grid;
+		height: 40vh;
+		overflow-y: auto;
+		scrollbar-width: none;
+	}
+
+	.history-frame .list::-webkit-scrollbar {
+		display: none;
 	}
 
 	.history-frame .list .date-title {
@@ -86,10 +93,8 @@
 		border: 2px solid #F1F3F5;
 		height: 3.3vh;
 		width: 4.47916666667vw;
-		{% comment %} padding-left: 12px; {% endcomment %}
-		{% comment %} padding-right: 12px; {% endcomment %}
-		padding-top: 8px;
-		padding-bottom: 8px;
+		padding-top: 0.8vh;
+		padding-bottom: 0.8vh;
 		border-radius: 500px;
 		text-align: center;
 
@@ -102,6 +107,9 @@
 	}
 
 	.history-frame .list .list-item {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		height: 11.3vh;
 		width: 100%;
 		border: none;
@@ -137,6 +145,7 @@
 	.history-frame .list .list-item .left .short_url {
 		width: 100%;
 		margin-top: 0.8vh;
+		margin-bottom: 2.8vh;
 	}		
 
 	.history-frame .list .list-item .left .short_url a {

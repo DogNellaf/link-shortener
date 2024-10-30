@@ -77,14 +77,21 @@
 
 	.history-frame .list {
 		margin-top: 6vh;
-		display: grid;
+		display: flex; /* Измените на flex */
+		flex-direction: column; /* Обеспечивает вертикальное выравнивание */
+		height: 33.9vh; /* Позволяет высоте адаптироваться */
+		overflow-y: auto;
+		scrollbar-width: none;
 	}
 
-	.history-frame .list .list-item {
+	.history-frame .favorite-frame .list .list-item {
+		flex-shrink: 0;
 		height: 11.3vh;
 		width: 100%;
 		border: none;
 		border-bottom: 2px solid #F1F3F5;
+		margin: 0;
+		padding: 0;
 	}
 
 	.history-frame .list .list-item .left {
@@ -143,6 +150,9 @@
 		border: none;
 		border-radius: 5000px;
 		opacity: 0px;
+		display: inline-flex;
+        justify-content: center;
+        align-items: center;
 	}	
 
 	.history-frame .list .list-item .right button img {
@@ -405,11 +415,11 @@
 	</div>
 	<div id="delete_frame" class="delete-frame" hidden>
 		<div class="background"></div>
-		<img onclick="closeDeleteFrame()" />
 		<form method="post" action="{% url 'delete_url_title' %}">
 			{% csrf_token %}
+			<img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(delete_frame)"/>
 			<h1>Удалить ссылку?</h1>
-			<input id="delete-cancel" type="button" value="Отмена" onclick="closeDeleteFrame()"/>
+			<input id="delete-cancel" type="button" value="Отмена" onclick="closeFrame(delete_frame)"/>
 			<input id="delete-submit" type="submit" value="Удалить"/>
 			<input id="url_to_delete" name="url" type="text" hidden/>
 		</form>
@@ -450,9 +460,20 @@
 			url_to_delete.value = shortUrl;
 			delete_frame.removeAttribute("hidden");
 		}
-
-		function closeDeleteFrame() {
-			delete_frame.setAttribute("hidden", "hidden");
-		}
 	</script>
+	<script>
+        document.querySelector('.search input').addEventListener('input', function () {
+            const searchText = this.value.toLowerCase();
+            const listItems = document.querySelectorAll('.list .list-item');
+
+            listItems.forEach(item => {
+                const titleText = item.querySelector('.title p').textContent.toLowerCase();
+                if (titleText.includes(searchText)) {
+                    item.style.display = 'block'; // Показать элемент
+                } else {
+                    item.style.display = 'none'; // Скрыть элемент
+                }
+            });
+        });
+    </script>
 {% endblock %}	
