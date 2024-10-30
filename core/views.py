@@ -152,7 +152,7 @@ def history_urls(request):
     if not user.is_authenticated:
         urls = [] # TODO: уточнить, что должно происходить в этом случае
     else:
-        urls = ShortedUrl.objects.filter(author = user).order_by('-created_at')[:100]
+        urls = ShortedUrl.objects.filter(author = user, is_only_qr=False).order_by('-created_at')[:100]
 
     morph = pymorphy3.MorphAnalyzer(lang='ru')
 
@@ -205,7 +205,29 @@ def delete_qr(request):
 
 def history_qrs(request):
     """Отображение страницы Мои QR-коды - история"""
-    pass
+    user = request.user
+
+    if not user.is_authenticated:
+        urls = [] # TODO: уточнить, что должно происходить в этом случае
+    else:
+        urls = ShortedUrl.objects.filter(author = user, is_only_qr=True).order_by('-created_at')[:100]
+
+    morph = pymorphy3.MorphAnalyzer(lang='ru')
+
+    urls_by_dates = {}
+
+    for url in urls:
+        created_at_date = url.created_at.date()
+        month = morph.parse(created_at_date.strftime('%B'))[0].inflect({'gent'}).word
+        day = created_at_date.strftime('%d')
+        created_at_date_title = f"{day} {month}"
+        dates = urls_by_dates.keys()
+        if created_at_date_title in dates:
+            urls_by_dates[created_at_date_title].append(url)
+        else:
+            urls_by_dates[created_at_date_title] = [url]
+
+    return render(request, "history/history_qrs.html", {'urls_by_dates': urls_by_dates})
 
 def price(request):
     """Отображение страницы Тарифы"""
