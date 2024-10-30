@@ -104,6 +104,35 @@ def generate_qr(request):
 
     return HttpResponseNotFound()
 
+def update_url_title(request):
+    """Метод обновляет название ссылки"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        title = request.POST['title']
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url)
+        if urls.exists():
+            shorted_url = urls.first()
+            shorted_url.title = title
+            shorted_url.save()
+
+    return redirect(request.META['HTTP_REFERER'])
+
+def delete_url_title(request):
+    """Метод удаляет ссылку"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url)
+        if urls.exists():
+            urls.first().delete()
+
+    return redirect(request.META['HTTP_REFERER'])
+
 def favorite_urls(request):
     """Отображение страницы Мои ссылки - избранное"""
     user = request.user

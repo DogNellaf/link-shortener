@@ -38,8 +38,49 @@
 	.history-frame .bold {
 		color: #141516 !important;
 	}
+
+	.history-frame .share-frame a {
+		text-decoration: none;
+	}
+
+	.history-frame .share-frame button {
+		width: 15.208333333vw;
+		height: 5vh;
+		border-radius: 1vh;
+		padding: 1.6vh;
+		gap: 0.8vh;
+		border: none;
+		background-color: #FFFFFF;
+
+		font-family: var(--font-family-sf_pro_display-medium);
+		font-color: #141516;
+		font-size: 0.9375vw;
+		font-weight: 500;
+		line-height: 0.9375vw;
+		display: flex; /* Добавлено для flex контейнера */
+		align-items: center; /* Выравнивание по вертикали */
+	}
+
+	.history-frame .share-frame button img {
+		max-width: 0.83333333333vw;
+		width: auto;
+		height: 0.83333333333vw;
+		display: inline-block; /* Изменено на inline-block для выравнивания */
+		{% comment %} margin-right: 0.416666666vw; /* Добавлено для отступа между иконкой и текстом */ {% endcomment %}
+	}
+
+	.history-frame .share-frame button span {
+		display: inline-block; /* Изменено на inline-block для выравнивания */
+	}
+
+	.history-frame .share-frame button:hover {
+		background-color: #F1F3F5;
+	}
 {% endblock %}
 {% block urls_bold %}class="bold"{% endblock %}
+{% block favorite_url %}{% url 'favorite_urls' %}{% endblock %}
+{% block history_url %}{% url 'history_urls' %}{% endblock %}
+{% block history_menu_selected %}selected{% endblock %}
 {% block history_content %}
 	<div class="result-frame">
 		<div style="display: inline-block;">

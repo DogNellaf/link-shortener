@@ -34,6 +34,9 @@ urlpatterns = [
     path('qr', core_views.qr_generator, name = "qr_generator"),
     path('qr/<str:url>', core_views.qr_generator, name = "qr_generator"),
 
+    path('urls/title/update', core_views.update_url_title, name = "update_url_title"),
+    path('urls/title/delete', core_views.delete_url_title, name = "delete_url_title"),
+
     path('urls/history', core_views.history_urls, name = "history_urls"),
     path('urls/favorite', core_views.favorite_urls, name = "favorite_urls"),
     path('qrs/history', core_views.history_qrs, name = "history_qrs"),
