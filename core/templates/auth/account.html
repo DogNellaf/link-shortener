@@ -1,254 +1,258 @@
 {% extends 'layouts/account.html' %}
 {% load static %}
 {% block account_style %}
-	.account-frame .avatar {
-		margin-top: 4vh;
-		vertical-align: middle;
-	}
+.account-frame .avatar {
+    display: flex; /* Используем Flexbox для центровки */
+    flex-direction: column; /* Вертикальное направление */
+    align-items: center; /* Центрирование по горизонтали */
+    margin-top: 4vh;
+    vertical-align: middle;
+}
 
-	.account-frame .avatar .change {
-		height: 6.2vh;
-		width: 4.16666666667vw;
-		display: inline-block;
-		margin-left: 6.77083333333vw;
-		margin-right: 1.04166666667vw;
-		text-align: center;
-		vertical-align: middle;
-	}
+.account-frame .avatar .change {
+    height: 6.2vh;
+    width: 4.16666666667vw;
+    display: inline-block;
+    margin-left: 6.77083333333vw;
+    margin-right: 1.04166666667vw;
+    text-align: center;
+    vertical-align: middle;
+}
 
-	.account-frame .avatar .remove {
-		height: 6.2vh;
-		width: 4.16666666667vw;
-		display: inline-block;
-		margin-left: 1.04166666667vw;
-		margin-right: 6.77083333333vw;
-		text-align: center;
-		vertical-align: middle;
-	}
+.account-frame .avatar .remove {
+    height: 6.2vh;
+    width: 4.16666666667vw;
+    display: inline-block;
+    margin-left: 1.04166666667vw;
+    margin-right: 6.77083333333vw;
+    text-align: center;
+    vertical-align: middle;
+}
 
-	.account-frame .avatar button {
-		height: 4vh;
-		width: 2.08333333333vw;
-		background-color: #F1F3F5;
-		border: none;
-		border-radius: 5vh;
-	}
+.account-frame .avatar button {
+    height: 4vh;
+    width: 2.08333333333vw;
+    background-color: #F1F3F5;
+    border: none;
+    border-radius: 5vh;
+}
 
-	.account-frame .avatar button img {
-		height: 1.8vh;
-		width: auto;
-	}
+.account-frame .avatar button img {
+    height: 1.8vh;
+    width: auto;
+}
 
-	.account-frame .avatar p {
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.72916666666vw;
-		font-weight: 500;
-		line-height: 0.72916666666vw;
-		letter-spacing: -0.01em;
-		text-align: center;
-		margin-top: 0.8vh;
-	}
+.account-frame .avatar p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.72916666666vw;
+    font-weight: 500;
+    line-height: 0.72916666666vw;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin-top: 0.8vh;
+}
 
-	.account-frame .image {
-		display: inline-block;
-	}
+.account-frame .image {
+    display: inline-block;
+}
 
-	.account-frame .image-without-avatar {
-		margin-left: 11.9791666667vw;
-		height: 11.5vw;
-		width: 11.5vw;
-		display: inline-block;
-		background-color: #F1F3F5;
-		border-radius: 500px;
-		object-fit: cover;		
-	}
+.account-frame .image-without-avatar {
+    margin-left: auto; /* Центрирование */
+    margin-right: auto; /* Центрирование */
+    height: 11.5vw;
+    width: 11.5vw;
+    display: flex; /* Используем Flexbox */
+    flex-direction: column; /* Вертикальное направление */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+    background-color: #F1F3F5;
+    border-radius: 500px;
+}
 
-	.account-frame .image-without-avatar .upload {
-		padding-left: 3.38541666667vw;
-		padding-right: 3.38541666667vw;
-		padding-top: 9.1vh;
-		padding-bottom: 9.1vh;
-		height: 11.5vw;
-		width: 11.5vw;
-		display: grid;
-		text-align: center;	
-		items-align: center;
-		padding: 0; /* Убираем padding */
-		margin: 0; /* Убираем автоматические отступы */
-		display: flex; /* Добавлено для flex контейнера */
-		justify-content: center; /* Выравнивание по горизонтали */
-		align-items: center; /* Выравнивание по вертикали */
-	}
+.account-frame .image-without-avatar .upload {
+    padding: 9.1vh 0; /* Убираем padding-left и padding-right */
+    height: 11.5vw;
+    width: 11.5vw;
+    display: flex; /* Используем Flexbox */
+    flex-direction: column; /* Вертикальное направление */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+}
 
-	.account-frame .image-without-avatar .upload img {
-		margin-left: 1.63541666667vw;
-	}
+.account-frame .image-without-avatar .upload img {
+    margin-bottom: 0.5vh; /* Отступ между изображением и текстом */
+}
 
-	.account-frame .image-without-avatar .upload p{
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.72916666666vw;
-		font-weight: 500;
-		line-height: 0.72916666666vw;
-		letter-spacing: -0.01em;
-		text-align: center;
-		width: 11.5vw;
-		margin-left: -3.5vw;
-	}
+.account-frame .image-without-avatar .upload p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.72916666666vw;
+    font-weight: 500;
+    line-height: 0.72916666666vw;
+    letter-spacing: -0.01em;
+    text-align: center; /* Центрирование текста */
+    margin: 0; /* Убираем дополнительные отступы */
+    margin-top: 1.6vh; /* Отступ перед текстом "Загрузить аватар" */
+}
 
-	.account-frame .image img {
-		height: 11.5vw;
-		width: 11.5vw;
-		display: inline-block;
-		border-radius: 500px;
-		object-fit: cover;
-	}
+.account-frame .image img {
+    height: 11.5vw;
+    width: 11.5vw;
+    display: inline-block;
+    border-radius: 500px;
+    object-fit: cover;
+}
 
-	.account-frame .data {
-		{% if not error %}
-		margin-top: 4vh;
-		{% endif %}
-		display: inline-block;
-	}
+.account-frame .data {
+    {% if not error %}
+    margin-top: 4vh;
+    {% endif %}
+    display: inline-block;
+}
 
-	.account-frame .data input {
-		background-color: #F1F3F5;
-		border: none;
-		border-radius: 2vh;
-		width: 17.9166666667vw;
-		height: 7vh;
-		padding: 2.6vh;
-	}
+.account-frame .data input {
+    background-color: #F1F3F5;
+    border: none;
+    border-radius: 2vh;
+    width: 17.9166666667vw;
+    height: 7vh;
+    padding: 2.6vh;
 
-	.account-frame .data .namesRow {
-		height: 7vh;
-		width: 36.4583333332vw;	
-	}
+	font-family: var(--font-family-sf_pro_display-regular);
+	font-size: 0.9375vw;
+	font-weight: 400;
+	line-height: 0.9375vw;
+}
 
-	.account-frame .data .namesRow #firstNameInput {
-		height: 7vh;
-		width: 17.9166666666vw;
-		margin-right: 0.375vw;
-	}
+.account-frame .data .namesRow {
+    height: 7vh;
+    width: 36.4583333332vw;	
+}
 
-	.account-frame .data .namesRow #lastNameInput {
-		height: 7vh;
-		width: 17.9166666666vw;
-	}	
+.account-frame .data .namesRow #firstNameInput {
+    height: 7vh;
+	width: 17.9166666667vw;
+}
 
-	.account-frame .data .emailRow {
-		margin-top: 1.2vh;
-		width: 36.4583333332vw;
-	}
+.account-frame .data .namesRow #lastNameInput {
+    height: 7vh;
+	width: 17.9166666667vw;
+	float: right;
+}	
 
-	.account-frame .data .emailRow #emailInput {
-		height: 7vh;
-		width: 36.4583333332vw;
-	}
+.account-frame .data .emailRow {
+    margin-top: 1.2vh;
+    width: 36.4583333332vw;
+}
 
-	.account-frame .data .submitRow {
-		margin-top: 2vh;
-		width: 36.4583333332vw;
-	}
+.account-frame .data .emailRow #emailInput {
+    height: 7vh;
+    width: 36.4583333332vw;
+}
 
-	.account-frame .data .submitRow #submitButton {
-		height: 7vh;
-		width: 36.4583333332vw;
-	}
+.account-frame .data .submitRow {
+    margin-top: 2vh;
+    width: 36.4583333332vw;
+}
+
+.account-frame .data .submitRow #submitButton {
+    height: 7vh;
+    width: 36.4583333332vw;
+}
 {% endblock %}
 {% block data_selected %}selected-item{% endblock %}
 {% block account_content %}
-	<div class="avatar">
-		<input type="file" id="avatarInput" name="avatar" accept="image/png,image/jpg,image/jpeg" style="display: none;" />
-		{% if user.avatar %}
-		<div class="change">
-			<button id="changeButton">
-				<img src="{% static 'images/svg/normal/upload.svg' %}" />
-			</button>
-			<p>Изменить</p>
-		</div>
-		
-		<div class="image">
-				<img src="{{ user.avatar }}">
-		</div>
+<div class="avatar">
+    <input type="file" id="avatarInput" name="avatar" accept="image/png,image/jpg,image/jpeg" style="display: none;" />
+    {% if user.avatar %}
+    <div class="change">
+        <button id="changeButton">
+            <img src="{% static 'images/svg/normal/upload.svg' %}" />
+        </button>
+        <p>Изменить</p>
+    </div>
+    
+    <div class="image">
+        <img src="{{ user.avatar }}">
+    </div>
 
-		<div class="remove">
-			<form method="POST" action="{% url 'avatar_remove' %}">
-				{% csrf_token %}
-				<button id="removeButton" type="submit">
-					<img src="{% static 'images/svg/bold/trash.svg' %}" />
-				</button>
-				<p>Удалить</p>
-			</form>
-		</div>
-		{% else %}
-			<div id="changeButton" class="image-without-avatar">
-				<div class="upload">
-					<img src="{% static 'images/svg/bold/upload.svg' %}">
-					<p>Загрузить аватар</p>
-				</div>
-			</div>
-		{% endif %}
-	</div>
-	{% if error %}
-	<p class="error">{{ error }}</p>
-	{% endif %}
-	<form class="data" method="POST" action="{% url 'account_update_data' %}">
-		{% csrf_token %}
-		<div class="namesRow">
-			<input id="firstNameInput" name="first_name" type="text" placeholder="Имя" value="{{ user.first_name }}" />
-			<input id="lastNameInput" name="last_name" type="text" placeholder="Фамилия" value="{{ user.last_name }}"/>
-		</div>
-		<div class="emailRow">
-			<input id="emailInput" name="email" type="email" placeholder="Email" value="{{ user.email }}"/>
-		</div>
-		<div class="submitRow">
-			<input id="submitButton" type="submit" class="submit text_label" value="Обновить"/>
-		</div>
-	</form>
-	<script>
-		function changeActive() {
-			if (firstNameInput.value.trim() !== "" && lastNameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
-				submitButton.classList.add("active");
-				submitButton.removeAttribute("disabled");
-			} else {
-				submitButton.classList.remove("active");
-				submitButton.setAttribute("disabled", "disabled");
-			}
-		};
+    <div class="remove">
+        <form method="POST" action="{% url 'avatar_remove' %}">
+            {% csrf_token %}
+            <button id="removeButton" type="submit">
+                <img src="{% static 'images/svg/bold/trash.svg' %}" />
+            </button>
+            <p>Удалить</p>
+        </form>
+    </div>
+    {% else %}
+        <div id="changeButton" class="image-without-avatar">
+            <div class="upload">
+                <img src="{% static 'images/svg/bold/upload.svg' %}">
+                <p>Загрузить аватар</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+<form class="data" method="POST" action="{% url 'account_update_data' %}">
+    {% csrf_token %}
+    <div class="namesRow">
+        <input id="firstNameInput" name="first_name" type="text" placeholder="Имя" value="{{ user.first_name }}" />
+        <input id="lastNameInput" name="last_name" type="text" placeholder="Фамилия" value="{{ user.last_name }}"/>
+    </div>
+    <div class="emailRow">
+        <input id="emailInput" name="email" type="email" placeholder="Email" value="{{ user.email }}"/>
+    </div>
+    <div class="submitRow">
+        <input id="submitButton" type="submit" class="submit text_label" value="Обновить"/>
+    </div>
+</form>
+<script>
+    function changeActive() {
+        if (firstNameInput.value.trim() !== "" && lastNameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
+            submitButton.classList.add("active");
+            submitButton.removeAttribute("disabled");
+        } else {
+            submitButton.classList.remove("active");
+            submitButton.setAttribute("disabled", "disabled");
+        }
+    };
 
-		changeActive();
+    changeActive();
 
-		firstNameInput.addEventListener("input", changeActive);
-		lastNameInput.addEventListener("input", changeActive);
-		emailInput.addEventListener("input", changeActive);
+    firstNameInput.addEventListener("input", changeActive);
+    lastNameInput.addEventListener("input", changeActive);
+    emailInput.addEventListener("input", changeActive);
 
-        changeButton.addEventListener('click', function() {
-            document.getElementById('avatarInput').click();
-        });
+    changeButton.addEventListener('click', function() {
+        document.getElementById('avatarInput').click();
+    });
 
-		avatarInput.addEventListener('change', function(event) {
-			const fileInput = event.target;
-            if (fileInput.files.length > 0) {
-                const formData = new FormData();
-                formData.append('avatar', fileInput.files[0]);
+    avatarInput.addEventListener('change', function(event) {
+        const fileInput = event.target;
+        if (fileInput.files.length > 0) {
+            const formData = new FormData();
+            formData.append('avatar', fileInput.files[0]);
 
-                fetch("{% url 'avatar_update' %}", {
-                    method: 'POST',
-                    headers: {
-                        'X-CSRFToken': '{{ csrf_token }}'
-                    },
-                    body: formData
-                }).then(response => {
-                    if (response.ok) {
-                        window.location.reload();
-                    } else {
-                        alert("Ошибка при загрузке аватара.");
-                    }
-                }).catch(error => {
-                    console.error('Ошибка:', error);
+            fetch("{% url 'avatar_update' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
                     alert("Ошибка при загрузке аватара.");
-                });
-            }
-		});
-	</script>
+                }
+            }).catch(error => {
+                console.error('Ошибка:', error);
+                alert("Ошибка при загрузке аватара.");
+            });
+        }
+    });
+</script>
 {% endblock %}
