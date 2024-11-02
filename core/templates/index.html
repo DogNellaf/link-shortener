@@ -14,10 +14,6 @@
 		display: inline-block;
 		margin-top: 3vh;
 		width: 37.458333333vw;
-		
-		{% if original_url != "" %}
-			color: #989FA6;
-		{% endif %}
 	}
 
 	.index-frame input.url {
@@ -86,8 +82,8 @@
 
 	.index-frame .result-frame {
 		display: flex;
-		align-items: center; /* Выравнивание по вертикали */
-		margin-top: 4vh; /* Добавляем отступ сверху, если это необходимо */
+		align-items: center;
+		margin-top: 4vh;
 	}
 
 	.index-frame .result-frame .short-url-div {
@@ -95,9 +91,9 @@
 	}
 	
 	.index-frame .result-frame .short-url-frame {
-		display: inline-block; /* Оставляем как есть */
-		width: auto; /* Ширина автоматически подстраивается */
-		margin-top: 0; /* Убираем отрицательный отступ */
+		display: inline-block;
+		width: auto;
+		margin-top: 0;
 	}
 
 	.index-frame .result-frame .short-url-frame a {
@@ -115,17 +111,17 @@
 		line-height: 0.833333333vw;
 		font-weight: 400;
 		color: #989FA6;
-		margin-top: 0.6vh; /* Отступ сверху для span */
-		display: block; /* Убедитесь, что span отображается как блок, чтобы отступ работал */
-		margin-left: 0; /* Убираем автоматический отступ слева, если он есть */
-		margin-right: 0; /* Убираем автоматический отступ справа, если он есть */
+		margin-top: 0.6vh;
+		display: block;
+		margin-left: 0;
+		margin-right: 0;
 	}
 
 	.index-frame .result-frame .buttons {
-		display: flex; /* Устанавливаем flex для контейнера кнопок */
-		margin-left: auto; /* Выравниваем кнопки по правому краю */
-		gap: 1vw; /* Промежуток между кнопками */
-		width: auto; /* Ширина автоматически подстраивается */
+		display: flex;
+		margin-left: auto;
+		gap: 1vw;
+		width: auto;
 	}
 
 	.index-frame .result-frame .buttons button {
@@ -135,7 +131,7 @@
 		border-radius: 50vh;
 		border: none;
 		padding: 2vh;
-		margin: 0; /* Убираем автоматические отступы */
+		margin: 0;
 	}
 
 	.index-frame .result-frame .buttons button img {
@@ -167,11 +163,11 @@
 		background-color: #F1F3F5;
 		border-radius: 50vh;
 		border: none;
-		padding: 0; /* Убираем padding */
-		margin: 0; /* Убираем автоматические отступы */
-		display: flex; /* Добавлено для flex контейнера */
-		justify-content: center; /* Выравнивание по горизонтали */
-		align-items: center; /* Выравнивание по вертикали */
+		padding: 0;
+		margin: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 	}
 
 	.index-frame .result-frame .buttons button img {
@@ -211,12 +207,12 @@
 		font-size: 0.9375vw;
 		font-weight: 500;
 		line-height: 0.9375vw;
-		display: flex; /* Добавлено для flex контейнера */
-		align-items: center; /* Выравнивание по вертикали */
+		display: flex;
+		align-items: center;
 	}
 
 	.index-frame .share-frame button span {
-		display: inline-block; /* Изменено на inline-block для выравнивания */
+		display: inline-block;
 	}
 
 	.index-frame .share-frame button:hover {
@@ -231,20 +227,12 @@
 {% endblock %}
 {% block content %}
 	<h1>Это линкер от VI–media</h1>
-	{% if url == "" %}
 	<form class="url" method="POST" action="{% url 'generate_url' %}">
 	{% csrf_token %}
-	{% else %}
-	<div class="url">
-	{% endif %}
-		<input name="url" id="inputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}" {% if original_url != "" %} readonly {% endif %} />
-		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross-small.svg' %}" />
+		<input name="url" id="inputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}"/>
+		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="inputField.value=''"/>
 		<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
-	{% if url == "" %}
 	</form>
-	{% else %}
-	</div>
-	{% endif %}
 	{% if url != "" %}
 		<hr>
 		<div class="result-frame">
@@ -322,21 +310,6 @@
 		</script>
 	{% else %}
 		<script>
-			function changeActive() {
-				if (inputField.value.trim() !== "") {
-					submitButton.classList.add("active");
-					submitButton.removeAttribute("disabled");
-				} else {
-					submitButton.classList.remove("active");
-					submitButton.setAttribute("disabled", "disabled");
-				}
-			};
-
-			document.addEventListener("DOMContentLoaded", function () {
-				changeActive();
-				inputField.addEventListener("input", changeActive);
-			});
-
 			crossButton.addEventListener("click", function () {
 				inputField.value = "";
 				submitButton.classList.remove("active");
