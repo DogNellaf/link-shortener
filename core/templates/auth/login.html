@@ -44,12 +44,6 @@
     margin-top: 1.2vh;
   }
 
-  #submitInput {
-    margin-top: 2vh;
-    text-align: center;
-    color: #989FA6;
-  }
-
   .links {
     margin-top: 2vh;
     display: inline-block;
@@ -78,6 +72,21 @@
     opacity: 0.75;
   }
 
+  #submitButton {
+    margin-top: 2vh;
+    text-align: center;
+    color: #989FA6;
+  }
+
+  .login-form .submit-button .sky-hovered:hover {
+		background-color: #04D1E5 !important;
+	}
+
+	.login-form .submit-button .active {
+		background-color: #1599F5 !important;
+		color: var(--white) !important;
+	}
+
 {% endblock %}
 {% block content %}
 
@@ -91,13 +100,34 @@
     {% csrf_token %}
     <input id="emailInput" name="email" type="email" placeholder="Email" />
     <input id="passwordInput" name="password" type="password" placeholder="Пароль" />
-    <input id="submitInput" type="submit" value="Войти" />
-    <input type="hidden" name="next" value="{{ next }}" />
+    <input id="submitButton" class="submit-button" type="submit" value="Войти" />
   </form>
 
   <div class="links">
     <a id="resetPasswordLink" href="" onclick="alert('В разработке')">Восстановить пароль</a>
     <a id="registrationLink" href="{% url 'registration' %}">Регистрация</a>
   </div>
+
+  <script>
+    function checkActive() {
+      if (emailInput.value == "" || passwordInput.value == "") {
+				submitButton.classList.remove("active");
+				submitButton.classList.remove("sky-hovered");
+			}
+			else
+			{
+				submitButton.classList.add("active");
+				submitButton.classList.add("sky-hovered");
+			}
+    }
+
+    emailInput.addEventListener("input", function () {
+			checkActive();
+		});
+
+    passwordInput.addEventListener("input", function () {
+      checkActive();
+		});
+  </script>
 
 {% endblock %}

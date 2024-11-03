@@ -66,7 +66,7 @@ class Qr(models.Model):
     title = models.CharField(
         verbose_name="Название QR",
         default="",
-        max_length=50
+        max_length=500
     )
 
     original_url = models.URLField(
