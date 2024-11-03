@@ -243,7 +243,7 @@
 	{% csrf_token %}
 		<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}"/>
 		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
-		<input id="submitButton" type="submit" class="submit text_label sky-hovered" value="Сократить"/>
+		<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
 	</form>
 	{% if url %}
 	<hr>
@@ -298,25 +298,22 @@
 		navigator.clipboard.writeText(shortUrlA.innerHTML);
 		copyInfoSpan.removeAttribute("hidden");
 		submitButton.classList.add("active");
+		submitButton.classList.add("sky-hovered");
 
 		var isShareFrameHidden = true;
 		// Нажатие на кнопку Добавить в избранное
-		{% if user.is_authenticated %}
-			{% if is_favorite %}
-				favoriteButton.addEventListener("click", function () {
+		favoriteButton.addEventListener("click", function () {
+			{% if user.is_authenticated %}
+				{% if is_favorite %}
 					sendRemoveUrlButton.click();
-				});
-			{% else %}
-				favoriteButton.addEventListener("click", function () {
+				{% else %}
 					favoriteUrlInput.value = "{{ url }}";
 					addFavoriteBlock.removeAttribute("hidden");
-				});
-			{% endif %}
-		{% else %}
-			favoriteButton.addEventListener("click", function () {
+				{% endif %}
+			{% else %}
 				document.location.href = "{% url 'registration' %}";
-			});
-		{% endif %}
+			{% endif %}
+		});
 		
 		// нажатие на кнопку Копировать
 		copyButton.addEventListener('click', function(event) {
@@ -339,14 +336,20 @@
 		crossButton.addEventListener("click", function () {
 			urlInputField.value = "";
 			submitButton.classList.remove("active");
+			submitButton.classList.remove("sky-hovered");
 		});
 
 		// Обработка ввода
 		urlInputField.addEventListener("input", function () {
-			if (urlInputField.value == "") 
+			if (urlInputField.value == "") {
 				submitButton.classList.remove("active");
+				submitButton.classList.remove("sky-hovered");
+			}
 			else
+			{
 				submitButton.classList.add("active");
+				submitButton.classList.add("sky-hovered");
+			}
 		});
 	</script>
 {% endblock %}

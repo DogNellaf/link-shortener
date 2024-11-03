@@ -627,15 +627,24 @@
                 color: #141516;
             }
 
+            .download-qr-frame button:hover {
+                color: #989FA6;
+            }
+
             .cross {
                 position: absolute;
                 top: 2vh;
                 right: 2vh;
-                height: 3.2vh;
-                width: 3.2vh;
+                height: 0.87395833333vw;
+                width: 0.87395833333vw;
+                filter: invert(77%) sepia(2%) saturate(1396%) hue-rotate(169deg) brightness(82%) contrast(91%);
+            }
+        
+            .cross:hover {
+                filter: invert(5%) sepia(6%) saturate(712%) hue-rotate(169deg) brightness(101%) contrast(92%);
             }
             
-            #show_qr_frame .background {
+            #showQrFrame .background {
                 position: fixed;
                 left: 0;
                 top: 0;
@@ -646,7 +655,7 @@
                 z-index: 1000;
             }
         
-            #show_qr_frame #qrFrame {
+            #showQrFrame #qrFrame {
                 position: fixed;
                 left: 38.0208333333vw;
                 top: 31.8vh;
@@ -660,7 +669,7 @@
                 padding: 4vh;
             }
         
-            #show_qr_frame h1 {
+            #showQrFrame h1 {
                 font-family: var(--font-family-sf_pro_display-middle);
                 font-size: 1.5625vw;
                 font-weight: 500;
@@ -669,13 +678,13 @@
                 text-align: left;
             }
         
-            #show_qr_frame #qrImageFrame {
+            #showQrFrame #qrImageFrame {
                 width: 100%;
                 height: 90%;
                 z-index: 1001;
             }
         
-            #show_qr_frame .segno {
+            #showQrFrame .segno {
                 width: 100%;
                 height: 100%;
                 z-index: 1001;
@@ -695,20 +704,20 @@
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body style="margin: 0;background: #f1f3f5;">
-        <div id="show_qr_frame" hidden>
+        <div id="showQrFrame" hidden>
             <div class="background"></div>
             <div id="qrFrame">
-                <img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(show_qr_frame)"/>
+                <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="closeFrame(showQrFrame)"/>
                 <h1>Ваш QR</h1>
                 <div id="qrImageFrame"></div>
             </div>
         </div>
-        <div id="download_qr_block" hidden>
+        <div id="downloadQrBlock" hidden>
             <div class="download-qr-background"></div>
-            <div id="download_qr_image" hidden></div>
+            <div id="downloadQrImage" hidden></div>
             <div class="download-qr-frame">
                 <h1>Скачать QR код</h1>
-                <img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(download_qr_block)"/>
+                <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="closeFrame(downloadQrBlock)"/>
                 <button id="downloadPngButton">
                     <p>.PNG</p>
                 </button>
@@ -718,7 +727,7 @@
             </div>
             <script>
                 downloadSvgButton.addEventListener('click', function() {
-                    let svg = download_qr_image.getElementsByClassName('segno')[0];
+                    let svg = downloadQrImage.getElementsByClassName('segno')[0];
                     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
                     svg.setAttribute("width", "256");
                     svg.setAttribute("height", "256");
@@ -731,11 +740,11 @@
                     document.body.appendChild(a);
                     a.click();
                     document.body.removeChild(a);
-                    download_qr_block.setAttribute("hidden", "hidden");
+                    downloadQrBlock.setAttribute("hidden", "hidden");
                 });
 
                 downloadPngButton.addEventListener('click', function() {
-                    let svg = download_qr_image.getElementsByClassName('segno')[0];
+                    let svg = downloadQrImage.getElementsByClassName('segno')[0];
                     let svgData = new XMLSerializer().serializeToString(svg);
                     let canvas = document.createElement('canvas');
                     let ctx = canvas.getContext('2d');
@@ -756,7 +765,7 @@
                     };
 
                     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-                    download_qr_block.setAttribute("hidden", "hidden");
+                    downloadQrBlock.setAttribute("hidden", "hidden");
                 });
             </script>
         </div>
@@ -789,13 +798,13 @@
                 favoriteTitleInput.addEventListener("input", changeFavoriteActive);
 
                 function showDownload(shortUrl) {
-                    download_qr_image.innerHTML = document.getElementById(shortUrl + "-qr").innerHTML;
-                    download_qr_block.removeAttribute("hidden");
+                    downloadQrImage.innerHTML = document.getElementById(shortUrl + "-qr").innerHTML;
+                    downloadQrBlock.removeAttribute("hidden");
                 }
         
                 function showQR(shortUrl) {
                     qrImageFrame.innerHTML = document.getElementById(shortUrl + "-qr").innerHTML;
-                    show_qr_frame.removeAttribute("hidden");
+                    showQrFrame.removeAttribute("hidden");
                 }
             </script>
         </div>
