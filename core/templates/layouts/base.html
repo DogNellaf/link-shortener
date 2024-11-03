@@ -775,7 +775,7 @@
             <form class="add-favorite-frame" method="POST" action="{% url 'make_url_favorite' %}">
                 {% csrf_token %}
                 <h1>Назовите ссылку</h1>
-                <input id="favoriteTitleInput" name="title" type="text" placeholder="Название ссылки" minlength="1" maxlength="500" value="{{ url_title }}"/>
+                <input id="favoriteTitleInput" name="title" type="text" placeholder="Название ссылки" minlength="1" maxlength="50" value="{{ url_title }}"/>
                 <input id="favoriteUrlInput" name="url" type="hidden" value=""/>
                 <button id="favoriteSubmitButton" type="submit">
                     <span>Добавить в избранное</span>
