@@ -283,7 +283,7 @@
 					sendRemoveUrlButton.click();
 				{% else %}
 					favoriteUrlInput.value = "{{ url }}";
-					add_favorite_block.removeAttribute("hidden");
+					addFavoriteBlock.removeAttribute("hidden");
 				{% endif %}
 			{% else %}
 				document.location.href = "{% url 'registration' %}";
