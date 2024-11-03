@@ -681,6 +681,14 @@
                 z-index: 1001;
             }
 
+            .gray-hovered:hover img {
+                filter: invert(66%) sepia(10%) saturate(223%) hue-rotate(169deg) brightness(93%) contrast(92%);
+            }
+
+            .sky-hovered:hover {
+                background-color: #04D1E5 !important;
+            }
+
         </style>
         <style>{% block style %}{% endblock %}</style>
         <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">

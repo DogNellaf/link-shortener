@@ -27,7 +27,7 @@
 		padding-right: 2.447916666vw;
 		margin-top: 0;
 
-		font-family: var(--font-family-sf_pro_display-medium);
+		font-family: var(--font-family-sf_pro_display-regular);
 		background-color: var(--wild-sand);
 		font-size: 0.9375vw;
 		font-color: #141516;
@@ -70,10 +70,14 @@
 
 	.index-frame .cross-small {
 		position: absolute;
-		left: 29.895833333vw;
-		top: 16.1vh;
-		height: 2.4vh;
-		width: 1.25vw;
+		left: 30.1932291667vw;
+		top: 16.671vh;
+		width: 0.65572916666vw;
+		filter: invert(77%) sepia(2%) saturate(1396%) hue-rotate(169deg) brightness(82%) contrast(91%);
+	}
+
+	.index-frame .cross-small:hover {
+		filter: invert(5%) sepia(6%) saturate(712%) hue-rotate(169deg) brightness(101%) contrast(92%);
 	}
 
 	.index-frame hr {
@@ -103,6 +107,10 @@
 		font-weight: 500;
 		text-decoration: none;
 		color: #1599F5;
+	}
+
+	.index-frame .result-frame .short-url-frame a:hover {
+		color: #04D1E5 !important;
 	}
 
 	.index-frame .result-frame .short-url-frame span {
@@ -202,7 +210,7 @@
 		border: none;
 		background-color: #FFFFFF;
 
-		font-family: var(--font-family-sf_pro_display-medium);
+		font-family: var(--font-family-sf_pro_display-regular);
 		font-color: #141516;
 		font-size: 0.9375vw;
 		font-weight: 500;
@@ -215,7 +223,7 @@
 		display: inline-block;
 	}
 
-	.index-frame .share-frame button:hover {
+	.index-frame .share-frame button::hover {
 		background-color: #F1F3F5;
 	}
 {% endblock %}
@@ -229,29 +237,30 @@
 	<h1>Это линкер от VI–media</h1>
 	<form class="url" method="POST" action="{% url 'generate_url' %}">
 	{% csrf_token %}
-		<input name="url" id="inputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}"/>
-		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="inputField.value=''"/>
-		<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
+		<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}"/>
+		<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
+		<input id="submitButton" type="submit" class="submit text_label sky-hovered" value="Сократить"/>
 	</form>
-	{% if url != "" %}
-		<hr>
-		<div class="result-frame">
-			<div style="display: inline-block;">
-				<div class="short-url-frame">
-					<a id="short_url" href="http://{{ request.get_host }}/{{ url }}">{{ request.get_host }}/{{ url }}</a>
-					<br>
-					<span id="short_url_copy_info" hidden>ссылка скопирована в буфер обмена</span>
-				</div>
+	{% if url %}
+	<hr>
+	<div class="result-frame">
+		<div style="display: inline-block;">
+			<div class="short-url-frame">
+				<a id="shortUrlA" href="http://{{ request.get_host }}/{{ url }}">{{ request.get_host }}/{{ url }}</a>
+				<br>
+				<span id="copyInfoSpan" hidden>ссылка скопирована в буфер обмена</span>
 			</div>
-			<div class="buttons">
-				<button id="copyButton">
-					<img src="{% static 'images/svg/bold/copy.svg' %}" />
-				</button>
-				<button id="shareButton">
-					<img src="{% static 'images/svg/bold/share.svg' %}" />
-				</button>
+		</div>
+		<div class="buttons">
+			<button class="gray-hovered" id="copyButton">
+				<img src="{% static 'images/svg/bold/copy.svg' %}" />
+			</button>
+			<button class="gray-hovered" id="shareButton">
+				<img src="{% static 'images/svg/bold/share.svg' %}" />
+			</button>
+			<button class="gray-hovered" id="favoriteButton">
+				<img src="{% static 'images/svg/bold/heart.svg' %}" />
 				{% if user.is_authenticated %}
-				<button id="favoriteButton">
 					{% if not is_favorite %}
 						<img src="{% static 'images/svg/bold/heart.svg' %}" />
 					{% else %}
@@ -262,59 +271,78 @@
 							<input id="sendRemoveUrlButton" type="submit"/>
 						</form>
 					{% endif %}
-				</button>
 				{% endif %}
-			</div>
+			</button>
 		</div>
-		<div id="share_frame" class="share-frame" hidden>
-			<a href="https://t.me/share/url?url=http://{{ request.get_host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
-				<button id="shareToTelegramButton">
-					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
-					<span>Отправить в Telegram</span>
-				</button>
-			</a>
-			<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ request.get_host }}/{{ url }} через сервис link.example.com">
-				<button id="shareToWhatsAppButton">
-					<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
-					<span>Отправить в WhatsApp</span>
-				</button>
-			</a>
-		</div>
-		<script>
-			var is_share_frame_hidden = true;
-			{% if user.is_authenticated %}
-				{% if is_favorite %}
-					favoriteButton.addEventListener("click", function () {
-						sendRemoveUrlButton.click();
-					});
-				{% else %}
-					favoriteButton.addEventListener("click", function () {
-						favoriteUrlInput.value = "{{ url }}";
-						add_favorite_block.removeAttribute("hidden");
-					});
-				{% endif %}
+	</div>
+	<div id="shareFrame" class="share-frame" hidden>
+		<a href="https://t.me/share/url?url=http://{{ request.get_host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
+			<button id="shareToTelegramButton">
+				<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
+				<span>Отправить в Telegram</span>
+			</button>
+		</a>
+		<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ request.get_host }}/{{ url }} через сервис link.example.com">
+			<button id="shareToWhatsAppButton">
+				<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
+				<span>Отправить в WhatsApp</span>
+			</button>
+		</a>
+	</div>
+	<script>
+		// автоматическое копирование ссылки
+		navigator.clipboard.writeText(shortUrlA.innerHTML);
+		copyInfoSpan.removeAttribute("hidden");
+		submitButton.classList.add("active");
+
+		var isShareFrameHidden = true;
+		// Нажатие на кнопку Добавить в избранное
+		{% if user.is_authenticated %}
+			{% if is_favorite %}
+				favoriteButton.addEventListener("click", function () {
+					sendRemoveUrlButton.click();
+				});
+			{% else %}
+				favoriteButton.addEventListener("click", function () {
+					favoriteUrlInput.value = "{{ url }}";
+					addFavoriteBlock.removeAttribute("hidden");
+				});
 			{% endif %}
-			copyButton.addEventListener('click', function(event) {
-				navigator.clipboard.writeText(short_url.innerHTML);
-				short_url_copy_info.removeAttribute("hidden");
-			})
-			shareButton.addEventListener('click', function(event) {
-				if (is_share_frame_hidden) {
-					share_frame.removeAttribute("hidden");
-					is_share_frame_hidden = false;
-				} else {
-					share_frame.setAttribute("hidden", "hidden");
-					is_share_frame_hidden = true;
-				}
-			})
-		</script>
-	{% else %}
-		<script>
-			crossButton.addEventListener("click", function () {
-				inputField.value = "";
-				submitButton.classList.remove("active");
-				submitButton.setAttribute("disabled", "disabled");
+		{% else %}
+			favoriteButton.addEventListener("click", function () {
+				document.location.href = "{% url 'registration' %}";
 			});
-		</script>
+		{% endif %}
+		
+		// нажатие на кнопку Копировать
+		copyButton.addEventListener('click', function(event) {
+			navigator.clipboard.writeText(shortUrlA.innerHTML);
+		})
+
+		// Нажатие на кнопку поделиться
+		shareButton.addEventListener('click', function(event) {
+			if (isShareFrameHidden)
+				shareFrame.removeAttribute("hidden");
+			else
+				shareFrame.setAttribute("hidden", "hidden");
+			
+			isShareFrameHidden = !isShareFrameHidden;
+		})
+	</script>
 	{% endif %}
+	<script>
+		// Обработка нажатия на кнопку Удалить
+		crossButton.addEventListener("click", function () {
+			urlInputField.value = "";
+			submitButton.classList.remove("active");
+		});
+
+		// Обработка ввода
+		urlInputField.addEventListener("input", function () {
+			if (urlInputField.value == "") 
+				submitButton.classList.remove("active");
+			else
+				submitButton.classList.add("active");
+		});
+	</script>
 {% endblock %}
