@@ -3,29 +3,27 @@
 {% block title %}Авторизация{% endblock %}
 {% block style %}
 
-  .login-h {
-    font-family: var(--font-family-sf_pro_display-regular);
+  .login-frame h1 {
+    font-family: var(--font-family-sf_pro_display-medium);
     font-size: 2.08333333333vw;
     font-weight: 500;
     line-height: 2.5vw;
-    letter-spacing: -0.02em;
     text-align: left;
   }
 
-  .login-form input {
+  .login-frame form input {
     width: 17.7083333333vw;
     height: 7vh;
     border: none;
     border-radius: 2vh;
     padding: 2.6vh;
     gap: 1vh;
-    background-color: #F1F3F5 !important;
+    background-color: #F1F3F5;
 
     font-family: var(--font-family-sf_pro_display-regular);
     font-size: 0.9375vw;
     font-weight: 500;
     line-height: 0.9375vw;
-    letter-spacing: -0.01em;
     text-align: left;
     color: #141516;
   }
@@ -44,12 +42,12 @@
     margin-top: 1.2vh;
   }
 
-  .links {
+  .login-frame .links {
     margin-top: 2vh;
     display: inline-block;
   }
 
-  .links a {
+  .login-frame .links a {
     display: inline-block;
     font-family: var(--font-family-sf_pro_display-regular);
     font-size: 0.9375vw;
@@ -59,11 +57,11 @@
     text-decoration: none;
   }
 
-  .links #resetPasswordLink {
+  .login-frame .links #resetPasswordLink {
     margin-right: 3.28125vw;
   }
 
-  .links #registrationLink {
+  .login-frame .links #registrationLink {
     width: 60px;
   }
 
@@ -78,56 +76,58 @@
     color: #989FA6;
   }
 
-  .login-form .submit-button .sky-hovered:hover {
+  .sky-hovered:hover {
 		background-color: #04D1E5 !important;
 	}
 
-	.login-form .submit-button .active {
+	.active {
 		background-color: #1599F5 !important;
 		color: var(--white) !important;
 	}
 
 {% endblock %}
 {% block content %}
+  <div class="login-frame">
+    <h1>Логин</h1>
 
-  <h1 class="login-h">Логин</h1>
-
-  {% if error %}
-    <p class="error">{{ error }}</p>
-  {% endif %}
-
-  <form class="login-form" method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    <input id="emailInput" name="email" type="email" placeholder="Email" />
-    <input id="passwordInput" name="password" type="password" placeholder="Пароль" />
-    <input id="submitButton" class="submit-button" type="submit" value="Войти" />
-  </form>
-
-  <div class="links">
-    <a id="resetPasswordLink" href="" onclick="alert('В разработке')">Восстановить пароль</a>
-    <a id="registrationLink" href="{% url 'registration' %}">Регистрация</a>
+    {% if error %}
+      <p class="error">{{ error }}</p>
+    {% endif %}
+  
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <input id="emailInput" name="email" type="email" placeholder="Email" />
+      <input id="passwordInput" name="password" type="password" placeholder="Пароль" />
+      <input id="submitButton" class="submit-button" type="submit" value="Войти" />
+    </form>
+  
+    <div class="links">
+      <a id="resetPasswordLink" href="{% url 'password_reset' %}">Восстановить пароль</a>
+      <a id="registrationLink" href="{% url 'registration' %}">Регистрация</a>
+    </div>
+  
+    <script>
+      function checkActive() {
+        if (emailInput.value == "" || passwordInput.value == "") {
+          submitButton.classList.remove("active");
+          submitButton.classList.remove("sky-hovered");
+          submitButton.removeAttribute("type");
+        }
+        else
+        {
+          submitButton.classList.add("active");
+          submitButton.classList.add("sky-hovered");
+          submitButton.setAttribute("type", "submit");
+        }
+      }
+  
+      emailInput.addEventListener("input", function () {
+        checkActive();
+      });
+  
+      passwordInput.addEventListener("input", function () {
+        checkActive();
+      });
+    </script>
   </div>
-
-  <script>
-    function checkActive() {
-      if (emailInput.value == "" || passwordInput.value == "") {
-				submitButton.classList.remove("active");
-				submitButton.classList.remove("sky-hovered");
-			}
-			else
-			{
-				submitButton.classList.add("active");
-				submitButton.classList.add("sky-hovered");
-			}
-    }
-
-    emailInput.addEventListener("input", function () {
-			checkActive();
-		});
-
-    passwordInput.addEventListener("input", function () {
-      checkActive();
-		});
-  </script>
-
 {% endblock %}
