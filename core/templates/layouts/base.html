@@ -414,11 +414,16 @@
                 position: absolute;
                 top: 14.8vh;
                 width: 4.4vh;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             .settings img {
-                height: 1.04166666667vw;
+                height: auto;
                 width: 1.04166666667vw;
+                display: block;
+                margin: auto;
             }
 
             header {
@@ -690,6 +695,62 @@
                 z-index: 1001;
             }
 
+            #changeBackgroundFrame {
+                position: absolute;
+                width: 16.25vw;
+                height: 15.8vh;
+                background-color: white;
+                padding: 3.2vh;
+                border-radius: 2vh;
+                right: 1.04166666667vw;
+                bottom: 7.2vh;
+                box-shadow: 0px 4px 14px 0px #14151626;
+            }
+
+            #changeBackgroundFrame h1 {
+                font-family: var(--font-family-sf_pro_display-middle);
+                font-size: 0.9375vw;
+                font-weight: 500;
+                line-height: 0.9375vw;
+                text-align: left;
+                color: #141516;
+            }
+
+            #changeBackgroundFrame button {
+                height: 2.91666666667vw;
+                width: 2.91666666667vw;
+                border: 2px solid #F1F3F5;
+                border-radius: 5vh;
+                background: none;
+                padding: 0.15625vw;
+            }
+
+            #changeBackgroundFrame button div {
+                height: 2.29166666667vw;
+                width: 2.29166666667vw;
+                border-radius: 5vh;
+            }
+
+            #changeBackgroundFrame .active-color {
+                border: 2px solid #1599F5;
+            }
+
+            #defaultColorButton div {
+                background-color: #F1F3F5;
+            }
+
+            #yellowColorButton div {
+                background-color: #F8F5EC;
+            }
+
+            #redColorButton div {
+                background-color: #F8ECF3;
+            }
+
+            #blueColorButton div {
+                background-color: #E9F0FA;
+            }
+
             .gray-hovered:hover img {
                 filter: invert(66%) sepia(10%) saturate(223%) hue-rotate(169deg) brightness(93%) contrast(92%);
             }
@@ -808,6 +869,63 @@
                 }
             </script>
         </div>
+
+        <div id="changeBackgroundFrame" hidden>
+            <h1>Фон</h1>
+            <div class="colors">
+                <button id="defaultColorButton" class="" onclick="setColor('#F1F3F5')">
+                    <div></div>
+                </button>
+                <button id="yellowColorButton" class="" onclick="setColor('#F8F5EC')">
+                    <div></div>
+                </button>
+                <button id="redColorButton" class="" onclick="setColor('#F8ECF3')">
+                    <div></div>
+                </button>
+                <button id="blueColorButton" class="" onclick="setColor('#E9F0FA')">
+                    <div></div>
+                </button>
+            </div>
+            <script>
+                isColorFrameVisible = false;
+
+                function changeVisible() {
+					if (isColorFrameVisible) {
+                        changeBackgroundFrame.setAttribute("hidden", "hidden");
+                    } else {
+                        changeBackgroundFrame.removeAttribute("hidden");
+                    }
+                    isColorFrameVisible = !isColorFrameVisible;
+                };
+
+                let colorToButtons = new Map([
+                    ["#F1F3F5", defaultColorButton],
+                    ["#F8F5EC", yellowColorButton],
+                    ["#F8ECF3", redColorButton],
+                    ["#E9F0FA", blueColorButton]
+                ]);
+
+                function setColor(newColor) {
+                    localStorage.color = newColor;
+                    document.body.setAttribute("style", "margin: 0; background-color: " + newColor);
+
+                    for (let color of colorToButtons.keys()) {
+                        let button = colorToButtons.get(color);
+                        button.classList.remove('active-color');
+                    }
+
+                    let button = colorToButtons.get(newColor);
+                    button.classList.add('active-color');
+                }
+
+                if (!localStorage.color) {
+                    setColor("#F1F3F5");
+                } else {
+                    setColor(localStorage.color);
+                }
+            </script>
+        </div>
+
         <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Operator">
         <header>
             <div class="account">
@@ -859,7 +977,7 @@
             <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
                 <div class="company">PR-агентство Operator</div>
             </a>
-            <button class="settings" onclick="alert('Функционал в разработке');">
+            <button class="settings" onclick="changeVisible()">
                 <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
             </button>
         </footer>
