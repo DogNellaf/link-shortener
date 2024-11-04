@@ -10,3 +10,8 @@ class CustomUser(AbstractUser):
         null=True,
         blank=True
     )
+
+    class Meta:
+        """Мета данные кастомного пользователя"""
+        verbose_name = "Пользователь"
+        verbose_name_plural = "Пользователи"

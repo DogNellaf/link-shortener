@@ -3,13 +3,15 @@
 import random
 import string
 
-from core.models import ShortedUrl
+from django.conf import settings
 from custom_auth.models import CustomUser
-from linkshortener.settings import SHORT_URL_LENGTH
+from core.models import ShortedUrl
+
 
 URL_CHARSET = string.ascii_letters + string.digits
+SHORT_URL_LENGTH = settings.SHORT_URL_LENGTH
 
-def generate_short_url(original_url: str) -> str:
+def generate_short_url() -> str:
     """Генерирует сокращенную ссылку по представленному оригиналу"""
     is_exists = True
     short_url = ""
@@ -25,7 +27,7 @@ def generate_short_url(original_url: str) -> str:
 
 def create_shorted_url(user: CustomUser, original_url: str) -> ShortedUrl:
     """Создает от лица CustomUser ShortedUrl объект по оригинальной ссылке"""
-    short_url = generate_short_url(original_url)
+    short_url = generate_short_url()
 
     shorted_url = ShortedUrl(
         author = user if user.is_authenticated else None,

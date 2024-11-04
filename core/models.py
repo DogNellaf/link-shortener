@@ -1,7 +1,7 @@
 """Содержит описание моделей базы данных"""
 
 from django.db import models
-from linkshortener.settings import SHORT_URL_LENGTH
+from django.conf import settings
 from custom_auth.models import CustomUser
 
 class ShortedUrl(models.Model):
@@ -26,7 +26,7 @@ class ShortedUrl(models.Model):
 
     short_url = models.CharField(
         verbose_name = 'Сокращенная ссылка',
-        max_length = SHORT_URL_LENGTH,
+        max_length = settings.SHORT_URL_LENGTH,
         unique = True
     )
 
@@ -54,8 +54,9 @@ class ShortedUrl(models.Model):
         verbose_name = "Сокращенная ссылка"
         verbose_name_plural = "Сокращенные ссылки"
 
+
 class Qr(models.Model):
-    """Представляет класс QR кода"""
+    """Представляет класс QR кода - в данный момент не используется"""
     author = models.ForeignKey(
         to = CustomUser,
         verbose_name = "Автор QR кода",
@@ -93,7 +94,8 @@ class Qr(models.Model):
     def __str__(self):
         """Строковое представление объекта"""
         return f"{self.original_url}"
-    
+
     class Meta:
+        """Мета данные QR кода"""
         verbose_name = "QR код"
         verbose_name_plural = "QR коды"

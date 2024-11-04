@@ -1,16 +1,18 @@
 """Содержит endpoints проекта"""
 
-from django.http import HttpResponseNotFound
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
 from urllib.parse import urlparse
 
+from django.conf import settings
+from django.http import HttpResponseNotFound
+from django.shortcuts import render, redirect
+
 from qr_code.qrcode.maker import make_embedded_qr_code
+
 from core.models import ShortedUrl
 from core.utils import create_shorted_url
-from custom_auth.models import CustomUser
-from linkshortener import settings
-from linkshortener.settings import QR_CODE_OPTIONS, MONTHS
+
+QR_CODE_OPTIONS = settings.QR_CODE_OPTIONS
+MONTHS = settings.MONTHS
 
 def index(request):
     """Стартовая страница, переадресующая пользователя с пустого пути / на линкер"""
@@ -45,7 +47,7 @@ def generate_url(request):
     if request.method == "POST":
         url = request.POST['url']
         shorted_url = create_shorted_url(
-            user=request.user, 
+            user=request.user,
             original_url=url
         )
 
@@ -90,7 +92,7 @@ def generate_qr(request):
     if request.method == "POST":
         url = request.POST['url']
         shorted_url = create_shorted_url(
-            user=request.user, 
+            user=request.user,
             original_url=url
         )
 
@@ -137,7 +139,7 @@ def favorite_urls(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = [] # TODO: уточнить, что должно происходить в этом случае
+        urls = []
     else:
         urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = False)
 
@@ -148,9 +150,10 @@ def history_urls(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = [] # TODO: уточнить, что должно происходить в этом случае
+        urls = []
     else:
-        urls = ShortedUrl.objects.filter(author = user, is_only_qr=False).order_by('-created_at')[:100]
+        urls = ShortedUrl.objects.filter(author = user, is_only_qr=False)
+        urls = urls.order_by('-created_at')[:100]
 
     urls_by_dates = {}
 
@@ -172,7 +175,7 @@ def favorite_qrs(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = [] # TODO: уточнить, что должно происходить в этом случае
+        urls = []
     else:
         urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = True)
 
@@ -206,9 +209,10 @@ def history_qrs(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = [] # TODO: уточнить, что должно происходить в этом случае
+        urls = []
     else:
-        urls = ShortedUrl.objects.filter(author = user, is_only_qr=True).order_by('-created_at')[:100]
+        urls = ShortedUrl.objects.filter(author = user, is_only_qr=True)
+        urls = urls.order_by('-created_at')[:100]
 
     urls_by_dates = {}
 
@@ -228,14 +232,6 @@ def history_qrs(request):
 def price(request):
     """Отображение страницы Тарифы"""
     return render(request, "price.html")
-
-def account(request):
-    """Отображение страницы аккаунта пользователя"""
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
-
-    return render(request, "auth/account.html", {'user': user})
 
 def make_url_favorite(request):
     """Делает ссылку избранной"""
@@ -280,79 +276,8 @@ def remove_url_favorite(request):
 
     if shorted_url.is_only_qr:
         return redirect(qr_generator, url=short_url)
-    else:
-        return redirect(linker, url=short_url)
 
-def account_update_data(request):
-    """Обновляет данные пользователя"""
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
-
-    if request.method == "POST":
-        user.first_name = request.POST['first_name']
-        user.last_name = request.POST['last_name']
-        email = request.POST['email']
-
-        same_users = CustomUser.objects.filter(email=email)
-        if same_users.exists():
-            same_user = same_users.first()
-            if same_user.pk != user.pk:
-                return render(request, "auth/account.html", {
-                    'user': user, 'answer': 'Email уже занят'
-                })
-
-        user.email = email
-
-        user.save()
-        return redirect(account)
-
-    return HttpResponseNotFound()
-
-def avatar_remove(request):
-    """Удаляет аватар пользователя"""
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
-
-    if request.method == "POST":
-        user.avatar = None
-        user.save()
-        return redirect(account)
-
-    return HttpResponseNotFound()
-
-def avatar_update(request):
-    """Загружает аватар пользователя"""
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
-
-    if request.method == "POST":
-        avatar = request.FILES['avatar']
-        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
-        filename = fs.save(avatar.name, avatar)
-        user.avatar = fs.url(filename)
-        user.save()
-        return redirect(account)
-
-    return HttpResponseNotFound()
-
-def account_price(request):
-    """Отображение страницы тарифа аккаунта пользователя"""
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
-
-    return render(request, "auth/account_price.html", {'user': user})
-
-def account_password(request):
-    """Отображение страницы пароля аккаунта пользователя"""
-    user = request.user
-    if not user.is_authenticated:
-        return redirect('login')
-
-    return render(request, "auth/account_password.html", {'user': user})
+    return redirect(linker, url=short_url)
 
 def privacy(request):
     """Отображение страницы правил сервиса"""
@@ -373,4 +298,4 @@ def redirect_to_url(request, url = ""):
     if not parsed_url.scheme:
         url_redirect_to = "http://" + url_redirect_to
 
-    return redirect(url_redirect_to)
+    return redirect(url_redirect_to, request=request)
