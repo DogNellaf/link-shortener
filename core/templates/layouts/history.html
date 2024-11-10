@@ -1,119 +1,34 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block title %}Мои ссылки и QR коды{% endblock %}
-{% block style %}
-	.history-frame {
-		height: 73vh;
-	}
-
-	.history-frame a {
-		text-decoration: none;
-	}
-
-	.history-frame .title-bar {
-		color: #989FA6;
-		font-family: var(--font-family-sf_pro_display-medium);
-		font-size: 2.08333333333vw;
-		font-weight: 500;
-		line-height: 2.5vw;
-		letter-spacing: -0.02em;
-		display: inline;		
-	}
-
-	.history-frame .title-bar h1 {
-		display: inline;
-		color: #989FA6;
-		font-family: var(--font-family-sf_pro_display-medium);
-		font-size: 2.08333333333vw;
-		font-weight: 500;
-		line-height: 2.5vw;
-		letter-spacing: -0.02em;
-		display: inline;	
-	}
-
-	.history-frame .title-bar span {
-		margin-left: 0.83333333333vw;
-		margin-right: 0.83333333333vw;
-	}
-
-	.history-frame .bold {
-		color: #141516 !important;
-	}
-
-	.history-frame hr {
-		margin: 0;
-	}
-
-
-	.history-frame .history-menu {
-		height: 5.1vh;
-		width: 36.4583333333vw;
-		background: #F1F3F5;
-		border-radius: 1vh;
-		text-align: center;
-		margin-top: 3.2vh;
-	}
-
-	.history-frame .history-menu div {
-		height: 5.1vh;
-		width: 18.0729166667vw;
-		padding: 1.4vh;
-		gap: 0.8vh;
-
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.83333333333vw;
-		font-weight: 500;
-		line-height: 1vw;
-		letter-spacing: -0.01em;
-		color: #989FA6;
-		border-radius: 1vh;
-	}
-
-	.history-frame .history-menu .selected {
-		background: #FFFFFF !important;
-		box-shadow: 0px 4px 15px 0px #2424241A;
-		color: #141516 !important;
-	}
-
-	.history-frame .history-menu .favorite-menu-item {
-		display: inline-block;
-		width: 49.5%;
-	}
-
-	.history-frame .history-menu .history-menu-item {
-		display: inline-block;
-		width: 49.5%;
-	}
-
-	{% block additional_style %}
-
-	{% endblock %}
-{% endblock %}
-{% block content_class %}history-frame{% endblock %}
 {% block history_selected %}selected{% endblock %}
 {% block history_bold %}bold{% endblock %}
 {% block history_icon %}
 	<img src="{% static 'images/svg/bold/history.svg' %}" alt="Мои ссылки и QR-коды">
 {% endblock %}
 {% block content %}
-	<div class="title-bar">
-		<a href="{% url 'favorite_urls' %}"><h1 {% block urls_bold %} {% endblock %}>Мои ссылки</h1></a>
-		<span>/</span> 
-		<a href="{% url 'favorite_qrs' %}"><h1 {% block qrs_bold %} {% endblock %}>Мои QR-коды</h1></a>
+	<div class="history-frame">
+		<div class="title-bar">
+			<a href="{% url 'favorite_urls' %}"><h1 {% block urls_bold %} {% endblock %}>Мои ссылки</h1></a>
+			<span>/</span> 
+			<a href="{% url 'favorite_qrs' %}"><h1 {% block qrs_bold %} {% endblock %}>Мои QR-коды</h1></a>
+		</div>
+		<div class="history-menu">
+			<a href="{% block favorite_url %}{% endblock %}">
+				<div class="favorite-menu-item {% block favorite_menu_selected %}{% endblock %}">
+					Избранное
+				</div>
+			</a>
+			<a href="{% block history_url %}{% endblock %}">
+				<div class="history-menu-item {% block history_menu_selected %}{% endblock %}">
+					Все ссылки
+				</div>
+			</a>
+		</div>
+		<div class="history-frame">
+			{% block history_content %}
+	
+			{% endblock %}
+		</div>
 	</div>
-	<div class="history-menu">
-		<a href="{% block favorite_url %}{% endblock %}">
-			<div class="favorite-menu-item {% block favorite_menu_selected %}{% endblock %}">
-				Избранное
-			</div>
-		</a>
-		<a href="{% block history_url %}{% endblock %}">
-			<div class="history-menu-item {% block history_menu_selected %}{% endblock %}">
-				Все ссылки
-			</div>
-		</a>
-	</div>
-	{% block history_content %}
-
-	{% endblock %}
 {% endblock %}

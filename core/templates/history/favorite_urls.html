@@ -1,354 +1,5 @@
 {% extends 'layouts/history.html' %}
 {% load static %}
-{% block additional_style %}
-	.history-frame {
-		height: 73vh;
-	}
-
-	.history-frame a {
-		text-decoration: none;
-	}
-
-	.history-frame .title-bar {
-		color: #989FA6;
-		font-family: var(--font-family-sf_pro_display-medium);
-		font-size: 2.08333333333vw;
-		font-weight: 500;
-		line-height: 2.5vw;
-		letter-spacing: -0.02em;
-		display: inline;		
-	}
-
-	.history-frame .title-bar h1 {
-		display: inline;
-		color: #989FA6;
-		font-family: var(--font-family-sf_pro_display-medium);
-		font-size: 2.08333333333vw;
-		font-weight: 500;
-		line-height: 2.5vw;
-		letter-spacing: -0.02em;
-		display: inline;	
-	}
-
-	.history-frame .title-bar span {
-		margin-left: 0.83333333333vw;
-		margin-right: 0.83333333333vw;
-	}
-
-	.history-frame .bold {
-		color: #141516 !important;
-	}
-
-	.history-frame .search {
-		margin-top: 2vh;
-		width: 36.4583333333vw;
-		height: 6vh;
-		padding: 0;
-	}
-
-	.history-frame .search input {
-		width: 100%;
-		height: 100%;
-		padding-top: 2vh;
-		padding-bottom: 2vh;
-		gap: 0px;
-		border: none;
-		border-bottom: 2px solid #F1F3F5;
-
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.83333333333vw;
-		font-weight: 500;
-		line-height: 1vw;
-		letter-spacing: -0.01em;
-		color: #141516;
-	}
-
-	.history-frame .search img {
-		width: 1.04166666667vw;
-		height: auto;
-		position: absolute;
-		right: 3.125vw;
-		top: 23.1vh;
-	}
-
-	.history-frame .search input::placeholder {
-		color: #989FA6;
-	}
-
-	.history-frame .list {
-		margin-top: 6vh;
-		display: flex; /* Измените на flex */
-		flex-direction: column; /* Обеспечивает вертикальное выравнивание */
-		height: 33.9vh; /* Позволяет высоте адаптироваться */
-		overflow-y: auto;
-		scrollbar-width: none;
-	}
-
-	.history-frame .favorite-frame .list .list-item {
-		flex-shrink: 0;
-		height: 11.3vh;
-		width: 100%;
-		border: none;
-		border-bottom: 2px solid #F1F3F5;
-		margin: 0;
-		padding: 0;
-	}
-
-	.history-frame .list .list-item .left {
-		display: inline-block;
-		width: 11.6145833333vw;
-		margin-top: 2.8vh;
-	}	
-
-	.history-frame .list .list-item .left .title {
-		width: 100%;
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 1.04166666667vw;
-		font-weight: 500;
-		line-height: 1.04166666667vw;
-		letter-spacing: -0.01em;
-		text-align: left;
-		color: #141516;
-	}
-
-	.history-frame .list .list-item .left .title p {
-		margin: 0;
-	}	
-
-	.history-frame .list .list-item .left .url {
-		width: 100%;
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 1.25vw;
-		font-weight: 500;
-		line-height: 1.5vw;
-		letter-spacing: -0.02em;
-		text-align: left;		
-		color: #989FA6;
-		margin-top: 0.8vh;
-	}		
-
-	.history-frame .list .list-item .left .url p {
-		margin: 0;
-	}		
-
-	.history-frame .list .list-item .right {
-		display: inline-block;
-		width: 11.25vw;
-		margin-left: auto;
-		margin-top: 3.25vh;
-		margin-right: 0;
-		float: right;
-	}	
-
-	.history-frame .list .list-item .right button {
-		height: 4.8vh;
-		width: 2.5vw;
-		display: inline-block;
-		{% comment %} padding: 1.6vh 0px 0px 0px; {% endcomment %}
-		padding: 0;
-		gap: 0.8vh;
-		border: none;
-		border-radius: 5000px;
-		opacity: 0px;
-		display: inline-flex;
-        justify-content: center;
-        align-items: center;
-	}	
-
-	.history-frame .list .list-item .right button img {
-		height: 1.6vh;
-		width: 1.6vh;
-	}	
-
-	#edit_frame .background {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 100vw;
-		height: 100vh;
-		background: #141516;
-		opacity: 0.4;
-		z-index: 1000;
-	}
-
-	#edit_frame form {
-		position: fixed;
-		left: 38.0208333333vw;
-		top: 37.2vh;
-		width: 23.9583333333vw;
-		height: 31.4vh;
-		background: #FFFFFF;
-		opacity: 1;
-		box-shadow: 0px 4px 14px 0px #14151626;
-		z-index: 1001;
-		border-radius: 2vh;
-		padding: 4vh;
-	}
-
-	#edit_frame h1 {
-		font-family: var(--font-family-sf_pro_display-middle);
-		font-size: 1.5625vw;
-		font-weight: 500;
-		line-height: 1.875vw;
-		letter-spacing: -0.02em;
-		text-align: left;
-	}
-
-	#edit_frame .title-input {
-		margin-top: 4vh;
-		height: 7vh;
-		width: 19.7916666667vw;
-		pap: 0.8vh;	
-		padding: 2.6vh;
-		border: none;
-		border-radius: 2vh;
-		background-color: #F1F3F5;
-
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.9375vw;
-		font-weight: 400;
-		line-height: 0.9375vw;
-		letter-spacing: -0.01em;
-		text-align: left;
-	}
-
-	#edit_frame .edit-submit {
-		margin-top: 2vh;
-		height: 6.6vh;
-		width: 19.7916666667vw;
-		border: none;
-		border-radius: 2vh;
-		background-color: #F1F3F5;
-
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.9375vw;
-		font-weight: 400;
-		line-height: 0.9375vw;
-		letter-spacing: -0.01em;
-		color: #989FA6;
-	}
-
-	#delete_frame .background {
-		position: fixed;
-		left: 0;
-		top: 0;
-		width: 100vw;
-		height: 100vh;
-		background: #141516;
-		opacity: 0.4;
-		z-index: 1000;
-	}
-
-	#delete_frame form {
-		position: fixed;
-		left: 38.0208333333vw;
-		top: 41.8vh;
-		width: 23.9583333333vw;
-		height: 22.2vh;
-		background: #FFFFFF;
-		opacity: 1;
-		box-shadow: 0px 4px 14px 0px #14151626;
-		z-index: 1001;
-		border-radius: 2vh;
-		padding: 4vh;
-	}
-
-	#delete_frame h1 {
-		font-family: var(--font-family-sf_pro_display-middle);
-		font-size: 1.5625vw;
-		font-weight: 500;
-		line-height: 1.875vw;
-		letter-spacing: -0.02em;
-		text-align: left;
-	}
-
-	#delete_frame #delete-submit {
-		margin-top: 4vh;
-		height: 6.6vh;
-		width: 9.58333333333vw;
-		pap: 0.8vh;	
-		border: none;
-		border-radius: 2vh;
-		background-color: #EC1E1E;
-
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.9375vw;
-		font-weight: 400;
-		line-height: 0.9375vw;
-		letter-spacing: -0.01em;
-		color: white;
-	}
-
-	#delete_frame #delete-cancel {
-		margin-top: 4vh;
-		height: 6.6vh;
-		width: 9.58333333333vw;
-		pap: 0.8vh;	
-		border: none;
-		border-radius: 2vh;
-		background-color: #F1F3F5;
-
-		font-family: var(--font-family-sf_pro_display-regular);
-		font-size: 0.9375vw;
-		font-weight: 400;
-		line-height: 0.9375vw;
-		letter-spacing: -0.01em;
-		color: #141516;
-	}
-
-	#share_frame {
-		width: 16.875vw;
-		height: 13.6vh;
-		top: 39.6vh;
-		left: 34.1666666667vw;
-		border-radius: 2vh;
-		padding: 1.6vh;
-		gap: 0.4vh;
-		background-color: white;
-		position: absolute;
-		z-index: 10;
-		box-shadow: 0px 4px 14px 0px #14151626;
-	}
-
-	#share_frame a {
-		text-decoration: none;
-	}
-
-	#share_frame button {
-		width: 15.208333333vw;
-		height: 5vh;
-		border-radius: 1vh;
-		padding: 1.6vh;
-		gap: 0.8vh;
-		border: none;
-		background-color: #FFFFFF;
-
-		font-family: var(--font-family-sf_pro_display-medium);
-		font-color: #141516;
-		font-size: 0.9375vw;
-		font-weight: 500;
-		line-height: 0.9375vw;
-		display: flex; /* Добавлено для flex контейнера */
-		align-items: center; /* Выравнивание по вертикали */
-	}
-
-	#share_frame button img {
-		max-width: 0.83333333333vw;
-		width: auto;
-		height: 0.83333333333vw;
-		display: inline-block; /* Изменено на inline-block для выравнивания */
-		{% comment %} margin-right: 0.416666666vw; /* Добавлено для отступа между иконкой и текстом */ {% endcomment %}
-	}
-
-	#share_frame button span {
-		display: inline-block; /* Изменено на inline-block для выравнивания */
-	}
-
-	#share_frame button:hover {
-		background-color: #F1F3F5;
-	}
-
-{% endblock %}
 {% block urls_bold %}class="bold"{% endblock %}
 {% block favorite_url %}{% url 'favorite_urls' %}{% endblock %}
 {% block history_url %}{% url 'history_urls' %}{% endblock %}
@@ -371,16 +22,16 @@
 					</div>
 				</div>
 				<div class="right">
-					<button class="editButton" onclick="showEditFrame('{{ url.title }}', '{{ url.short_url }}')">
+					<button class="editButton gray-hovered" onclick="showEditFrame('{{ url.title }}', '{{ url.short_url }}')">
 						<img src="{% static 'images/svg/bold/edit.svg' %}" />
 					</button>
-					<button class="copyButton" onclick="copyUrl('{{ url.short_url }}')">
+					<button class="copyButton gray-hovered" onclick="copyUrl('{{ url.short_url }}')">
 						<img src="{% static 'images/svg/bold/copy.svg' %}" />
 					</button>
-					<button class="shareButton" onclick="showShareFrame(this, '{{ url.short_url }}')">
+					<button class="shareButton gray-hovered" onclick="showShareFrame(this, '{{ url.short_url }}')">
 						<img src="{% static 'images/svg/bold/share.svg' %}" />
 					</button>
-					<button class="deleteButton" onclick="showDeleteFrame('{{ url.short_url }}');">
+					<button class="deleteButton gray-hovered" onclick="showDeleteFrame('{{ url.short_url }}');">
 						<img src="{% static 'images/svg/bold/delete.svg' %}" />
 					</button>
 				</div>
@@ -404,76 +55,38 @@
 	</div>
 	<div id="edit_frame" class="edit-frame" hidden>
 		<div class="background"></div>
-		<img />
 		<form method="post" action="{% url 'update_url_title' %}">
 			{% csrf_token %}
 			<h1>Название ссылки</h1>
 			<input id="titleInput" minlength="1" class="title-input" name="title" type="text" placeholder="Название"/>
-			<input class="edit-submit" type="submit"/>
+			<input class="editSubmitButton" type="submit"/>
 			<input id="url_to_edit" name="url" type="text" hidden />
+			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="closeFrame(edit_frame)"/>
 		</form>
 	</div>
 	<div id="delete_frame" class="delete-frame" hidden>
 		<div class="background"></div>
 		<form method="post" action="{% url 'delete_url_title' %}">
 			{% csrf_token %}
-			<img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(delete_frame)"/>
+			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="closeFrame(delete_frame)"/>
 			<h1>Удалить ссылку?</h1>
 			<input id="delete-cancel" type="button" value="Отмена" onclick="closeFrame(delete_frame)"/>
 			<input id="delete-submit" type="submit" value="Удалить"/>
 			<input id="url_to_delete" name="url" type="text" hidden/>
 		</form>
 	</div>
+	<script src="{% static 'js/favorite.urls.js' %}"></script>
 	<script>
-		var selectedUrl = "";
-		var lastButton = null;
-
-		function showShareFrame(button, shortUrl) {
-			if (lastButton != button) {
-				selectedUrl = shortUrl;
-				telegram_url.href = "https://t.me/share/url?url=http://{{ request.get_host }}/" + shortUrl + "&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com";
-				whatsapp_url.href = "https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ request.get_host }}/" + shortUrl + " через сервис link.example.com";
-				let coords = button.getBoundingClientRect();
-				let bottom = coords.bottom;
-				share_frame.setAttribute("style", "top: " + bottom + "px");
-				share_frame.removeAttribute("hidden");
-				lastButton = button;
+		function changeEditActive() {
+			if (titleInput.value.trim() !== "") {
+				editSubmitButton.classList.add("active");
 			} else {
-				share_frame.setAttribute("hidden", "hidden");
-				lastButton = null;
+				editSubmitButton.classList.remove("active");
 			}
-		}
-
-		function showEditFrame(title, shortUrl) {
-			url_to_edit.value = shortUrl;
-			titleInput.value = title;
-			edit_frame.removeAttribute("hidden");
-		}
-
-		function copyUrl(shortUrl) {
-			shortUrl = "http://{{ request.get_host }}/" + shortUrl;
-			navigator.clipboard.writeText(shortUrl);
-			alert("Cсылка " + shortUrl + " успешно скопирована")
-		}
-
-		function showDeleteFrame(shortUrl) {
-			url_to_delete.value = shortUrl;
-			delete_frame.removeAttribute("hidden");
-		}
+		};
+		
+		changeEditActive();
+		
+		titleInput.addEventListener("input", changeEditActive);
 	</script>
-	<script>
-        document.querySelector('.search input').addEventListener('input', function () {
-            const searchText = this.value.toLowerCase();
-            const listItems = document.querySelectorAll('.list .list-item');
-
-            listItems.forEach(item => {
-                const titleText = item.querySelector('.title p').textContent.toLowerCase();
-                if (titleText.includes(searchText)) {
-                    item.style.display = 'block'; // Показать элемент
-                } else {
-                    item.style.display = 'none'; // Скрыть элемент
-                }
-            });
-        });
-    </script>
 {% endblock %}	

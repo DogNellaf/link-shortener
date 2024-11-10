@@ -66,7 +66,7 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
-IS_FOR_RENDER = True
+IS_FOR_RENDER = False
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
