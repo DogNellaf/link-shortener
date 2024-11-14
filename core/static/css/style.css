@@ -30,9 +30,22 @@
     --font-family-sf_pro_display-regular: "SF Pro Display-Regular", Helvetica;
 }
 
-.body {
+body {
     margin: 0;
-    background: #f1f3f5;
+    background-image: url('/static/images/svg/backgrounds/default.svg');
+    background-size: cover;
+}
+
+.yellow {
+    background-image: url('/static/images/svg/backgrounds/yellow.svg');
+}
+
+.red {
+    background-image: url('/static/images/svg/backgrounds/red.svg');
+}
+
+.blue {
+    background-image: url('/static/images/svg/backgrounds/blue.svg');
 }
 
 .menu-font {

@@ -296,6 +296,6 @@ def redirect_to_url(request, url = ""):
 
     parsed_url = urlparse(url_redirect_to)
     if not parsed_url.scheme:
-        url_redirect_to = "http://" + url_redirect_to
+        url_redirect_to = "https://" + url_redirect_to
 
     return redirect(url_redirect_to, request=request)

@@ -61,28 +61,30 @@ function changeVisible() {
     isColorFrameVisible = !isColorFrameVisible;
 };
 
-let colorToButtons = new Map([
-    ["#F1F3F5", defaultColorButton],
-    ["#F8F5EC", yellowColorButton],
-    ["#F8ECF3", redColorButton],
-    ["#E9F0FA", blueColorButton]
+let colorsToButtons = new Map([
+    ["default", defaultColorButton],
+    ["yellow", yellowColorButton],
+    ["red", redColorButton],
+    ["blue", blueColorButton]
 ]);
 
-function setColor(newColor) {
-    localStorage.color = newColor;
-    document.body.setAttribute("style", "margin: 0; background-color: " + newColor);
-
-    for (let color of colorToButtons.keys()) {
-        let button = colorToButtons.get(color);
-        button.classList.remove('active-color');
+function setColor(className) {
+    localStorage.color = className;
+    document.body.className = "";
+    if (className != "default") {
+        document.body.className = className;
     }
 
-    let button = colorToButtons.get(newColor);
-    button.classList.add('active-color');
+    for (let button of colorsToButtons.values()) {
+        button.className = '';
+    }
+
+    let button = colorsToButtons.get(className);
+    button.className = 'active-color';
 }
 
 if (!localStorage.color) {
-    setColor("#F1F3F5");
+    setColor("default");
 } else {
     setColor(localStorage.color);
 }

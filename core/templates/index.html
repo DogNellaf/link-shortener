@@ -11,7 +11,7 @@
 		<h1>Это линкер от VI–media</h1>
 		<form method="POST" action="{% url 'generate_url' %}">
 		{% csrf_token %}
-			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}"/>
+			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}" autofocus/>
 			<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
 			<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
 		</form>
@@ -60,44 +60,44 @@
 				</button>
 			</a>
 		</div>
-	</div>
-	<script>
-		// автоматическое копирование ссылки
-		navigator.clipboard.writeText(shortUrlA.innerHTML);
-		copyInfoSpan.removeAttribute("hidden");
-		submitButton.classList.add("active");
-		submitButton.classList.add("sky-hovered");
-
-		var isShareFrameHidden = true;
-		// Нажатие на кнопку Добавить в избранное
-		favoriteButton.addEventListener("click", function () {
-			{% if user.is_authenticated %}
-				{% if is_favorite %}
-					sendRemoveUrlButton.click();
-				{% else %}
-					favoriteUrlInput.value = "{{ url }}";
-					addFavoriteBlock.removeAttribute("hidden");
-				{% endif %}
-			{% else %}
-				document.location.href = "{% url 'registration' %}";
-			{% endif %}
-		});
-		
-		// нажатие на кнопку Копировать
-		copyButton.addEventListener('click', function(event) {
+		<script>
+			// автоматическое копирование ссылки
 			navigator.clipboard.writeText(shortUrlA.innerHTML);
-		})
+			copyInfoSpan.removeAttribute("hidden");
+			submitButton.classList.add("active");
+			submitButton.classList.add("sky-hovered");
 
-		// Нажатие на кнопку поделиться
-		shareButton.addEventListener('click', function(event) {
-			if (isShareFrameHidden)
-				shareFrame.removeAttribute("hidden");
-			else
-				shareFrame.setAttribute("hidden", "hidden");
+			var isShareFrameHidden = true;
+			// Нажатие на кнопку Добавить в избранное
+			favoriteButton.addEventListener("click", function () {
+				{% if user.is_authenticated %}
+					{% if is_favorite %}
+						sendRemoveUrlButton.click();
+					{% else %}
+						favoriteUrlInput.value = "{{ url }}";
+						addFavoriteBlock.removeAttribute("hidden");
+					{% endif %}
+				{% else %}
+					document.location.href = "{% url 'registration' %}";
+				{% endif %}
+			});
 			
-			isShareFrameHidden = !isShareFrameHidden;
-		})
-	</script>
-	{% endif %}
+			// нажатие на кнопку Копировать
+			copyButton.addEventListener('click', function(event) {
+				navigator.clipboard.writeText(shortUrlA.innerHTML);
+			})
+
+			// Нажатие на кнопку поделиться
+			shareButton.addEventListener('click', function(event) {
+				if (isShareFrameHidden)
+					shareFrame.removeAttribute("hidden");
+				else
+					shareFrame.setAttribute("hidden", "hidden");
+				
+				isShareFrameHidden = !isShareFrameHidden;
+			})
+		</script>
+		{% endif %}
+	</div>
 	<script src="{% static 'js/index.js' %}"></script>
 {% endblock %}
