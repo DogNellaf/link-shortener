@@ -594,8 +594,9 @@ header {
     background-color: #04D1E5 !important;
 }
 /* Для history.html */
+
 .history-frame {
-    height: 73vh;
+    height: 55.5vh;
 }
 
 .history-frame a {
@@ -874,7 +875,7 @@ header {
 }
 /* Для price.html */
 .price-frame {
-    height: 26.8vh;
+    /* height: 26.8vh;  */
 }
 
 .price-frame .layout-placeholder {
@@ -1112,15 +1113,6 @@ header {
     color: #989FA6;
 }
 
-.content .history-frame .favorite-frame .list {
-    margin-top: 6vh;
-    display: flex;
-    flex-direction: column;
-    height: 33.9vh;
-    overflow-y: auto;
-    scrollbar-width: none;
-}
-
 .content .history-frame .favorite-frame .list .list-item {
     flex-shrink: 0;
     height: 11.3vh;
@@ -1169,8 +1161,8 @@ header {
 }
 
 .content .history-frame .favorite-frame .list .list-item .right {
-    display: inline-block;
-    width: 11.25vw;
+    display: inline-flex;
+    width: 9vw;
     margin-left: auto;
     margin-top: 3.25vh;
     margin-right: 0;
@@ -1380,9 +1372,6 @@ header {
     background-color: #F1F3F5;
 }
 /* history_qrs.html */
-.history-frame {
-    height: 73vh;
-}
 
 .history-frame .title-bar h1 {
     color: #989FA6;
@@ -1404,7 +1393,7 @@ header {
 .content .history-frame .favorite-frame .list {
     margin-top: 2vh;
     display: grid;
-    height: 40vh;
+    height: 35vh;
     overflow-y: auto;
     scrollbar-width: none;
 }
@@ -1448,11 +1437,10 @@ header {
     font-size: 1.04166666667vw;
     font-weight: 500;
     line-height: 1.04166666667vw;
-    letter-spacing: -0.01em;
     text-align: left;
     margin: 0;
     text-decoration: none;
-    color: #141516;
+    color: #989FA6;
 }
 
 .content .history-frame .list .list-item .right {
@@ -1526,6 +1514,7 @@ header {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    margin-left: 0;
 }
 
 .history-frame .list .list-item .left .original_url a {
@@ -1547,7 +1536,7 @@ header {
 }
 
 .history-frame .list .list-item .left .short_url a {
-    font-family: var(--font-family-sf_pro_display-regular);
+    font-family: var(--font-family-sf_pro_display-medium);
     font-size: 1.25vw;
     font-weight: 500;
     line-height: 1.5vw;
