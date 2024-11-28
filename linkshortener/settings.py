@@ -132,7 +132,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 
-
 STATIC_URL = 'static/'
 
 if IS_FOR_RENDER:
@@ -169,3 +168,21 @@ MONTHS = {
     11: 'ноября',
     12: 'декабря'
 }
+
+# Настройки для модуля восстановления пароля
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+
+EMAIL_HOST_USER = 'info@example.com'
+EMAIL_HOST_PASSWORD = 'CHANGE_ME_SMTP_PASSWORD'
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+SERVER_EMAIL = EMAIL_HOST_USER
+EMAIL_ADMIN = EMAIL_HOST_USER
+
+# Время жизни кода восстановления пароля - в минутах
+RESET_PASSWORD_CODE_LIFETIME = 10
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
