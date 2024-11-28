@@ -590,7 +590,7 @@ header {
     filter: invert(66%) sepia(10%) saturate(223%) hue-rotate(169deg) brightness(93%) contrast(92%);
 }
 
-.sky-hovered:hover {
+.active:hover {
     background-color: #04D1E5 !important;
 }
 /* Для history.html */
@@ -905,6 +905,7 @@ header {
     font-size: 0.9375vw;
     color: #141516;
     line-height: 0.9375vw;
+    outline: none;
 }
 
 .content .qr-frame input.submit {

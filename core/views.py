@@ -46,6 +46,10 @@ def generate_url(request):
     """Генерирует ссылку для текущего пользователя или анонимно"""
     if request.method == "POST":
         url = request.POST['url']
+
+        if not urlparse(url).scheme:
+            return redirect(linker)
+
         shorted_url = create_shorted_url(
             user=request.user,
             original_url=url
@@ -53,7 +57,7 @@ def generate_url(request):
 
         return redirect(linker, url=shorted_url.short_url)
 
-    return HttpResponseNotFound()
+    return redirect(linker)
 
 def qr_generator(request, url = ""):
     """Отображение страницы QR-генератора"""
@@ -91,6 +95,10 @@ def generate_qr(request):
     """Создает QR код по ссылке"""
     if request.method == "POST":
         url = request.POST['url']
+
+        if not urlparse(url).scheme:
+            return redirect(qr_generator)
+
         shorted_url = create_shorted_url(
             user=request.user,
             original_url=url
@@ -101,7 +109,7 @@ def generate_qr(request):
 
         return redirect(qr_generator, url=shorted_url.short_url)
 
-    return HttpResponseNotFound()
+    return redirect(qr_generator)
 
 def update_url_title(request):
     """Метод обновляет название ссылки"""
