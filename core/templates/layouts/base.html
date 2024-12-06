@@ -13,6 +13,63 @@
         <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
     </head>
     <body>
+        <div id="qrEditorBlock">
+            <div class="background"></div>
+            <div class="frame">
+                <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="closeFrame(qrEditorBlock)"/>
+                <div class="qr-background">
+                    <div class="qr-image">
+                    
+                    </div>
+                </div>
+                <div class="controls">
+                    <div class="color-picker">
+                        <div class="left">
+                            <p>Цвет QR-кода</p>
+                        </div>
+                        <div id="qrColorPickerFrame" class="right">
+                            <p id="qrColorLabel">#101010</p>
+                            <input type="color" id="qrColor" name="qrColor" value="#101010" />
+                        </div>
+                    </div>
+                    <div class="background-toogle">
+                        <div class="left">
+                            <p>Фон QR-кода</p>
+                        </div>
+                        <div class="right">
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider">
+                                    <span class="label yes">Да</span>
+                                    <span class="label no">Нет</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="background-color-picker">
+                        <div class="left">
+                            <p>Цвет фона</p>
+                        </div>
+                        <div id="backgroundColorPickerFrame" class="right">
+                            <p id="backgroundColorLabel">#FFFFFF</p>
+                            <input type="color" id="backgroundColor" name="backgroundColor" value="#FFFFFF" />
+                        </div>
+                    </div>
+                    <div class="image-picker">
+                        <div class="left">
+                            <p>Изображение</p>
+                        </div>
+                        <div class="right">
+                            <input type="file" id="logo" name="logo" accept="image/png, image/jpeg" hidden/>
+                            <img id="fileUploadButton" src="{% static 'images/svg/bold/upload.svg' %}" />
+                        </div>
+                    </div>
+                </div>
+                <div class="submit-button-frame">
+                    <input type="submit" value="Сохранить"/>
+                </div>
+            </div>
+        </div>
         <div id="showQrFrame" hidden>
             <div class="background"></div>
             <div id="qrFrame">

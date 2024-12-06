@@ -57,43 +57,41 @@ class ShortedUrl(models.Model):
 
 class Qr(models.Model):
     """Представляет класс QR кода - в данный момент не используется"""
-    author = models.ForeignKey(
-        to = CustomUser,
-        verbose_name = "Автор QR кода",
-        on_delete = models.SET_NULL,
-        null = True
+    
+    short_url = models.ForeignKey(
+        to = ShortedUrl,
+        verbose_name = "Короткая ссылка, которой соответствует QR",
+        on_delete = models.CASCADE,
+        null = False
     )
 
-    title = models.CharField(
-        verbose_name="Название QR",
-        default="",
-        max_length=500
+    qr_color = models.CharField(
+        verbose_name = "Цвет QR кода",
+        max_length = 6,
+        default = "101010"
     )
 
-    original_url = models.URLField(
-        verbose_name = 'Оригинальная ссылка',
-        max_length = 200
-    )
-
-    qr = models.ImageField(
-        verbose_name = 'Файл QR кода',
-        upload_to='qrs/',
-        unique = True
-    )
-
-    created_at = models.DateTimeField(
-        verbose_name = 'Дата создания',
-        auto_now_add=True
-    )
-
-    is_favorite = models.BooleanField(
-        verbose_name = 'Является избранным qr',
+    is_with_background = models.BooleanField(
+        verbose_name = "Имеет фон",
         default = False
     )
 
+    background_color = models.CharField(
+        verbose_name = "Цвет фона",
+        max_length = 6,
+        default = "ffffff"
+    )
+
+    logo = models.FileField(
+        verbose_name = "Логотип",
+        upload_to = "logos",
+        default="logos/operator.png"
+    )
+
+
     def __str__(self):
         """Строковое представление объекта"""
-        return f"{self.original_url}"
+        return f"{self.short_url.title} | {self.qr_color} | {self.background_color} | {self.logo}"
 
     class Meta:
         """Мета данные QR кода"""

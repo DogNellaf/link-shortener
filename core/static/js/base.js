@@ -1,3 +1,23 @@
+backgroundColorPickerFrame.addEventListener('click', 
+    _ => backgroundColor.click()
+)
+
+backgroundColor.addEventListener('input', 
+    _ => backgroundColorLabel.innerHTML = backgroundColor.value
+)
+
+qrColorPickerFrame.addEventListener('click', 
+    _ => qrColor.click()
+)
+
+qrColor.addEventListener('input', 
+    _ => qrColorLabel.innerHTML = qrColor.value
+)
+
+fileUploadButton.addEventListener('click', 
+    _ => logo.click()
+)
+
 downloadSvgButton.addEventListener('click', function() {
     let svg = downloadQrImage.getElementsByClassName('segno')[0];
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");

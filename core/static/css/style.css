@@ -1069,7 +1069,282 @@ header {
     height: 30.5894848646vh;
     width: 15.932023367vw;
     position: relative;
+    padding: 4vh;
 }
+
+#qrEditorBlock .background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #141516;
+    opacity: 0.4;
+    z-index: 1000;
+}
+
+#qrEditorBlock .frame {
+    position: fixed;
+    left: 38.0208333333vw;
+    top: 16.1vh;
+    width: 23.9583333333vw;
+    height: 77.4vh;
+    background: #FFFFFF;
+    opacity: 1;
+    box-shadow: 0px 4px 14px 0px #14151626;
+    z-index: 1001;
+    border-radius: 2vh;
+    padding: 4vh;
+}
+
+#qrEditorBlock p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 0.9375vw;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    margin: 0;
+    color: #141516;
+}
+
+#qrEditorBlock .frame .qr-background {
+    height: 28vh;
+    width: 19.7916666667vw;
+    background-image: url('/static/images/png/qr_background.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    display: flex;
+    margin-top: 2vh;
+}
+
+#qrEditorBlock .frame .qr-background .qr-image {
+    height: 12.5vw;
+    width: 12.5vw;
+    background-image: url('/static/images/png/qr_template.png');
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    flex-shrink: 0;
+    display: flex;
+    margin: auto;
+}
+
+#qrEditorBlock .frame .controls {
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 19.7916666667vw;
+    margin-top: 2.8vh;
+}
+
+#qrEditorBlock .frame .controls div {
+    display: flex;
+    justify-content: space-between;
+}
+
+#qrEditorBlock .frame .controls .left {
+    display: flex;
+    align-items: center;
+}
+
+#qrEditorBlock .frame .controls .right {
+    display: flex;
+    width: 7.8125vw;
+    height: 5.6vh;
+    gap: 0px;
+    border-radius: 2vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #F1F3F5;
+}
+
+#qrEditorBlock .frame .controls .right p {
+    display: flex;
+    align-items: center;
+    margin-right: 1.09375vw;
+    height: 1.25vw;
+    font-family: var(--font-family-sf_pro_display-medium);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+#qrEditorBlock .frame .controls .color-picker #qrColor {
+    width: 1.25vw;
+    height: 1.25vw;
+    border-radius: 50%;
+    border: 1px solid #989FA6;
+    padding: 0; 
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#qrEditorBlock .frame .controls .color-picker #qrColor::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#qrEditorBlock .frame .controls .color-picker #qrColor::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+    background-color: black;
+}
+
+#qrEditorBlock .frame .controls .background-toogle {
+    margin-top: 1.2vh;
+    padding: 0;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch {
+    position: relative;
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch .slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    transition: background-color 0.4s;
+    margin: 0;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch .slider .label {
+    flex: 1;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    user-select: none;
+    transition: color 0.4s;
+    height: 100%;
+    font-family: var(--font-family-sf_pro_display-regular) !important;
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch .slider .yes {
+    border-radius: 20px 0 0 20px;
+    color: #141516;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5.2vh;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch .slider .no {
+    border-radius: 0 20px 20px 0;
+    color: #141516;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 5.2vh;
+    font-family: var(--font-family-sf_pro_display-regular) !important;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch input:checked + .slider .yes {
+    background-color: white;
+    border-radius: 1.8vh;
+    box-shadow: 0px 4px 15px 0px #2424241A;
+}
+
+#qrEditorBlock .frame .controls .background-toogle .right .switch input:not(:checked) + .slider .no {
+    background-color: white;
+    border-radius: 1.8vh;
+}
+
+
+#qrEditorBlock .frame .controls .background-color-picker {
+    margin-top: 1.2vh;
+}
+
+#qrEditorBlock .frame .controls .background-color-picker #backgroundColor {
+    width: 1.25vw;
+    height: 1.25vw;
+    border-radius: 50%;
+    border: 1px solid #989FA6;
+    padding: 0; 
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+#qrEditorBlock .frame .controls .background-color-picker #backgroundColor::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+#qrEditorBlock .frame .controls .background-color-picker #backgroundColor::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+    background-color: black;
+}
+
+#qrEditorBlock .frame .controls .image-picker img{
+    width: 0.9375vw;
+    height: 0.9375vw;
+}
+
+#qrEditorBlock .frame .controls .image-picker {
+    margin-top: 1.2vh;
+}
+
+#qrEditorBlock .frame .submit-button-frame input {
+    margin-top: 4vh;
+    height: 6.6vh;
+    width: 19.7916666667vw;
+    background-color: #1599F5;
+    border: none;
+    color: white;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    border-radius: 2vh;
+}
+
+#qrEditorBlock h1 {
+    font-family: var(--font-family-sf_pro_display-middle);
+    font-size: 1.5625vw;
+    font-weight: 500;
+    line-height: 1.875vw;
+    text-align: left;
+}
+
+#qrEditorBlock #qrImageFrame {
+    width: 100%;
+    height: 90%;
+    z-index: 1001;
+}
+
+#qrEditorBlock .segno {
+    width: 100%;
+    height: 100%;
+    z-index: 1001;
+}
+
 /* Для favorite страниц */
 
 .content .history-frame .favorite-frame .search {
