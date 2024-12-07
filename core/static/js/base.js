@@ -155,8 +155,6 @@ logo.addEventListener('change', (e) => {
 downloadSvgButton.addEventListener('click', async function() {
     let svg = qrImage.getElementsByTagName('svg')[0];
     svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-    svg.setAttribute("width", "256");
-    svg.setAttribute("height", "256");
 
     const images = svg.querySelectorAll('image');
     for (let image of images) {
@@ -242,7 +240,7 @@ downloadPngButton.addEventListener('click', async function() {
     downloadQrBlock.setAttribute("hidden", "hidden");
 });
 
-function showDownload(shortUrl) {
+function showDownload() {
     downloadQrBlock.removeAttribute("hidden");
 }
 
