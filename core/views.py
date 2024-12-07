@@ -31,7 +31,8 @@ def linker(request, url=""):
         short_url = get_object_or_404(ShortedUrl, short_url = url)
 
     return render(request, "index.html", {
-        'url': short_url
+        'url': short_url,
+        'url_title': short_url.title
     })
 
 def generate_url(request):
@@ -60,19 +61,15 @@ def qr_generator(request, url = ""):
     qr = None
 
     if url != "":
-        shorted_urls = ShortedUrl.objects.filter(short_url = url, is_only_qr=True)
-        if not shorted_urls.exists():
-            return HttpResponseNotFound()
+        short_url = get_object_or_404(ShortedUrl, short_url = url, is_only_qr=True)
+        original_url = short_url.original_url
+        is_favorite = short_url.is_favorite
+        url_title = short_url.title
 
-        shorted_url = shorted_urls.first()
-        original_url = shorted_url.original_url
-        is_favorite = shorted_url.is_favorite
-        url_title = shorted_url.title
-
-        if Qr.objects.filter(short_url=shorted_url).exists():
-            qr = Qr.objects.filter(short_url=shorted_url).first()
+        if Qr.objects.filter(short_url=short_url).exists():
+            qr = Qr.objects.filter(short_url=short_url).first()
         else:
-            qr = Qr(short_url = shorted_url)
+            qr = Qr(short_url = short_url)
             qr.save()
 
     return render(request, "qr_generator.html", {
@@ -284,19 +281,15 @@ def make_url_favorite(request):
         short_url = request.POST['url']
         title = request.POST['title']
 
-        shorted_urls = ShortedUrl.objects.filter(short_url = short_url)
-        if not shorted_urls.exists():
-            return redirect(linker, url=short_url)
+        short_url = get_object_or_404(ShortedUrl, short_url = short_url)
+        short_url.title = title
+        short_url.is_favorite = True
+        short_url.save()
 
-        shorted_url = shorted_urls.first()
-        shorted_url.title = title
-        shorted_url.is_favorite = True
-        shorted_url.save()
-
-    if shorted_url.is_only_qr:
-        return redirect(qr_generator, url=short_url)
+    if short_url.is_only_qr:
+        return redirect(qr_generator, url=short_url.short_url)
     else:
-        return redirect(linker, url=short_url)
+        return redirect(linker, url=short_url.short_url)
 
 def remove_url_favorite(request):
     """Удаляет ссылку из избранного"""
@@ -305,20 +298,18 @@ def remove_url_favorite(request):
         return redirect('login')
 
     if request.method == "POST":
-        short_url = request.POST['url']
+        url = request.POST['url']
 
-        shorted_urls = ShortedUrl.objects.filter(short_url = short_url)
-        if not shorted_urls.exists():
-            return redirect(linker, url=short_url)
+        url = get_object_or_404(ShortedUrl, short_url = url)
+        url.is_favorite = False
+        url.save()
 
-        shorted_url = shorted_urls.first()
-        shorted_url.is_favorite = False
-        shorted_url.save()
+        if url.is_only_qr:
+            return redirect(qr_generator, url=url.short_url)
 
-    if shorted_url.is_only_qr:
-        return redirect(qr_generator, url=short_url)
-
-    return redirect(linker, url=short_url)
+        return redirect(linker, url=url.short_url)
+    
+    return redirect(linker)
 
 def privacy(request):
     """Отображение страницы правил сервиса"""
@@ -329,11 +320,8 @@ def redirect_to_url(request, url = ""):
     if url == "":
         return HttpResponseNotFound()
 
-    shorted_urls = ShortedUrl.objects.filter(short_url = url)
-    if not shorted_urls.exists():
-        return HttpResponseNotFound()
-
-    url_redirect_to = shorted_urls.first().original_url
+    short_url = get_object_or_404(ShortedUrl, short_url = url)
+    url_redirect_to = short_url.original_url
 
     parsed_url = urlparse(url_redirect_to)
     if not parsed_url.scheme:

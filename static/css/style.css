@@ -1267,13 +1267,13 @@ header {
     font-family: var(--font-family-sf_pro_display-regular) !important;
 }
 
-#qrEditorBlock .frame .controls .background-toogle .right .switch input:checked + .slider .yes {
+#qrEditorBlock .frame .controls .background-toogle .right .switch input:not(input:checked) + .slider .yes {
     background-color: white;
     border-radius: 1.8vh;
     box-shadow: 0px 4px 15px 0px #2424241A;
 }
 
-#qrEditorBlock .frame .controls .background-toogle .right .switch input:not(:checked) + .slider .no {
+#qrEditorBlock .frame .controls .background-toogle .right .switch :checked + .slider .no {
     background-color: white;
     border-radius: 1.8vh;
 }
@@ -1449,7 +1449,7 @@ header {
 }
 
 .content .history-frame .favorite-frame .list .list-item .right button {
-    height: 2.5vw;
+    height: 4.3vh;
     width: 2.5vw;
     display: inline-block;
     padding: 0;

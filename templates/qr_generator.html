@@ -2,10 +2,20 @@
 {% load static %}
 {% load qr_code %}
 {% block title %}Это QR-генератор от VI–media{% endblock %}
+{% block style %}
+	.content .qr-frame .share-frame {
+		top: 48.6vh !important;
+	}
+{% endblock %}gggggg
 {% block qr_selected %}selected{% endblock %}
 {% block qr_bold %}bold{% endblock %}
 {% block qr_icon %}
 	<img src="{% static 'images/svg/bold/qr.svg' %}" alt="QR-генератор">
+{% endblock %}
+{% block frames %}
+	{% include 'layouts/parts/download_qr.html' %}
+	{% include 'layouts/parts/qr_editor.html' %}
+	{% include 'layouts/parts/add_favorite.html' %}
 {% endblock %}
 {% block content %}
 	<div class="qr-frame{% if qr %} with-qr{% endif %}">
@@ -120,8 +130,7 @@
 		qrColorLabel.innerHTML = qrColor.value;
 
 		{% if qr.is_with_background %}
-			changeBackgroundDraw();
-			backgroundDrawToogle.checked = true;
+			setWithBackground(true);
 		{% endif %}
 
 		drawQR(

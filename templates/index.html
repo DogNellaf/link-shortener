@@ -37,13 +37,13 @@
 					<img src="{% static 'images/svg/bold/share.svg' %}" />
 				</button>
 				<button class="gray-hovered" id="favoriteButton">
-					{% if not is_favorite %}
+					{% if not url.is_favorite %}
 						<img src="{% static 'images/svg/bold/heart.svg' %}" />
 					{% else %}
 						<img src="{% static 'images/svg/bold/heart-fill.svg' %}" />	
 						<form method="POST" action="{% url 'remove_url_favorite' %}" hidden>
 							{% csrf_token %}
-							<input name="url" type="text" value="{{ url }}"/>
+							<input name="url" type="text" value="{{ url.short_url }}"/>
 							<input id="sendRemoveUrlButton" type="submit"/>
 						</form>
 					{% endif %}
@@ -73,10 +73,10 @@
 			var isShareFrameHidden = true;
 			favoriteButton.addEventListener("click", function () {
 				{% if user.is_authenticated %}
-					{% if is_favorite %}
+					{% if url.is_favorite %}
 						sendRemoveUrlButton.click();
 					{% else %}
-						favoriteUrlInput.value = "{{ url }}";
+						favoriteUrlInput.value = "{{ url.short_url }}";
 						addFavoriteBlock.removeAttribute("hidden");
 					{% endif %}
 				{% else %}
