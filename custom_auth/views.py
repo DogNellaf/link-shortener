@@ -21,7 +21,7 @@ def registration(request):
         password_another = request.POST['passwordAnother']
 
         if password != password_another:
-            return render(request, "registration.html", {
+            return render(request, "auth/registration.html", {
                 "error": "Пароли не совпадают",
                 "first_name": first_name,
                 "last_name": last_name,
@@ -30,7 +30,7 @@ def registration(request):
 
         same_users = CustomUser.objects.filter(email=email)
         if same_users.exists():
-            return render(request, "registration.html", {
+            return render(request, "auth/registration.html", {
                 "error": "Пользователь с такой почтой уже существует",
                 "first_name": first_name,
                 "last_name": last_name,
@@ -51,7 +51,7 @@ def registration(request):
             login_method(request, user)
             return redirect('account')
 
-    return render(request, "registration.html")
+    return render(request, "auth/registration.html")
 
 def login(request):
     """Функция возвращает страницу авторизации"""
@@ -64,11 +64,11 @@ def login(request):
             login_method(request, user)
             return redirect('account')
 
-        return render(request, "login.html", {
+        return render(request, "auth/login.html", {
             "error": "Пользователь с такими данными не найден"
         })
 
-    return render(request, "login.html")
+    return render(request, "auth/login.html")
 
 def password_reset_request(request):
     if request.method == 'POST':
@@ -81,7 +81,7 @@ def password_reset_request(request):
             user = CustomUser.objects.get(email=email)
 
         except CustomUser.DoesNotExist:
-            return render(request, 'password_reset_request.html', {'error': "Пользователь не существует", "email": email})
+            return render(request, 'auth/password_reset.html', {'error': "Пользователь не существует", "email": email})
 
         code = get_random_string(length=4, allowed_chars='0123456789')
 
@@ -96,9 +96,9 @@ def password_reset_request(request):
             fail_silently=False,
         )
 
-        return render(request, 'password_reset_verify.html', {'email': email})
+        return render(request, 'auth/password_reset_verify.html', {'email': email})
 
-    return render(request, 'password_reset_request.html')
+    return render(request, 'auth/password_reset.html')
 
 def password_reset_verify(request):
     if request.method == 'POST':
@@ -113,9 +113,9 @@ def password_reset_verify(request):
         if reset_code.is_expired():
             return HttpResponse("Код истек.", status=400)
 
-        return redirect('password_reset_confirm', user_id=reset_code.user.id)
+        return redirect('auth/password_reset_confirm.html', user_id=reset_code.user.id)
 
-    return render(request, 'password_reset_verify.html')
+    return render(request, 'auth/password_reset_verify.html')
 
 def password_reset_confirm(request, code: str):
     """Обрабатывает POST запрос применения нового пароля"""

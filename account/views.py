@@ -13,7 +13,7 @@ def account(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account.html", {'user': user})
+    return render(request, "account/index.html", {'user': user})
 
 def account_update_password(request):
     """Обновляет пароль пользователя"""
@@ -27,13 +27,13 @@ def account_update_password(request):
         password2 = request.POST['password2']
 
         if not user.check_password(current_password):
-            return render(request, "account_password.html", {
+            return render(request, "account/password.html", {
                 'user': user,
                 'answer': 'Указан неверный текущий пароль'
             })
 
         if password1 != password2:
-            return render(request, "account_password.html", {
+            return render(request, "account/password.html", {
                 'user': user,
                 'answer': 'Пароли не совпадают'
             })
@@ -41,7 +41,7 @@ def account_update_password(request):
         user.password = make_password(password1)
         user.save()
 
-        return render(request, "account_password.html", {
+        return render(request, "account/password.html", {
             'user': user,
             'answer': 'Пароль успешно изменен',
             'is_success': True
@@ -111,7 +111,7 @@ def account_price(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account_price.html", {'user': user})
+    return render(request, "account/price.html", {'user': user})
 
 def account_password(request):
     """Отображение страницы пароля аккаунта пользователя"""
@@ -119,4 +119,4 @@ def account_password(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account_password.html", {'user': user})
+    return render(request, "account/password.html", {'user': user})

@@ -215,7 +215,9 @@ def history_urls(request):
         else:
             urls_by_dates[created_at_date_title] = [url]
 
-    return render(request, "history/history_urls.html", {'urls_by_dates': urls_by_dates})
+    return render(request, "history/urls.html", {
+        'urls_by_dates': urls_by_dates
+    })
 
 def favorite_qrs(request):
     """Отображение страницы Мои QR-коды - избранное"""
@@ -234,7 +236,9 @@ def favorite_qrs(request):
         )
         urls_qrs[url] = qr
 
-    return render(request, "history/favorite_qrs.html", {'urls': urls_qrs})
+    return render(request, "history/favorite_qrs.html", {
+        'urls': urls_qrs
+    })
 
 def delete_qr(request):
     """Метод удаляет QR-код из избранного"""
@@ -274,7 +278,9 @@ def history_qrs(request):
         else:
             urls_by_dates[created_at_date_title] = [url]
 
-    return render(request, "history/history_qrs.html", {'urls_by_dates': urls_by_dates})
+    return render(request, "history/qrs.html", {
+        'urls_by_dates': urls_by_dates
+    })
 
 def price(request):
     """Отображение страницы Тарифы"""
