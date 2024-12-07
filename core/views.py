@@ -5,11 +5,15 @@ from urllib.parse import urlparse
 from django.conf import settings
 from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect
+from django.utils import timezone
+from django.core.files.storage import FileSystemStorage
 
 from qr_code.qrcode.maker import make_embedded_qr_code
 
-from core.models import ShortedUrl
+from core.models import ShortedUrl, Qr
 from core.utils import create_shorted_url
+
+from os.path import join
 
 QR_CODE_OPTIONS = settings.QR_CODE_OPTIONS
 MONTHS = settings.MONTHS
@@ -77,10 +81,11 @@ def qr_generator(request, url = ""):
         is_favorite = shorted_url.is_favorite
         url_title = shorted_url.title
 
-        qr = make_embedded_qr_code(
-            data=f"http://{request.get_host()}/{url}",
-            qr_code_options=QR_CODE_OPTIONS
-        )
+        if Qr.objects.filter(short_url=shorted_url).exists():
+            qr = Qr.objects.filter(short_url=shorted_url).first()
+        else:
+            qr = Qr(short_url = shorted_url)
+            qr.save()
 
     return render(request, "qr_generator.html", {
         'host': request.get_host(),
@@ -124,6 +129,40 @@ def update_url_title(request):
             shorted_url = urls.first()
             shorted_url.title = title
             shorted_url.save()
+
+    return redirect(request.META['HTTP_REFERER'])
+
+def update_qr_params(request):
+    """Метод обновляет параметры QR кода"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        qr_color = request.POST['qrColor']
+
+        if 'IsWithBackground' in request.POST:
+            is_with_background = True
+        else:
+            is_with_background = False
+
+        background_color = request.POST['backgroundColor']
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url)
+        if urls.exists():
+            shorted_url = urls.first()
+            qrls = Qr.objects.filter(short_url = shorted_url)
+            if qrls.exists():
+                qr = qrls.first()
+                qr.qr_color = qr_color.replace("#", "")
+                qr.background_color = background_color.replace("#", "")
+                qr.is_with_background = is_with_background
+                if 'logo' in request.FILES:
+                    file = request.FILES['logo']
+                    fs = FileSystemStorage()
+                    
+                    path = join(settings.MEDIA_ROOT, f"{file.name}")
+                    qr.logo = fs.save(path, file)
+                qr.save()
 
     return redirect(request.META['HTTP_REFERER'])
 

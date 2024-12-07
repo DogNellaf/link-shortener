@@ -21,10 +21,13 @@
 		<div class="result-frame">
 			<div style="display: inline-block;">
 				<div id="qrImage" class="short-url-frame">
-					{{ qr }}
+					
 				</div>
 			</div>
 			<div class="buttons">
+				<button id="editButton" class="gray-hovered">
+					<img src="{% static 'images/svg/bold/edit.svg' %}" />
+				</button>
 				<button id="downloadButton" class="gray-hovered">
 					<img src="{% static 'images/svg/bold/download.svg' %}" />
 				</button>
@@ -72,6 +75,23 @@
 			downloadQrBlock.removeAttribute("hidden");
 		})
 
+		editButton.addEventListener('click', function(event) {
+			qrEditorBlock.removeAttribute("hidden");
+
+			{% if qr.is_with_background %}
+				changeBackgroundDraw();
+				backgroundDrawToogle.checked = true;
+			{% endif %}
+			
+            drawQR(
+                qrEditorCanvas,
+                "{{ url }}",
+                "/media/{{ qr.logo }}",
+                qrColor.value,
+                backgroundColor.value
+            );
+		})
+
 		shareButton.addEventListener('click', function(event) {
 			if (is_share_frame_hidden) {
 				share_frame.removeAttribute("hidden");
@@ -94,6 +114,24 @@
 				document.location.href = "{% url 'registration' %}";
 			{% endif %}
 		});
+
+		backgroundColor.value = "#{{ qr.background_color }}";
+		backgroundColorLabel.innerHTML = backgroundColor.value;
+		qrColor.value = "#{{ qr.qr_color }}";
+		qrColorLabel.innerHTML = qrColor.value;
+
+		{% if qr.is_with_background %}
+			changeBackgroundDraw();
+			backgroundDrawToogle.checked = true;
+		{% endif %}
+
+		drawQR(
+			qrImage,
+			"{{ url }}",
+			"/media/{{ qr.logo }}",
+			qrColor.value,
+			backgroundColor.value
+		);
 	</script>
 	{% endif %}
 	<script src="{% static 'js/qr_generator.js' %}"></script>

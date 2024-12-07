@@ -26,6 +26,7 @@ urlpatterns = [
     path('urls/favorite', views.favorite_urls, name = "favorite_urls"),
 
     path('qr', views.qr_generator, name = "qr_generator"),
+    path('qr/update', views.update_qr_params, name = "qr_update"),
     path('qr/<str:url>', views.qr_generator, name = "qr_generator"),
     path('qrs/delete', views.delete_qr, name = "delete_qr"),
     path('qrs/history', views.history_qrs, name = "history_qrs"),
