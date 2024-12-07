@@ -1,0 +1,15 @@
+{% load static %}
+<div id="downloadQrBlock" hidden>
+    <div class="download-qr-background"></div>
+    <div class="download-qr-frame">
+        <h1>Скачать QR код</h1>
+        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="downloadQrBlock.setAttribute('hidden', 'hidden')"/>
+        <button id="downloadPngButton">
+            <p>.PNG</p>
+        </button>
+        <button id="downloadSvgButton">
+            <p>.SVG</p>
+        </button>                
+    </div>
+</div>
+<script src="{% static 'js/parts/download_qr.js' %}"></script>
