@@ -2,14 +2,14 @@
 	font-family: "SF Pro Display-Medium";
     font-style: normal;
     font-weight: 500;
-    src: url('https://anima-uploads.s3.amazonaws.com/projects/64f7ed1586d1fc0125de8d9c/fonts/sf-pro-display-medium.otf') format("opentype");
+    src: url('/static/fonts/sf-pro-display-medium.otf') format("opentype");
 }
 
 @font-face {
 	font-family: "SF Pro Display-Regular";
     font-style: normal;
     font-weight: 400;
-    src: url('https://anima-uploads.s3.amazonaws.com/projects/62e5bd2f729e81c0f2cb0ddb/fonts/sf-pro-display-regular.ttf') format("truetype");
+    src: url('/static/fonts/sf-pro-display-regular.ttf') format("truetype");
 }
 
 * {
@@ -1124,7 +1124,6 @@ header {
 #qrEditorBlock .frame .qr-background .qr-image {
     height: 12.5vw;
     width: 12.5vw;
-    background-image: url('/static/images/png/qr_template.png');
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -1132,6 +1131,11 @@ header {
     flex-shrink: 0;
     display: flex;
     margin: auto;
+}
+
+#qrEditorBlock .frame .qr-background .qr-image svg {
+    height: 100%;
+    width: 100%;
 }
 
 #qrEditorBlock .frame .controls {
