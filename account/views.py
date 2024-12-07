@@ -27,13 +27,13 @@ def account_update_password(request):
         password2 = request.POST['password2']
 
         if not user.check_password(current_password):
-            return render(request, "account/password.html", {
+            return render(request, "account/change_password.html", {
                 'user': user,
                 'answer': 'Указан неверный текущий пароль'
             })
 
         if password1 != password2:
-            return render(request, "account/password.html", {
+            return render(request, "account/change_password.html", {
                 'user': user,
                 'answer': 'Пароли не совпадают'
             })
@@ -41,7 +41,7 @@ def account_update_password(request):
         user.password = make_password(password1)
         user.save()
 
-        return render(request, "account/password.html", {
+        return render(request, "account/change_password.html", {
             'user': user,
             'answer': 'Пароль успешно изменен',
             'is_success': True
@@ -119,4 +119,4 @@ def account_password(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account/password.html", {'user': user})
+    return render(request, "account/change_password.html", {'user': user})
