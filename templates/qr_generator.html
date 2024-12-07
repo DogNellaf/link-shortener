@@ -30,12 +30,10 @@
 		<hr>
 		<div class="result-frame">
 			<div style="display: inline-block;">
-				<div id="qrImage" class="short-url-frame">
-					
-				</div>
+				<div id="qrImage" class="short-url-frame"></div>
 			</div>
 			<div class="buttons">
-				<button id="editButton" class="gray-hovered">
+				<button id="editButton" class="gray-hovered" {% if not user.is_authenticated %}hidden{%endif%}>
 					<img src="{% static 'images/svg/bold/edit.svg' %}" />
 				</button>
 				<button id="downloadButton" class="gray-hovered">

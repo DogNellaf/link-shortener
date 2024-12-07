@@ -31,7 +31,7 @@ function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_back
           margin: 10
         },
         dotsOptions: {
-          type: "extra-rounded",
+          type: "dots",
           color: lastQrColor,
           roundSize: true,
           gradient: null
@@ -73,7 +73,7 @@ function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_back
           }
         },
         cornersDotOptions: {
-          type: "square",
+          type: "dot",
           color: lastQrColor
         },
         cornersDotOptionsHelper: {
@@ -107,8 +107,6 @@ function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_back
     canvas.innerHTML = "";
     qr.append(canvas);
 }
-
-
 
 isColorFrameVisible = false;
 
