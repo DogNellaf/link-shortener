@@ -1840,3 +1840,36 @@ header {
     text-align: right;
     color: #989FA6;
 }
+
+#copyAlertFrame {
+    position: absolute;
+    bottom: 3vh;
+    height: 5.6vh;
+    width: 17.8125vw;
+    left: 41.09375vw;
+    padding: 2vh 1.04166666667vw 2vh 1.04166666667vw;
+    border-radius: 1vh;
+    background-color: #141516E5;
+
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.83333333333vw;
+    font-weight: 500;
+    line-height: 0.83333333333vw;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: white;
+}
+
+#copyAlertFrame p {
+    margin: 0;
+    display: inline-flex;
+    margin-right: 0.81822916666vw;
+}
+
+#copyAlertFrame img {
+    margin: 0;
+    display: inline-flex;
+    width: 0.65572916666vw;
+    height: 0.65572916666vw;
+}

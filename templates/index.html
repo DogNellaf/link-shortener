@@ -8,6 +8,7 @@
 {% endblock %}
 {% block frames %}
 	{% include 'layouts/parts/add_favorite.html' %}
+	{% include 'layouts/parts/copy_alert.html' %}
 {% endblock %}
 {% block content %}
 	<div class="index-frame {% if url != "" %}with-url{% endif %}">
@@ -84,7 +85,11 @@
 			});
 			
 			copyButton.addEventListener('click', function(event) {
+				copyAlertFrame.removeAttribute("hidden");
 				navigator.clipboard.writeText(shortUrlA.innerHTML);
+				setTimeout(() => {
+					copyAlertFrame.setAttribute("hidden", "hidden");
+				}, 3000);
 			})
 
 			shareButton.addEventListener('click', function(event) {
