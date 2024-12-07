@@ -108,6 +108,8 @@ function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_back
     qr.append(canvas);
 }
 
+
+
 isColorFrameVisible = false;
 
 function changeVisible() {

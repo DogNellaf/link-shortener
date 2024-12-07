@@ -211,20 +211,12 @@ def favorite_qrs(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = []
+        qrs = []
     else:
-        urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = True)
-
-    urls_qrs = {}
-    for url in urls:
-        qr = make_embedded_qr_code(
-            data=f"http://{request.get_host()}/{url.short_url}",
-            qr_code_options=QR_CODE_OPTIONS
-        )
-        urls_qrs[url] = qr
+        qrs = Qr.objects.filter(short_url__author = user, short_url__is_favorite = True)
 
     return render(request, "favorite/qrs.html", {
-        'urls': urls_qrs
+        'qrs': qrs
     })
 
 def delete_qr(request):

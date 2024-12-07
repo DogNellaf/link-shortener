@@ -522,12 +522,13 @@ header {
     width: 100%;
     height: 90%;
     z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-#showQrFrame .segno {
-    width: 100%;
-    height: 100%;
-    z-index: 1001;
+#showQrFrame svg {
+    display: flex;
 }
 
 #changeBackgroundFrame {
@@ -1450,7 +1451,7 @@ header {
 
 .content .history-frame .favorite-frame .list .list-item .right button {
     height: 4.3vh;
-    width: 2.5vw;
+    width: 2vw;
     display: inline-block;
     padding: 0;
     gap: 0.8vh;

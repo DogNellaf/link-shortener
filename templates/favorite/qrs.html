@@ -4,6 +4,10 @@
 {% block favorite_url %}{% url 'favorite_qrs' %}{% endblock %}
 {% block history_url %}{% url 'history_qrs' %}{% endblock %}
 {% block favorite_menu_selected %}selected{% endblock %}
+{% block frames %}
+	{% include 'layouts/parts/show_qr.html' %}
+	{% include 'layouts/parts/download_qr.html' %}
+{% endblock %}
 {% block history_content %}
 	<div class="favorite-frame">
 		<div class="search">
@@ -11,27 +15,24 @@
 			<img src="{% static 'images/svg/normal/search.svg' %}" />
 		</div>
 		<div class="list">
-			{% for url, qr in urls.items %}
+			{% for qr in qrs %}
 			<div class="list-item">
-                <div id="{{ url.short_url }}-qr" hidden>
-                    {{ qr }}
-                </div>
 				<div class="left">
 					<div class="title">
-						<p>{{ url.title }}</p>
+						<p>{{ qr.short_url.title }}</p>
 					</div>
 					<div class="url">
-						<a>{{ request.get_host }}/{{ url.short_url }}</a>
+						<a>{{ request.get_host }}/{{ qr.short_url.short_url }}</a>
 					</div>
 				</div>
 				<div class="right">
-					<button class="downloadButton" onclick="showDownload('{{ url.short_url }}')">
+					<button class="downloadButton" onclick="showDownloadWithParams('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {% if qr.is_with_background %}true{% else %}false{% endif %})">
 						<img src="{% static 'images/svg/bold/download.svg' %}" />
 					</button>
-					<button class="showButton" onclick="showQR('{{ url.short_url }}')">
+					<button class="showButton" onclick="showQR('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {% if qr.is_with_background %}true{% else %}false{% endif %})">
 						<img src="{% static 'images/svg/bold/show.svg' %}" />
 					</button>
-					<button class="deleteButton" onclick="showDeleteFrame('{{ url.short_url }}');">
+					<button class="deleteButton" onclick="showDeleteFrame('{{ qr.short_url.short_url }}');">
 						<img src="{% static 'images/svg/bold/delete.svg' %}" />
 					</button>
 				</div>
@@ -41,15 +42,16 @@
 	</div>
 	<div id="delete_frame" class="delete-frame" hidden>
 		<div class="background"></div>
-		<img onclick="closeFrame(delete_frame)" />
 		<form method="post" action="{% url 'delete_qr' %}">
-            <img class="cross" src="{% static 'images/svg/normal/cross-small.svg' %}" onclick="closeFrame(delete_frame)"/>
+            <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="delete_frame.setAttribute('hidden', 'hidden')"/>
 			{% csrf_token %}
 			<h1>Удалить QR?</h1>
-			<input id="delete-cancel" type="button" value="Отмена" onclick="closeFrame(delete_frame)"/>
+			<input id="delete-cancel" type="button" value="Отмена" onclick="delete_frame.setAttribute('hidden', 'hidden')"/>
 			<input id="delete-submit" type="submit" value="Удалить"/>
 			<input id="url_to_delete" name="url" type="text" hidden/>
 		</form>
 	</div>
 	<script src="{% static 'js/favorite.qrs.js' %}"></script>
+	<script src="{% static 'js/parts/show_qr.js' %}"></script>
+	<script src="{% static 'js/parts/download_qr.js' %}"></script>
 {% endblock %}	
