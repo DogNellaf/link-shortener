@@ -78,7 +78,7 @@ if IS_FOR_RENDER:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'linkshortener',
-            'USER': 'linkshortener',
+            'USER': 'db_user',
             'PASSWORD': 'CHANGE_ME_DB_PASSWORD',
             'HOST': 'localhost',
             'PORT': '5432',
