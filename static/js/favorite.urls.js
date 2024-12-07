@@ -7,8 +7,9 @@ function showShareFrame(button, shortUrl) {
         telegram_url.href = "https://t.me/share/url?url=" + shortUrl + "&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com";
         whatsapp_url.href = "https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой " + shortUrl + " через сервис link.example.com";
         let coords = button.getBoundingClientRect();
-        let bottom = coords.bottom;
-        share_frame.setAttribute("style", "top: " + bottom + "px");
+        let bottom = coords.bottom - 80;
+        let left = coords.left - 600;
+        share_frame.setAttribute("style", "top: " + bottom + "px; position: absolute; left: " + left + "px;");
         share_frame.removeAttribute("hidden");
         lastButton = button;
     } else {

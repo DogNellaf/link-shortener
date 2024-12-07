@@ -25,7 +25,7 @@
 					</div>
 				</div>
 				<div class="right">
-					<button class="editButton gray-hovered" onclick="showEditFrame('{{ url.title }}', '{{ request.get_host }}/{{ url.short_url }}')">
+					<button class="editButton gray-hovered" onclick="showEditFrame('{{ url.title }}', '{{ url.short_url }}')">
 						<img src="{% static 'images/svg/bold/edit.svg' %}" />
 					</button>
 					<button class="copyButton gray-hovered" onclick="copyUrl('{{ request.get_host }}/{{ url.short_url }}')">
@@ -34,7 +34,7 @@
 					<button class="shareButton gray-hovered" onclick="showShareFrame(this, '{{ request.get_host }}/{{ url.short_url }}')">
 						<img src="{% static 'images/svg/bold/share.svg' %}" />
 					</button>
-					<button class="deleteButton gray-hovered" onclick="showDeleteFrame('{{ request.get_host }}/{{ url.short_url }}');">
+					<button class="deleteButton gray-hovered" onclick="showDeleteFrame('{{ url.short_url }}');">
 						<img src="{% static 'images/svg/bold/delete.svg' %}" />
 					</button>
 				</div>

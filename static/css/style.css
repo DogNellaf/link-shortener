@@ -1671,7 +1671,8 @@ header {
 
 .content .history-frame .favorite-frame .list {
     margin-top: 2vh;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     height: 35vh;
     overflow-y: auto;
     scrollbar-width: none;
