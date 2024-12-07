@@ -6,12 +6,15 @@
 {% block index_icon %}
 	<img src="{% static 'images/svg/bold/index.svg' %}" alt="Линкер">
 {% endblock %}
+{% block frames %}
+	{% include 'layouts/parts/add_favorite.html' %}
+{% endblock %}
 {% block content %}
 	<div class="index-frame {% if url != "" %}with-url{% endif %}">
 		<h1>Это линкер от VI–media</h1>
 		<form method="POST" action="{% url 'generate_url' %}">
 		{% csrf_token %}
-			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}" autofocus/>
+			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ url.original_url }}" autofocus/>
 			<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
 			<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
 		</form>
@@ -20,7 +23,7 @@
 		<div class="result-frame">
 			<div style="display: inline-block;">
 				<div class="short-url-frame">
-					<a id="shortUrlA" href="http://{{ request.get_host }}/{{ url }}">{{ request.get_host }}/{{ url }}</a>
+					<a id="shortUrlA" href="http://{{ request.get_host }}/{{ url.short_url }}">{{ request.get_host }}/{{ url.short_url }}</a>
 					<br>
 					<span id="copyInfoSpan" hidden>ссылка скопирована в буфер обмена</span>
 				</div>
@@ -61,14 +64,12 @@
 			</a>
 		</div>
 		<script>
-			// автоматическое копирование ссылки
 			navigator.clipboard.writeText(shortUrlA.innerHTML);
 			copyInfoSpan.removeAttribute("hidden");
 			submitButton.classList.add("active");
 			submitButton.classList.add("sky-hovered");
 
 			var isShareFrameHidden = true;
-			// Нажатие на кнопку Добавить в избранное
 			favoriteButton.addEventListener("click", function () {
 				{% if user.is_authenticated %}
 					{% if is_favorite %}
@@ -82,12 +83,10 @@
 				{% endif %}
 			});
 			
-			// нажатие на кнопку Копировать
 			copyButton.addEventListener('click', function(event) {
 				navigator.clipboard.writeText(shortUrlA.innerHTML);
 			})
 
-			// Нажатие на кнопку поделиться
 			shareButton.addEventListener('click', function(event) {
 				if (isShareFrameHidden)
 					shareFrame.removeAttribute("hidden");

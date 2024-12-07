@@ -4,7 +4,7 @@ from urllib.parse import urlparse
 
 from django.conf import settings
 from django.http import HttpResponseNotFound
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
 
@@ -25,25 +25,13 @@ def index(request):
 def linker(request, url=""):
     """Отображение view главной страницы линкера"""
 
-    original_url = ""
-    is_favorite = False
-    url_title = ""
+    short_url = None
 
     if url != "":
-        shorted_urls = ShortedUrl.objects.filter(short_url = url)
-        if not shorted_urls.exists():
-            return HttpResponseNotFound()
-
-        shorted_url = shorted_urls.first()
-        original_url = shorted_url.original_url
-        is_favorite = shorted_url.is_favorite
-        url_title = shorted_url.title
+        short_url = get_object_or_404(ShortedUrl, short_url = url)
 
     return render(request, "index.html", {
-        'url': url,
-        'original_url': original_url,
-        'is_favorite': is_favorite,
-        'url_title': url_title
+        'url': short_url
     })
 
 def generate_url(request):
@@ -190,7 +178,7 @@ def favorite_urls(request):
     else:
         urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = False)
 
-    return render(request, "history/favorite_urls.html", {'urls': urls})
+    return render(request, "favorite/urls.html", {'urls': urls})
 
 def history_urls(request):
     """Отображение страницы Мои ссылки - история"""
@@ -236,7 +224,7 @@ def favorite_qrs(request):
         )
         urls_qrs[url] = qr
 
-    return render(request, "history/favorite_qrs.html", {
+    return render(request, "favorite/qrs.html", {
         'urls': urls_qrs
     })
 
