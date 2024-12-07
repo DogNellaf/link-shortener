@@ -6,13 +6,11 @@ let lastQrColor = "";
 let lastBackgroundColor = "";
 let isWithBackground = false;
 
-function drawQR(canvas, url, logo_path, qr_color, background_color) {
+function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_background) {
     lastUrl = url;
     lastLogoPath = logo_path;
     lastQrColor = qr_color;
     lastBackgroundColor = background_color;
-
-    const uniqueIdSuffix = `-${Date.now()}`;
 
     var qr = new QRCodeStyling({
         type: "svg",
@@ -20,34 +18,89 @@ function drawQR(canvas, url, logo_path, qr_color, background_color) {
         width: qrSizeInPixels,
         height: qrSizeInPixels,
         data: lastUrl,
-        image: lastLogoPath,
+        margin: 0,
         qrOptions: {
-            typeNumber: "3",
-            mode: "Byte",
-            errorCorrectionLevel: "Q"
+          typeNumber: 3,
+          mode: "Byte",
+          errorCorrectionLevel: "Q" 
         },
         imageOptions: {
-            saveAsBlob: true,
-            hideBackgroundDots: true,
-            imageSize: 0.7,
-            margin: 5
+          saveAsBlob: true,
+          hideBackgroundDote: true,
+          imageSize: 0.65,
+          margin: 10
         },
         dotsOptions: {
-            type: "extra-rounded",
-            color: lastQrColor,
-            roundSize: true,
-            gradient: null
+          type: "extra-rounded",
+          color: lastQrColor,
+          roundSize: true,
+          gradient: null
         },
         backgroundOptions: {
-            color: isWithBackground? lastBackgroundColor : "transparent"
+          round: 0,
+          color: is_with_background? lastBackgroundColor : "transparent"
+        },
+        image: lastLogoPath,
+        dotsOptionsHelper: {
+          colorType: {
+            single: true,
+            gradient: false
+          },
+          gradient: {
+            linear: true,
+            radial: false,
+            color1: lastQrColor,
+            color2: lastQrColor,
+            rotation: 0 
+          }
         },
         cornersSquareOptions: {
-            type: "extra-rounded",
-            color: lastQrColor,
-            gradient: null
+          type: "extra-rounded",
+          color: lastQrColor,
+          gradient: null
         },
-        svgOptions: {
-            id: `qr-svg${uniqueIdSuffix}`,
+        cornersSquareOptionsHelper: {
+          colorType: {
+            single: true,
+            gradient: false
+          },
+          gradient: {
+            linear: true,
+            radial: false,
+            color1: lastQrColor,
+            color2: lastQrColor,
+            rotation: 0 
+          }
+        },
+        cornersDotOptions: {
+          type: "square",
+          color: lastQrColor
+        },
+        cornersDotOptionsHelper: {
+          colorType: {
+            single: true,
+            gradient: false
+          },
+          gradient: {
+            linear: true,
+            radial: false,
+            color1: lastQrColor,
+            color2: lastQrColor,
+            rotation: 0 
+          }
+        },
+        backgroundOptionsHelper: {
+          colorType: {
+            single: true,
+            gradient: false
+          },
+          gradient: {
+            linear: true,
+            radial: false,
+            color1: lastBackgroundColor,
+            color2: lastBackgroundColor,
+            rotation: 0 
+          }
         }
     });
 

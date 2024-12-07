@@ -4,6 +4,9 @@
 {% block favorite_url %}{% url 'favorite_urls' %}{% endblock %}
 {% block history_url %}{% url 'history_urls' %}{% endblock %}
 {% block favorite_menu_selected %}selected{% endblock %}
+{% block frames %}
+	{% include 'layouts/parts/copy_alert.html' %}
+{% endblock %}
 {% block history_content %}
 	<div class="favorite-frame">
 		<div class="search">

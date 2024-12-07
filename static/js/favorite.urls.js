@@ -25,8 +25,11 @@ function showEditFrame(title, shortUrl) {
 
 function copyUrl(shortUrl) {
     shortUrl = "http://{{ request.get_host }}/" + shortUrl;
-    navigator.clipboard.writeText(shortUrl);
-    alert("Cсылка " + shortUrl + " успешно скопирована")
+    copyAlertFrame.removeAttribute("hidden");
+    navigator.clipboard.writeText(shortUrlA.innerHTML);
+    setTimeout(() => {
+        copyAlertFrame.setAttribute("hidden", "hidden");
+    }, 3000);
 }
 
 function showDeleteFrame(shortUrl) {

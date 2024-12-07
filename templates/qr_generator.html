@@ -97,7 +97,8 @@
                 "{{ url }}",
                 "/media/{{ qr.logo }}",
                 qrColor.value,
-                backgroundColor.value
+                backgroundColor.value,
+				backgroundDrawToogle.checked
             );
 		})
 
@@ -130,7 +131,9 @@
 		qrColorLabel.innerHTML = qrColor.value;
 
 		{% if qr.is_with_background %}
-			setWithBackground(true);
+			backgroundDrawToogle.checked = true;
+			backgroundDrawToogle.dispatchEvent(new Event('change'));
+			setWithBackground(false);
 		{% endif %}
 
 		drawQR(
@@ -138,7 +141,8 @@
 			"{{ url }}",
 			"/media/{{ qr.logo }}",
 			qrColor.value,
-			backgroundColor.value
+			backgroundColor.value,
+			backgroundDrawToogle.checked
 		);
 	</script>
 	{% endif %}

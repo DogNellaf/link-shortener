@@ -1267,13 +1267,13 @@ header {
     font-family: var(--font-family-sf_pro_display-regular) !important;
 }
 
-#qrEditorBlock .frame .controls .background-toogle .right .switch input:not(input:checked) + .slider .yes {
+#qrEditorBlock .frame .controls .background-toogle .right .switch input:checked + .slider .yes {
     background-color: white;
     border-radius: 1.8vh;
     box-shadow: 0px 4px 15px 0px #2424241A;
 }
 
-#qrEditorBlock .frame .controls .background-toogle .right .switch :checked + .slider .no {
+#qrEditorBlock .frame .controls .background-toogle .right .switch input:not(:checked) + .slider .no {
     background-color: white;
     border-radius: 1.8vh;
 }
@@ -1865,11 +1865,12 @@ header {
     margin: 0;
     display: inline-flex;
     margin-right: 0.81822916666vw;
+    height: 0.81822916666vw;
 }
 
 #copyAlertFrame img {
     margin: 0;
     display: inline-flex;
-    width: 0.65572916666vw;
-    height: 0.65572916666vw;
+    width: 0.81822916666vw;
+    height: 0.81822916666vw;
 }

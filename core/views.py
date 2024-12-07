@@ -26,13 +26,15 @@ def linker(request, url=""):
     """Отображение view главной страницы линкера"""
 
     short_url = None
+    title = ""
 
     if url != "":
         short_url = get_object_or_404(ShortedUrl, short_url = url)
+        title = short_url.title
 
     return render(request, "index.html", {
         'url': short_url,
-        'url_title': short_url.title
+        'url_title': title
     })
 
 def generate_url(request):
