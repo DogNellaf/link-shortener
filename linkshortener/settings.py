@@ -137,7 +137,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-if not IS_FOR_RENDER:
+if IS_FOR_RENDER:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 else:
     STATICFILES_DIRS = [
