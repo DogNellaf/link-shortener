@@ -3,7 +3,7 @@
 from urllib.parse import urlparse
 
 from django.conf import settings
-from django.http import HttpResponseNotFound
+from django.http import HttpResponseNotFound, HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
@@ -309,16 +309,18 @@ def privacy(request):
     """Отображение страницы правил сервиса"""
     return render(request, "privacy.html")
 
-def redirect_to_url(request, url = ""):
+def redirect_to_url(request, url=""):
     """Базовая функция переадресует пользователя на созданную заранее ссылку"""
-    if url == "":
+    if not url:
         return HttpResponseNotFound()
 
-    short_url = get_object_or_404(ShortedUrl, short_url = url)
+    short_url = get_object_or_404(ShortedUrl, short_url=url)
     url_redirect_to = short_url.original_url
 
     parsed_url = urlparse(url_redirect_to)
     if not parsed_url.scheme:
         url_redirect_to = "https://" + url_redirect_to
 
-    return redirect(url_redirect_to, request=request)
+    response = HttpResponseRedirect(url_redirect_to)
+    response['Link'] = f'<{url_redirect_to}>; rel="alternate";'
+    return response
