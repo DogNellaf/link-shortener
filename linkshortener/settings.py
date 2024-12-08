@@ -158,6 +158,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Длина уникальной короткой ссылки
 SHORT_URL_LENGTH = 6
 
+# Схемы переадресации приложений для IOS
+APP_SCHEMES = {
+    "docs.google.com": "googledocs://",
+    "drive.google.com": "googledrive://",
+    "sheets.google.com": "googlesheets://",
+    "youtube.com": "youtube://",
+    "t.me": "tg://",
+    "instagram.com": "instagram://"
+}
+
 # Параметры генератора QR
 QR_CODE_OPTIONS = QRCodeOptions(size=256)
 

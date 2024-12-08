@@ -17,6 +17,7 @@ from os.path import join
 
 QR_CODE_OPTIONS = settings.QR_CODE_OPTIONS
 MONTHS = settings.MONTHS
+APP_SCHEMES = settings.APP_SCHEMES
 
 def index(request):
     """Стартовая страница, переадресующая пользователя с пустого пути / на линкер"""
@@ -310,17 +311,23 @@ def privacy(request):
     return render(request, "privacy.html")
 
 def redirect_to_url(request, url=""):
-    """Базовая функция переадресует пользователя на созданную заранее ссылку"""
+    """Переадресует пользователя на приложение или веб-версию ссылки"""
     if not url:
         return HttpResponseNotFound()
 
     short_url = get_object_or_404(ShortedUrl, short_url=url)
-    url_redirect_to = short_url.original_url
+    original_url = short_url.original_url
 
-    parsed_url = urlparse(url_redirect_to)
+    parsed_url = urlparse(original_url)
+    app_scheme = APP_SCHEMES.get(parsed_url.netloc)
+
+    if app_scheme:
+        app_url = app_scheme + parsed_url.path.lstrip("/")
+        if parsed_url.query:
+            app_url += "?" + parsed_url.query
+        return HttpResponseRedirect(app_url)
+
     if not parsed_url.scheme:
-        url_redirect_to = "https://" + url_redirect_to
+        original_url = "https://" + original_url
 
-    response = HttpResponseRedirect(url_redirect_to)
-    response['Link'] = f'<{url_redirect_to}>; rel="alternate";'
-    return response
+    return HttpResponseRedirect(original_url)
