@@ -3,12 +3,9 @@
 from urllib.parse import urlparse
 
 from django.conf import settings
-from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from django.utils import timezone
 from django.core.files.storage import FileSystemStorage
-
-from qr_code.qrcode.maker import make_embedded_qr_code
 
 from core.models import ShortedUrl, Qr
 from core.utils import create_shorted_url
@@ -303,12 +300,32 @@ def remove_url_favorite(request):
             return redirect(qr_generator, url=url.short_url)
 
         return redirect(linker, url=url.short_url)
-    
+
     return redirect(linker)
 
 def privacy(request):
     """Отображение страницы правил сервиса"""
     return render(request, "privacy.html")
+
+def redirect_with_js(request, app_url, fallback_url):
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Redirecting...</title>
+    </head>
+    <body>
+        <script>
+            window.location = "{app_url}";
+            setTimeout(function() {{
+                window.location = "{fallback_url}";
+            }}, 2000);
+        </script>
+        <p>If you are not redirected, <a href="{app_url}">click here</a>.</p>
+    </body>
+    </html>
+    """
+    return HttpResponse(html_content, content_type="text/html")
 
 def redirect_to_url(request, url=""):
     """Переадресует пользователя на приложение или веб-версию ссылки"""
@@ -319,15 +336,14 @@ def redirect_to_url(request, url=""):
     original_url = short_url.original_url
 
     parsed_url = urlparse(original_url)
-    app_scheme = APP_SCHEMES.get(parsed_url.netloc)
+    netloc = parsed_url.netloc.replace("www.", "")
+    app_scheme = APP_SCHEMES.get(netloc)
+
+    app_url = original_url
 
     if app_scheme:
         app_url = app_scheme + parsed_url.path.lstrip("/")
         if parsed_url.query:
             app_url += "?" + parsed_url.query
-        return HttpResponseRedirect(app_url)
 
-    if not parsed_url.scheme:
-        original_url = "https://" + original_url
-
-    return HttpResponseRedirect(original_url)
+    return redirect_with_js(request, app_url, original_url)

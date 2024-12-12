@@ -134,10 +134,15 @@
 			setWithBackground(false);
 		{% endif %}
 
+		var logo = "";
+		{% if qr.logo != "" %}
+			logo = "/media/{{ qr.logo }}",
+		{% endif %}
+
 		drawQR(
 			qrImage,
 			"{{ url }}",
-			"/media/{{ qr.logo }}",
+			logo,
 			qrColor.value,
 			backgroundColor.value,
 			backgroundDrawToogle.checked

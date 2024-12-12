@@ -84,7 +84,7 @@ class Qr(models.Model):
 
     logo = models.FileField(
         verbose_name = "Логотип",
-        default="operator.png"
+        default=""
     )
 
 
