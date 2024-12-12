@@ -90,10 +90,15 @@
 				backgroundDrawToogle.checked = true;
 			{% endif %}
 			
+			var logoFile = "";
+			{% if qr.logo != "" %}
+				logoFile = "/media/{{ qr.logo }}",
+			{% endif %}
+
             drawQR(
                 qrEditorCanvas,
-                "{{ url }}",
-                "/media/{{ qr.logo }}",
+                "{{ host }}/{{ url }}",
+                logoFile,
                 qrColor.value,
                 backgroundColor.value,
 				backgroundDrawToogle.checked
@@ -134,15 +139,15 @@
 			setWithBackground(false);
 		{% endif %}
 
-		var logo = "";
+		var logoFile = "";
 		{% if qr.logo != "" %}
-			logo = "/media/{{ qr.logo }}",
+			logoFile = "/media/{{ qr.logo }}",
 		{% endif %}
 
 		drawQR(
 			qrImage,
-			"{{ url }}",
-			logo,
+			"{{ host }}/{{ url }}",
+			logoFile,
 			qrColor.value,
 			backgroundColor.value,
 			backgroundDrawToogle.checked

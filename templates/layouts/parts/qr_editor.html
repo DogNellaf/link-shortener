@@ -3,7 +3,7 @@
     {% csrf_token %}
     <div class="background"></div>
     <div class="frame">
-        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="qrEditorBlock.setAttribute('hidden', 'hidden')"/>
+        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="qrEditorBlock.setAttribute('hidden', 'hidden'); qrEditorCanvas.innerHTML = '';"/>
         <div class="qr-background">
             <div class="qr-image">
                 <div id="qrEditorCanvas"></div>
