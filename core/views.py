@@ -171,7 +171,7 @@ def favorite_urls(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = []
+        return redirect('login')
     else:
         urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = False)
 
@@ -182,7 +182,7 @@ def history_urls(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = []
+        return redirect('login')
     else:
         urls = ShortedUrl.objects.filter(author = user, is_only_qr=False)
         urls = urls.order_by('-created_at')[:100]
@@ -209,7 +209,7 @@ def favorite_qrs(request):
     user = request.user
 
     if not user.is_authenticated:
-        qrs = []
+        return redirect('login')
     else:
         qrs = Qr.objects.filter(short_url__author = user, short_url__is_favorite = True)
 
@@ -237,7 +237,7 @@ def history_qrs(request):
     user = request.user
 
     if not user.is_authenticated:
-        urls = []
+        return redirect('login')
     else:
         urls = ShortedUrl.objects.filter(author = user, is_only_qr=True)
         urls = urls.order_by('-created_at')[:100]
@@ -342,8 +342,12 @@ def redirect_to_url(request, url=""):
     app_url = original_url
 
     if app_scheme:
-        app_url = app_scheme + parsed_url.path.lstrip("/")
-        if parsed_url.query:
-            app_url += "?" + parsed_url.query
+        path = parsed_url.path.lstrip("/")
+        if "google" not in app_scheme:
+            app_url = app_scheme + path
+            if parsed_url.query:
+                app_url += "?" + parsed_url.query
+        else:
+            app_url = app_scheme + original_url
 
     return redirect_with_js(request, app_url, original_url)
