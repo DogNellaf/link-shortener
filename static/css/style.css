@@ -1,3 +1,4 @@
+/* Шрифты */
 @font-face {
 	font-family: "SF Pro Display-Medium";
     font-style: normal;
@@ -32,20 +33,27 @@
 
 body {
     margin: 0;
-    background-image: url('/static/images/svg/backgrounds/default.svg');
-    background-size: cover;
+    background-image: url('/static/images/svg/backgrounds/default.svg') !important;
+    background-size: cover !important;
+    background: #f1f3f5;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    flex-wrap: nowrap;
+    flex-direction: column;
 }
 
 .yellow {
-    background-image: url('/static/images/svg/backgrounds/yellow.svg');
+    background-image: url('/static/images/svg/backgrounds/yellow.svg') !important;
 }
 
 .red {
-    background-image: url('/static/images/svg/backgrounds/red.svg');
+    background-image: url('/static/images/svg/backgrounds/red.svg') !important;
 }
 
 .blue {
-    background-image: url('/static/images/svg/backgrounds/blue.svg');
+    background-image: url('/static/images/svg/backgrounds/blue.svg') !important;
 }
 
 .menu-font {
@@ -87,14 +95,22 @@ body {
     z-index: 999;
 }
 
+.logo-auth {
+    background-color: transparent;
+    position: absolute;
+    top: 1.5vh;
+    height: auto;
+    width: auto;
+    max-height: 6vh;
+    z-index: 999;
+}
+
 .content {
     background-color: white;
-    top: 12.7vh;
-    left: 28.645833333vw;
-    width: 42.708333333vw !important;
     border-radius: 5vh;
-    position: absolute;
     padding: 6vh;
+    display: flex;
+    margin-top: 12.7vh;
 }
 
 .menu {
@@ -104,7 +120,6 @@ body {
     display: inline-flex;
     padding: 0.4vh;
     position: absolute;
-    width: 36.9270833333vw;
     top: 1.5vh;
     left: 31.5364583333vw;
 }
@@ -339,7 +354,6 @@ header {
     left: 38.0208333333vw;
     gap: 0.4vh;
     border-radius: 2vh;
-    opacity: 0px;
     z-index: 1001;
     background-color: white;
     padding: 4vh;
@@ -424,7 +438,6 @@ header {
     left: 38.0208333333vw;
     gap: 0.4vh;
     border-radius: 2vh;
-    opacity: 0px;
     z-index: 1001;
     background-color: white;
     padding: 4vh;
@@ -558,7 +571,7 @@ header {
     border: 2px solid #F1F3F5;
     border-radius: 5vh;
     background: none;
-    padding: 0.15625vw;
+    padding: 0.24vw;
 }
 
 #changeBackgroundFrame button div {
@@ -738,8 +751,8 @@ header {
 
 .content .index-frame .cross-small {
     position: absolute;
-    left: 30.1932291667vw;
-    top: 16.671vh;
+    left: 58.5416666667vw;
+    top: 29.5vh;
     width: 0.65572916666vw;
     filter: invert(77%) sepia(2%) saturate(1396%) hue-rotate(169deg) brightness(82%) contrast(91%);
 }
@@ -875,9 +888,6 @@ header {
     background-color: #F1F3F5;
 }
 /* Для price.html */
-.price-frame {
-    /* height: 26.8vh;  */
-}
 
 .price-frame .layout-placeholder {
     margin-top: 4vh;
@@ -944,8 +954,8 @@ header {
 
 .content .qr-frame .cross-small {
     position: absolute;
-    left: 30.1932291667vw;
-    top: 16.671vh;
+    left: 58.5416666667vw;
+    top: 29.5vh;
     width: 0.65572916666vw;
     filter: invert(77%) sepia(2%) saturate(1396%) hue-rotate(169deg) brightness(82%) contrast(91%);
 }
@@ -1028,6 +1038,10 @@ header {
     background-color: white;
     position: absolute;
     box-shadow: 0px 4px 14px 0px #14151626;
+}
+
+.content .qr-frame .share-frame {
+    top: 48.6vh !important;
 }
 
 .content .qr-frame .share-frame a {
@@ -1216,7 +1230,6 @@ header {
 }
 
 #qrEditorBlock .frame .controls .background-toogle .right .switch input {
-    opacity: 0;
     width: 0;
     height: 0;
 }
@@ -1380,8 +1393,8 @@ header {
     width: 1.04166666667vw;
     height: auto;
     position: absolute;
-    right: 3.125vw;
-    top: 23.1vh;
+    left: 67.0177083333vw;
+    top: 35.794vh;
     filter: invert(71%) sepia(13%) saturate(181%) hue-rotate(169deg) brightness(87%) contrast(88%);
 }
 
@@ -1442,26 +1455,22 @@ header {
 
 .content .history-frame .favorite-frame .list .list-item .right {
     display: inline-flex;
-    width: 9vw;
-    margin-left: auto;
+    width: 15vw;
     margin-top: 3.25vh;
-    margin-right: 0;
-    float: right;
+    justify-content: flex-end;
+    gap: 0.41666666666vw;
 }
 
 .content .history-frame .favorite-frame .list .list-item .right button {
-    height: 4.3vh;
-    width: 2vw;
+    height: 2.5vw;
+    width: 2.5vw;
     display: inline-block;
     padding: 0;
-    gap: 0.8vh;
     border: none;
     border-radius: 5000px;
-    opacity: 0px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    margin-right: 0.4vh;
 }
 
 .content .history-frame .favorite-frame .list .list-item .right button img {
@@ -1743,8 +1752,18 @@ header {
 }
 /* history_urls.html */
 
-.history-frame .list {
+.history-frame .calendar-button {
     margin-top: 2vh;
+    width: 3.125vw;
+    height: 3.125vw;
+}
+
+.history-frame .calendar-button img {
+    width: 100%;
+    height: 100%;
+}
+
+.history-frame .list {
     display: grid;
     height: 40vh;
     overflow-y: auto;
@@ -1833,7 +1852,6 @@ header {
     margin-left: auto;
     margin-top: 4.25vh;
     margin-right: 0;
-    float: right;
     font-family: var(--font-family-sf_pro_display-regular);
     font-size: 0.83333333333vw;
     font-weight: 500;
@@ -1876,3 +1894,765 @@ header {
     width: 0.81822916666vw;
     height: 0.81822916666vw;
 }
+
+/* Страницы авторизации */
+.account-frame a {
+    text-decoration: none;
+    display: flex;
+    flex: 1 1 33%;
+}
+
+.account-frame h1 {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 2.08333333333vw;
+    font-weight: 500;
+    line-height: 2.5vw;
+    letter-spacing: -0.02em;
+    text-align: left;
+    color: #141516;
+}
+
+.account-frame .account-menu {
+    margin-top: 3.2vh;
+    width: 100%;
+    display: inline-flex;
+    background-color: #F1F3F5;
+    border-radius: 1vh;
+}
+
+.account-frame .account-menu div {
+    text-align: center;
+    background-color: #F1F3F5;
+    margin-top: 0;
+    margin-left: 0;
+    margin-right: 0;
+    border-radius: 1vh;
+    gap: 0.8vh;
+    vertical-align: middle;
+    height: 5.1vh;
+    margin-bottom: 0;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.83333333333vw;
+    font-weight: 500;
+    line-height: 5.1vh;
+    color: #989FA6;	
+    width: 100%;
+}
+
+.account-frame .account-menu .selected-item {
+    background-color: white;
+    box-shadow: 0px 4px 15px 0px #2424241A;
+    margin: 0;
+    color: #141516;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.83333333333vw;
+    font-weight: 500;
+    width: 100%;
+}
+
+.account-frame .account-menu .selected-item p {
+    color: #141516 !important;
+}
+
+.sky-hovered:hover {
+    background-color: #04D1E5 !important;
+}
+
+/* Страница авторизации */
+@media (orientation: landscape) {
+
+    .login-frame {
+        width: 17.7083333333vw;
+    }
+
+    .login-frame h1 {
+      font-family: var(--font-family-sf_pro_display-medium);
+      font-size: 2.08333333333vw;
+      font-weight: 500;
+      line-height: 2.5vw;
+      text-align: left;
+    }
+
+    .login-frame form input {
+      width: 100%;
+      height: 7vh;
+      border: none;
+      border-radius: 2vh;
+      padding: 2.6vh;
+      gap: 1vh;
+      background-color: #F1F3F5;
+
+      font-family: var(--font-family-sf_pro_display-regular);
+      font-size: 0.9375vw;
+      font-weight: 500;
+      line-height: 0.9375vw;
+      text-align: left;
+      color: #141516;
+    }
+
+    input::placeholder {
+      color: #989FA6;
+    }
+
+    .login-frame #emailInput {
+        margin-top: 3vh;
+    }
+
+    .login-frame #passwordInput {
+      margin-top: 1.2vh;
+    }
+
+    .login-frame .links {
+      margin-top: 2vh;
+      display: inline-flex;
+      width: 100%;
+    }
+
+    .login-frame .links #resetPasswordLink {
+      margin-left: 0;
+    }
+
+    .login-frame .links #registrationLink {
+      margin-left: auto;
+      order: 2;
+    }
+
+    .error {
+      color: red;
+      opacity: 0.75;
+    }
+
+    .login-frame #submitButton {
+      margin-top: 2vh;
+      text-align: center;
+      color: #989FA6;
+    }
+
+    .active {
+      background-color: #1599F5 !important;
+      color: var(--white) !important;
+    }
+}
+
+@media (orientation: portrait) {
+
+    .content {
+      width: 100vw !important;
+      height: 85.7142857143vh !important;
+      padding: 2.38095238095vh;
+      margin: 0;
+      left: 0;
+      top: 14.2857142857vh;
+    }
+
+    .content .login-frame h1 {
+      top: 1.42857142857vh;
+      font-size: 2.8vh;
+    }
+
+    .content .login-frame form input {
+      width: 100%;
+      height: 6.90476190476vh;
+      border: none;
+      border-radius: 2vh;
+      padding: 2.6vh;
+      gap: 1vh;
+      background-color: #F1F3F5;
+
+      font-family: var(--font-family-sf_pro_display-regular);
+      font-size: 0.9375vw;
+      font-weight: 500;
+      line-height: 0.9375vw;
+      text-align: left;
+      color: #141516;
+    }
+
+}
+
+
+/* Страница регистрации */
+.registration-frame {
+    width: 17.7083333333vw;
+}
+
+.registration-frame h1 {
+    font-family: var(--font-family-sf_pro_display-medium);
+    font-size: 2.08333333333vw;
+    font-weight: 500;
+    line-height: 2.5vw;
+    text-align: left;
+}
+
+.registration-frame form input {
+    width: 17.7083333333vw;
+    height: 7vh;
+    border: none;
+    border-radius: 2vh;
+    padding: 2.6vh;
+    gap: 1vh;
+    background-color: #F1F3F5;
+
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 0.9375vw;
+    text-align: left;
+    color: #141516;
+}
+
+input:focus {
+    background-color: transparent;
+    outline: none;
+}
+
+input::placeholder {
+    color: #989FA6;
+}
+
+.registration-frame #passwordInput {
+    margin-top: 1.2vh;
+}
+
+.registration-frame #passwordAnotherInput {
+    margin-top: 1.2vh;
+}
+
+.registration-frame #submitButton {
+    margin-top: 2vh;
+    text-align: center;
+    color: #989FA6;
+}
+
+.registration-frame .links {
+    margin-top: 4vh;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    color: #989FA6;
+    text-decoration: none;
+}
+
+.registration-frame .links a {
+    display: inline-block;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    color: #989FA6;
+    text-decoration: none;
+    text-align: center;
+}
+
+.registration-frame .links #loginLink {
+    margin-right: 3.28125vw;
+    width: 100%;
+}
+
+.error {
+    color: red;
+    opacity: 0.75;
+}
+
+
+/* Страница сброса пароля */
+
+.reset-password-form {
+    width: 17.7083333333vw;
+}
+
+.reset-password-form h1 {
+    font-family: var(--font-family-sf_pro_display-medium);
+    font-size: 2.08333333333vw;
+    font-weight: 500;
+    line-height: 2.5vw;
+    text-align: left;
+}
+
+.reset-password-form p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 1.3125vw;
+    text-align: left;
+    color: #141516;
+    margin-top: 1.2vh;
+    width: 17.7083333333vw;
+}
+
+.reset-password-form input {
+    width: 17.7083333333vw;
+    height: 7vh;
+    border: none;
+    border-radius: 2vh;
+    padding: 2.6vh;
+    gap: 1vh;
+    background-color: #F1F3F5;
+
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 0.9375vw;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #141516;
+}
+
+.reset-password-form .links {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+.reset-password-form .links #registerLink {
+    display: flex;
+    float: right;
+}	
+
+.reset-password-form .links a {
+    display: inline-block;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    color: #989FA6;
+    text-decoration: none;
+    text-align: center;
+}
+
+input::placeholder {
+    color: #989FA6;
+}
+
+.reset-password-form #firstNameInput {
+    margin-top: 3vh;
+}
+
+.reset-password-form #lastNameInput {
+    margin-top: 1.2vh;
+}
+
+.reset-password-form #emailInput {
+    margin-top: 1.2vh;
+}
+
+.reset-password-form #passwordInput {
+    margin-top: 1.2vh;
+}
+
+.reset-password-form #passwordAnotherInput {
+    margin-top: 1.2vh;
+}
+
+.reset-password-form #submitButton {
+    margin-top: 2vh;
+    text-align: center;
+    color: #989FA6;
+}
+
+.error {
+    color: #EC1E1E !important;
+    margin-top: 0 !important;
+    margin-bottom: 0;
+}
+
+.active {
+    background-color: #1599F5 !important;
+    color: var(--white) !important;
+}
+
+.active:hover {
+    background-color: #04D1E5 !important;
+}
+
+/* Подтверждение пароля после изменения */
+
+.resetPasswordFrame {
+    width: 17.7083333333vw;
+}
+
+.resetPasswordFrame h1 {
+    font-family: var(--font-family-sf_pro_display-medium);
+    font-size: 2.08333333333vw;
+    font-weight: 500;
+    line-height: 2.5vw;
+    text-align: left;
+    height: 9.6vh;
+}
+
+.resetPasswordFrame p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 1.3125vw;
+    text-align: left;
+    color: #141516;
+    margin-top: 1.2vh;
+    width: 13.0208333333vw;
+}
+
+.resetPasswordFrame .passwordForm {
+    margin-top: 1vh;
+    width: 100%;
+}
+
+.resetPasswordFrame .passwordForm input {
+    height: 7vh;
+    width: 4.03645833333vw;
+}
+
+.resetPasswordFrame .passwordForm .codeInputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.52083333333vw;
+    width: 100%;
+}
+
+.resetPasswordFrame .passwordForm .codeInputs .number {
+    flex: 1;
+    height: 7vh;
+    text-align: center;
+    border: none;
+    border-radius: 2vh;
+    background-color: #F1F3F5;
+
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 1.2vw;
+    font-weight: 400;
+    line-height: 1.5vw;
+    letter-spacing: -0.01em;
+    color: #141516;
+    width: 100%;
+}
+
+.resetPasswordFrame .passwordForm .codeInputs .have-value {
+    outline: none;
+    border: 2px solid #1599F5;
+}
+
+.resetPasswordFrame .passwordForm .codeInputs .error-input {
+    border: 2px solid #EC1E1E
+}	
+
+.resetPasswordFrame .error {
+    color: #EC1E1E;
+    height: 1.6vh;
+    width: 100%;
+    margin-top: 1.2vh;
+}
+
+.resetPasswordFrame #submitButton {
+    width: 17.7083333333vw;
+    height: 7vh;
+    width: 100%;
+    border: none;
+    border-radius: 2vh;
+    padding: 2.6vh;
+    gap: 1vh;
+    background-color: #F1F3F5;
+
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 0.9375vw;
+    letter-spacing: -0.01em;
+    text-align: center;
+    color: #989FA6;
+    margin-top: 2vh;
+}
+
+.resetPasswordFrame .inactive {
+    font-family: var(--font-family-sf_pro_display-regular) !important;
+    color: #989FA6 !important;
+}
+
+
+.resetPasswordFrame #resendButton {
+    font-family: var(--font-family-sf_pro_display-medium);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 1.8vh;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    text-decoration: none;
+    color: #141516;
+}
+
+.resetPasswordFrame .links {
+    margin-top: 5vh;
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+}
+
+.resetPasswordFrame .links #registerLink {
+    display: flex;
+    float: right;
+}	
+
+.resetPasswordFrame .links a {
+    display: inline-block;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    color: #989FA6;
+    text-decoration: none;
+    text-align: center;
+}
+
+input::placeholder {
+    color: #989FA6;
+}
+
+.active {
+    background-color: #1599F5 !important;
+    color: var(--white) !important;
+}
+
+.active:hover {
+    background-color: #04D1E5 !important;
+}
+
+/* Аккаунт */
+/* Страница изменения пароля */
+
+.account-frame .title {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 500;
+    line-height: 0.9375vw;
+    letter-spacing: -0.01em;
+    text-align: left;
+    color: #989FA6;
+    margin-top: 4vh;
+    /* margin-top: 1.2vh; */
+    margin-bottom: 0;
+}
+
+.error {
+    margin-top: 4vh;
+    margin-bottom: 0;
+}
+
+.success {
+    margin-top: 4vh;
+    margin-bottom: 0;
+}
+
+.account-frame .data {
+    margin-top: 1.6vh;
+    display: inline-block;
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.9375vw;
+    font-weight: 400;
+    line-height: 0.9375vw;
+}
+
+.account-frame .data input {
+    background-color: #F1F3F5;
+    border: none;
+    border-radius: 2vh;
+    width: 17.9166666667vw;
+    height: 7vh;
+    padding: 2.6vh;
+}
+
+.account-frame .data .currentPasswordRow {
+    width: 36.4583333332vw;
+}
+
+.account-frame .data .currentPasswordRow #currentPasswordInput {
+    height: 7vh;
+    width: 36.4583333332vw;
+}
+
+.account-frame .data .newPasswordRow {
+    margin-top: 1.2vh;
+    height: 7vh;
+    width: 36.4583333332vw;	
+}
+
+.account-frame .data .newPasswordRow #password1Input {
+    height: 7vh;
+    width: 17.9166666666vw;
+}
+
+.account-frame .data .newPasswordRow #password2Input {
+    height: 7vh;
+    width: 17.9166666666vw;
+    float: right;
+}	
+
+.account-frame .data .submitRow {
+    margin-top: 2vh;
+    width: 36.4583333332vw;
+}
+
+/* Страница аккаунта */
+.account-frame .avatar {
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4vh;
+    vertical-align: middle;
+}
+
+.account-frame .avatar .change {
+    height: 6.2vh;
+    width: 4.16666666667vw;
+    display: inline-block;
+    margin-left: 6.77083333333vw;
+    margin-right: 1.04166666667vw;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.account-frame .avatar .remove {
+    height: 6.2vh;
+    width: 4.16666666667vw;
+    display: inline-block;
+    margin-left: 1.04166666667vw;
+    margin-right: 6.77083333333vw;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.account-frame .avatar button {
+    height: 4vh;
+    width: 4vh;
+    background-color: #F1F3F5;
+    border: none;
+    border-radius: 5vh;
+    padding: 0; /* Убираем padding */
+    margin: 0; /* Убираем автоматические отступы */
+    justify-content: center; /* Выравнивание по горизонтали */
+    align-items: center; /* Выравнивание по вертикали */
+}
+
+.account-frame .avatar button img {
+    height: 1.8vh;
+    width: auto;
+}
+
+.account-frame .avatar p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.72916666666vw;
+    font-weight: 500;
+    line-height: 0.72916666666vw;
+    letter-spacing: -0.01em;
+    text-align: center;
+    margin-top: 0.8vh;
+}
+
+.account-frame .image {
+    display: inline-block;
+}
+
+.account-frame .image-without-avatar {
+    margin-left: auto; /* Центрирование */
+    margin-right: auto; /* Центрирование */
+    height: 11.5vw;
+    width: 11.5vw;
+    display: flex; /* Используем Flexbox */
+    flex-direction: column; /* Вертикальное направление */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+    background-color: #F1F3F5;
+    border-radius: 500px;
+}
+
+.account-frame .image-without-avatar .upload {
+    padding: 9.1vh 0; /* Убираем padding-left и padding-right */
+    height: 11.5vw;
+    width: 11.5vw;
+    display: flex; /* Используем Flexbox */
+    flex-direction: column; /* Вертикальное направление */
+    align-items: center; /* Центрирование по горизонтали */
+    justify-content: center; /* Центрирование по вертикали */
+}
+
+.account-frame .image-without-avatar .upload img {
+    margin-bottom: 0.5vh; /* Отступ между изображением и текстом */
+}
+
+.account-frame .image-without-avatar .upload p {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.72916666666vw;
+    font-weight: 500;
+    line-height: 0.72916666666vw;
+    letter-spacing: -0.01em;
+    text-align: center; /* Центрирование текста */
+    margin: 0; /* Убираем дополнительные отступы */
+    margin-top: 1.6vh; /* Отступ перед текстом "Загрузить аватар" */
+}
+
+.account-frame .image img {
+    height: 11.5vw;
+    width: 11.5vw;
+    display: inline-block;
+    border-radius: 500px;
+    object-fit: cover;
+}
+
+.account-frame .data {
+    margin-top: 4vh;
+    display: inline-block;
+}
+
+.account-frame .data input {
+    background-color: #F1F3F5;
+    border: none;
+    border-radius: 2vh;
+    width: 17.9166666667vw;
+    height: 7vh;
+    padding: 2.6vh;
+
+	font-family: var(--font-family-sf_pro_display-regular);
+	font-size: 0.9375vw;
+	font-weight: 400;
+	line-height: 0.9375vw;
+}
+
+.account-frame .data .namesRow {
+    height: 7vh;
+    width: 36.4583333332vw;	
+}
+
+.account-frame .data .namesRow #firstNameInput {
+    height: 7vh;
+	width: 17.9166666667vw;
+}
+
+.account-frame .data .namesRow #lastNameInput {
+    height: 7vh;
+	width: 17.9166666667vw;
+	float: right;
+}	
+
+.account-frame .data .emailRow {
+    margin-top: 1.2vh;
+    width: 36.4583333332vw;
+}
+
+.account-frame .data .emailRow #emailInput {
+    height: 7vh;
+    width: 36.4583333332vw;
+}
+
+.account-frame .data .submitRow {
+    margin-top: 2vh;
+    width: 36.4583333332vw;
+}
+
+.account-frame .data .submitRow #submitButton {
+    height: 7vh;
+    width: 36.4583333332vw;
+}
+
+/* Страница тарифа в аккаунта */
+.account-frame .layout-placeholder {
+    margin-top: 4vh;
+}
+

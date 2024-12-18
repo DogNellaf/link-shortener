@@ -6,6 +6,9 @@
 {% block history_menu_selected %}selected{% endblock %}
 {% block history_content %}
 	<div class="favorite-frame">
+		<div class="calendar-button">
+			<img src="{% static 'images/svg/normal/calendar.svg' %}" />
+		</div>
 		<div class="list">
 			{% for date, urls in urls_by_dates.items %}
 			<div class="date-title">
