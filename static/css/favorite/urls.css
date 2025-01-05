@@ -1,0 +1,118 @@
+@media (orientation: landscape) {
+    #edit_frame .background {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #141516;
+        opacity: 0.4;
+        z-index: 1000;
+    }
+
+    #edit_frame form {
+        position: fixed;
+        left: 38.0208333333vw;
+        top: 37.2vh;
+        width: 23.9583333333vw;
+        height: 31.4vh;
+        background: #FFFFFF;
+        opacity: 1;
+        box-shadow: 0px 4px 14px 0px #14151626;
+        z-index: 1001;
+        border-radius: 2vh;
+        padding: 4vh;
+    }
+
+    #edit_frame h1 {
+        font-family: var(--font-family-sf_pro_display-middle);
+        font-size: 1.5625vw;
+        font-weight: 500;
+        line-height: 1.875vw;
+        letter-spacing: -0.02em;
+        text-align: left;
+    }
+
+    #edit_frame .title-input {
+        margin-top: 4vh;
+        height: 7vh;
+        width: 19.7916666667vw;
+        gap: 0.8vh;
+        padding: 2.6vh;
+        border: none;
+        border-radius: 2vh;
+        background-color: #F1F3F5;
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.9375vw;
+        font-weight: 400;
+        line-height: 0.9375vw;
+        letter-spacing: -0.01em;
+        text-align: left;
+    }
+
+    #edit_frame .edit-submit {
+        margin-top: 2vh;
+        height: 6.6vh;
+        width: 19.7916666667vw;
+        border: none;
+        border-radius: 2vh;
+        background-color: #F1F3F5;
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.9375vw;
+        font-weight: 400;
+        line-height: 0.9375vw;
+        letter-spacing: -0.01em;
+        color: #989FA6;
+    }
+
+    #delete_frame .background {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #141516;
+        opacity: 0.4;
+        z-index: 1000;
+    }
+
+    #share_frame a {
+        text-decoration: none;
+    }
+
+    #share_frame button {
+        width: 15.208333333vw;
+        height: 5vh;
+        border-radius: 1vh;
+        padding: 1.6vh;
+        gap: 0.8vh;
+        border: none;
+        background-color: #FFFFFF;
+        font-family: var(--font-family-sf_pro_display-medium);
+        color: #141516;
+        font-size: 0.9375vw;
+        font-weight: 500;
+        line-height: 0.9375vw;
+        display: flex;
+        align-items: center;
+    }
+
+    #share_frame button img {
+        max-width: 0.83333333333vw;
+        width: auto;
+        height: 0.83333333333vw;
+        display: inline-block;
+    }
+
+    #share_frame button span {
+        display: inline-block;
+    }
+
+    #share_frame button:hover {
+        background-color: #F1F3F5;
+    }
+}
+
+@media (orientation: portrait) {
+
+}

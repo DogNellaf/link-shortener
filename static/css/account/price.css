@@ -1,0 +1,9 @@
+@media (orientation: landscape) {
+    .account-frame .layout-placeholder {
+        margin-top: 4vh;
+    }
+}
+
+@media (orientation: portrait) {
+
+}

@@ -7,6 +7,9 @@
 	<img src="{% static 'images/svg/bold/history.svg' %}" alt="Мои ссылки и QR-коды">
 {% endblock %}
 {% block content %}
+	<div class="calendar-frame">
+
+	</div>
 	<div class="history-frame">
 		<div class="title-bar">
 			<a href="{% url 'favorite_urls' %}"><h1 {% block urls_bold %} {% endblock %}>Мои ссылки</h1></a>

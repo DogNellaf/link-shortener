@@ -1,0 +1,164 @@
+@media (orientation: landscape) {
+    .account-frame .avatar {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 4vh;
+        vertical-align: middle;
+    }
+
+    .account-frame .avatar .change {
+        height: 6.2vh;
+        width: 4.16666666667vw;
+        display: inline-block;
+        margin-left: 6.77083333333vw;
+        margin-right: 1.04166666667vw;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .account-frame .avatar .remove {
+        height: 6.2vh;
+        width: 4.16666666667vw;
+        display: inline-block;
+        margin-left: 1.04166666667vw;
+        margin-right: 6.77083333333vw;
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .account-frame .avatar button {
+        height: 4vh;
+        width: 4vh;
+        background-color: #F1F3F5;
+        border: none;
+        border-radius: 5vh;
+        padding: 0;
+        margin: 0;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .account-frame .avatar button img {
+        height: 1.8vh;
+        width: auto;
+    }
+
+    .account-frame .avatar p {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.72916666666vw;
+        font-weight: 500;
+        line-height: 0.72916666666vw;
+        letter-spacing: -0.01em;
+        text-align: center;
+        margin-top: 0.8vh;
+    }
+
+    .account-frame .image {
+        display: inline-block;
+    }
+
+    .account-frame .image-without-avatar {
+        margin-left: auto;
+        margin-right: auto;
+        height: 11.5vw;
+        width: 11.5vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #F1F3F5;
+        border-radius: 500px;
+    }
+
+    .account-frame .image-without-avatar .upload {
+        padding: 9.1vh 0;
+        height: 11.5vw;
+        width: 11.5vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .account-frame .image-without-avatar .upload img {
+        margin-bottom: 0.5vh;
+    }
+
+    .account-frame .image-without-avatar .upload p {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.72916666666vw;
+        font-weight: 500;
+        line-height: 0.72916666666vw;
+        letter-spacing: -0.01em;
+        text-align: center;
+        margin: 0;
+        margin-top: 1.6vh;
+    }
+
+    .account-frame .image img {
+        height: 11.5vw;
+        width: 11.5vw;
+        display: inline-block;
+        border-radius: 500px;
+        object-fit: cover;
+    }
+
+    .account-frame .data {
+        margin-top: 4vh;
+        display: inline-block;
+    }
+
+    .account-frame .data input {
+        background-color: #F1F3F5;
+        border: none;
+        border-radius: 2vh;
+        width: 17.9166666667vw;
+        height: 7vh;
+        padding: 2.6vh;
+
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.9375vw;
+        font-weight: 400;
+        line-height: 0.9375vw;
+    }
+
+    .account-frame .data .namesRow {
+        height: 7vh;
+        width: 36.4583333332vw;	
+    }
+
+    .account-frame .data .namesRow #firstNameInput {
+        height: 7vh;
+        width: 17.9166666667vw;
+    }
+
+    .account-frame .data .namesRow #lastNameInput {
+        height: 7vh;
+        width: 17.9166666667vw;
+        float: right;
+    }	
+
+    .account-frame .data .emailRow {
+        margin-top: 1.2vh;
+        width: 36.4583333332vw;
+    }
+
+    .account-frame .data .emailRow #emailInput {
+        height: 7vh;
+        width: 36.4583333332vw;
+    }
+
+    .account-frame .data .submitRow {
+        margin-top: 2vh;
+        width: 36.4583333332vw;
+    }
+
+    .account-frame .data .submitRow #submitButton {
+        height: 7vh;
+        width: 36.4583333332vw;
+    }
+}
+
+@media (orientation: portrait) {
+
+}

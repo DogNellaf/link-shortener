@@ -1,0 +1,86 @@
+@media (orientation: landscape) {
+    .history-frame {
+        height: 55.5vh;
+    }
+
+    .history-frame a {
+        text-decoration: none;
+    }
+
+    .history-frame .title-bar {
+        color: #989FA6;
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 2.08333333333vw;
+        font-weight: 500;
+        line-height: 2.5vw;
+        letter-spacing: -0.02em;
+        display: inline;
+    }
+
+    .history-frame .title-bar h1 {
+        display: inline;
+        color: #989FA6;
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 2.08333333333vw;
+        font-weight: 500;
+        line-height: 2.5vw;
+        letter-spacing: -0.02em;
+        display: inline;
+    }
+
+    .history-frame .title-bar span {
+        margin-left: 0.83333333333vw;
+        margin-right: 0.83333333333vw;
+    }
+
+    .history-frame .bold {
+        color: #141516 !important;
+    }
+
+    .history-frame hr {
+        margin: 0;
+    }
+
+    .history-frame .history-menu {
+        height: 5.1vh;
+        width: 36.4583333333vw;
+        background: #F1F3F5;
+        border-radius: 1vh;
+        text-align: center;
+        margin-top: 3.2vh;
+    }
+
+    .history-frame .history-menu div {
+        height: 5.1vh;
+        width: 18.0729166667vw;
+        padding: 1.4vh;
+        gap: 0.8vh;
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.83333333333vw;
+        font-weight: 500;
+        line-height: 1vw;
+        letter-spacing: -0.01em;
+        color: #989FA6;
+        border-radius: 1vh;
+    }
+
+    .history-frame .history-menu .selected {
+        background: #FFFFFF !important;
+        box-shadow: 0px 4px 15px 0px #2424241A;
+        color: #141516 !important;
+    }
+
+    .history-frame .history-menu .favorite-menu-item {
+        display: inline-block;
+        width: 49.5%;
+    }
+
+    .history-frame .history-menu .history-menu-item {
+        display: inline-block;
+        width: 49.5%;
+    }
+}
+
+@media (orientation: portrait) {
+
+}

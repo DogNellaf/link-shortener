@@ -1,0 +1,9 @@
+@media (orientation: landscape) {
+    .price-frame .layout-placeholder {
+        margin-top: 4vh;
+    }
+}
+
+@media (orientation: portrait) {
+
+}
