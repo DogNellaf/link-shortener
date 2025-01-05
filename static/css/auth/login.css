@@ -1,10 +1,10 @@
 @media (orientation: landscape) {
 
-    .login-frame {
+    .content .login-frame {
         width: 17.7083333333vw;
     }
 
-    .login-frame h1 {
+    .content .login-frame h1 {
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 2.08333333333vw;
         font-weight: 500;
@@ -12,7 +12,7 @@
         text-align: left;
     }
 
-    .login-frame form input {
+    .content .login-frame form input {
         width: 100%;
         height: 7vh;
         border: none;
@@ -29,47 +29,33 @@
         color: #141516;
     }
 
-    input::placeholder {
-        color: #989FA6;
-    }
-
-    .login-frame #emailInput {
+    .content .login-frame #emailInput {
         margin-top: 3vh;
     }
 
-    .login-frame #passwordInput {
+    .content .login-frame #passwordInput {
         margin-top: 1.2vh;
     }
 
-    .login-frame .links {
+    .content .login-frame .links {
         margin-top: 2vh;
         display: inline-flex;
         width: 100%;
     }
 
-    .login-frame .links #resetPasswordLink {
+    .content .login-frame .links #resetPasswordLink {
         margin-left: 0;
     }
 
-    .login-frame .links #registrationLink {
+    .content .login-frame .links #registrationLink {
         margin-left: auto;
         order: 2;
     }
 
-    .error {
-        color: red;
-        opacity: 0.75;
-    }
-
-    .login-frame #submitButton {
+    .content .login-frame #submitButton {
         margin-top: 2vh;
         text-align: center;
         color: #989FA6;
-    }
-
-    .active {
-        background-color: #1599F5 !important;
-        color: var(--white) !important;
     }
 }
 

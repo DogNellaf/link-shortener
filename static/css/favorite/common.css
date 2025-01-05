@@ -36,10 +36,6 @@
         filter: invert(3%) sepia(4%) saturate(1876%) hue-rotate(169deg) brightness(101%) contrast(89%);
     }
 
-    .content .history-frame .favorite-frame .search input::placeholder {
-        color: #989FA6;
-    }
-
     .content .history-frame .favorite-frame .list .list-item {
         flex-shrink: 0;
         height: 11.3vh;
@@ -110,6 +106,17 @@
     .content .history-frame .favorite-frame .list .list-item .right button img {
         height: 0.83333333333vw;
         width: 0.83333333333vw;
+    }
+
+    #delete_frame .background {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #141516;
+        opacity: 0.4;
+        z-index: 1000;
     }
 }
 

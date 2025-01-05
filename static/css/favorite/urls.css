@@ -65,17 +65,6 @@
         color: #989FA6;
     }
 
-    #delete_frame .background {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
-
     #share_frame a {
         text-decoration: none;
     }

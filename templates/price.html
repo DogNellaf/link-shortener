@@ -1,6 +1,9 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block title %}Тарифы{% endblock %}
+{% block another_css_files %}
+	<link href="{% static 'css/price.css' %}" rel="stylesheet"/>
+{% endblock %}
 {% block content_class %}price-frame{% endblock %}
 {% block price_selected %}selected{% endblock %}
 {% block price_bold %}bold{% endblock %}

@@ -119,4 +119,4 @@ def account_password(request):
     if not user.is_authenticated:
         return redirect('login')
 
-    return render(request, "account/change_password.html", {'user': user})
+    return render(request, "account/password.html", {'user': user})

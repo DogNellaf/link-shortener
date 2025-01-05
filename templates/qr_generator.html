@@ -2,8 +2,8 @@
 {% load static %}
 {% load qr_code %}
 {% block title %}Это QR-генератор от VI–media{% endblock %}
-{% block style %}
-
+{% block another_css_files %}
+	<link href="{% static 'css/qr_generator.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block qr_selected %}selected{% endblock %}
 {% block qr_bold %}bold{% endblock %}

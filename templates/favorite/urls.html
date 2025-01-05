@@ -1,5 +1,10 @@
 {% extends 'layouts/history.html' %}
 {% load static %}
+{% block another_css_files %}
+	<link href="{% static 'css/history/common.css' %}" rel="stylesheet"/>
+    <link href="{% static 'css/favorite/common.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/favorite/urls.css' %}" rel="stylesheet"/>
+{% endblock %}
 {% block urls_bold %}class="bold"{% endblock %}
 {% block favorite_url %}{% url 'favorite_urls' %}{% endblock %}
 {% block history_url %}{% url 'history_urls' %}{% endblock %}

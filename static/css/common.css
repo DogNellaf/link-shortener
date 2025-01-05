@@ -108,8 +108,38 @@ body {
     filter: invert(66%) sepia(10%) saturate(223%) hue-rotate(169deg) brightness(93%) contrast(92%);
 }
 
+.active {
+    background-color: #1599F5 !important;
+    color: var(--white) !important;
+}
+
 .active:hover {
     background-color: #04D1E5 !important;
+}
+
+.error {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.83333333333vw;
+    font-weight: 500;
+    line-height: 0.83333333333vw;
+    text-align: left;
+}
+
+.success {
+    font-family: var(--font-family-sf_pro_display-regular);
+    font-size: 0.83333333333vw;
+    font-weight: 500;
+    line-height: 0.83333333333vw;
+    text-align: left;
+    color: #09EC3B;
+}
+
+.selected { /* Проверить, используется ли где-то */
+    background-color: var(--wild-sand) !important;
+}
+
+input::placeholder {
+    color: #989FA6;
 }
 
 @media (orientation: landscape) {
@@ -143,7 +173,27 @@ body {
         margin-top: 12.7vh;
     }
 
-    .menu {
+    .have-icon {
+        align-items: center;
+        position: relative;
+    }
+
+    .text-label {
+        background-color: transparent;
+        white-space: nowrap;
+    }
+
+    body header {
+        background-color: transparent;
+        height: 9vh;
+        left: 0px;
+        overflow: hidden;
+        position: absolute;
+        top: -0px;
+        width: 100vw;
+    }
+
+    body header .menu {
         align-items: center;
         background-color: var(--white);
         border-radius: 5vh;
@@ -154,16 +204,7 @@ body {
         left: 31.5364583333vw;
     }
 
-    .selected {
-        background-color: var(--wild-sand) !important;
-    }
-
-    .have-icon {
-        align-items: center;
-        position: relative;
-    }
-
-    .menu .index {
+    body header .menu .index {
         align-items: center;
         background-color: transparent;
         border-radius: 5vh;
@@ -175,14 +216,14 @@ body {
         margin-right: 0;
     }
 
-    .menu .index img {
+    body header .menu .index img {
         background-color: transparent;
         height: 1.6vh;
         position: relative;
         width: auto;
     }
 
-    .menu .qr {
+    body header .menu .qr {
         background-color: transparent;
         border-radius: 5vh;
         display: inline-flex;
@@ -192,14 +233,14 @@ body {
         margin-right: 0;
     }
 
-    .menu .qr img {
+    body header .menu .qr img {
         background-color: transparent;
         height: 1.6vh;
         position: relative;
         width: auto;
     }
 
-    .menu .history {
+    body header .menu .history {
         background-color: transparent;
         border-radius: 5vh;
         display: inline-flex;
@@ -209,14 +250,14 @@ body {
         margin-right: 0;
     }
 
-    .menu .history img {
+    body header .menu .history img {
         background-color: transparent;
         height: 1.6vh;
         position: relative;
         width: auto;
     }
 
-    .menu .price {
+    body header .menu .price {
         border-radius: 5vh;
         display: inline-flex;
         flex: 0 0 auto;
@@ -225,19 +266,45 @@ body {
         margin-right: 0;
     }
 
-    .menu .price img {
+    body header .menu .price img {
         background-color: transparent;
         height: 1.6vh;
         position: relative;
         width: auto;
     }
 
-    .text-label {
-        background-color: transparent;
-        white-space: nowrap;
+    body header .account {
+        align-items: center;
+        text-align: center;
+        background-color: var(--white);
+        border-radius: 5vh;
+        display: inline-flex;
+        gap: 1vh;
+        right: 1.04166666667vw;
+        height: 5.2vh;
+        padding: 0.4vh 0.208333333vw 0.4vh 1.041666666vw;
+        position: absolute;
+        top: 1.5vh;
     }
 
-    footer {
+    body header .account a {
+        text-decoration: none;
+    }
+
+    body header .account img {
+        display: inline-block;
+        background-color: transparent;
+        height: 4.4vh;
+        width: 2.291666666vw;
+    }
+
+    body header .account span {
+        display: inline-block;
+        height: 2vh;
+        vertical-align: middle;
+    }
+    
+    body footer {
         background-color: transparent;
         height: 20vh;
         left: 0px;
@@ -248,7 +315,7 @@ body {
         z-index: -999;
     }
 
-    .privacy {
+    body footer .privacy {
         color: var(--bunker);
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 0.83333333333vw;
@@ -262,7 +329,7 @@ body {
         bottom: 2vh;
     }
 
-    .company {
+    body footer .company {
         background-color: transparent;
         color: var(--bunker);
         font-family: var(--font-family-sf_pro_display-regular);
@@ -278,7 +345,7 @@ body {
         bottom: 2vh;
     }
 
-    .settings {
+    body footer .settings {
         -webkit-backdrop-filter: blur(20px) brightness(100%);
         backdrop-filter: blur(20px) brightness(100%);
         background-color: white;
@@ -294,75 +361,11 @@ body {
         align-items: center;
     }
 
-    .settings img {
+    body footer .settings img {
         height: auto;
         width: 1.04166666667vw;
         display: block;
         margin: auto;
-    }
-
-    header {
-        background-color: transparent;
-        height: 9vh;
-        left: 0px;
-        overflow: hidden;
-        position: absolute;
-        top: -0px;
-        width: 100vw;
-    }
-
-    .account {
-        align-items: center;
-        text-align: center;
-        background-color: var(--white);
-        border-radius: 5vh;
-        display: inline-flex;
-        gap: 1vh;
-        right: 1.04166666667vw;
-        height: 5.2vh;
-        padding: 0.4vh 0.208333333vw 0.4vh 1.041666666vw;
-        position: absolute;
-        top: 1.5vh;
-    }
-
-    .account a {
-        text-decoration: none;
-    }
-
-    .account img {
-        display: inline-block;
-        background-color: transparent;
-        height: 4.4vh;
-        width: 2.291666666vw;
-    }
-
-    .account span {
-        display: inline-block;
-        height: 2vh;
-        vertical-align: middle;
-    }
-
-    .active {
-        background-color: #1599F5 !important;
-        color: var(--white) !important;
-    }
-
-    .error {
-        font-family: var(--font-family-sf_pro_display-regular);
-        font-size: 0.83333333333vw;
-        font-weight: 500;
-        line-height: 0.83333333333vw;
-        text-align: left;
-        color: #EC1E1E;
-    }
-
-    .success {
-        font-family: var(--font-family-sf_pro_display-regular);
-        font-size: 0.83333333333vw;
-        font-weight: 500;
-        line-height: 0.83333333333vw;
-        text-align: left;
-        color: #09EC3B;
     }
 
     .add-favorite-background {
@@ -388,7 +391,6 @@ body {
         background-color: white;
         padding: 4vh;
     }
-
 
     .add-favorite-frame h1 {
         font-family: var(--font-family-sf_pro_display-regular);

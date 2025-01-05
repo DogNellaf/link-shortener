@@ -1,15 +1,4 @@
 @media (orientation: landscape) {
-    #delete_frame .background {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
-
     #delete_frame form {
         position: fixed;
         left: 38.0208333333vw;

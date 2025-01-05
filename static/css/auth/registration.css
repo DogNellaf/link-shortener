@@ -33,10 +33,6 @@
         outline: none;
     }
 
-    input::placeholder {
-        color: #989FA6;
-    }
-
     .registration-frame #passwordInput {
         margin-top: 1.2vh;
     }
@@ -75,11 +71,6 @@
     .registration-frame .links #loginLink {
         margin-right: 3.28125vw;
         width: 100%;
-    }
-
-    .error {
-        color: red;
-        opacity: 0.75;
     }
 }
 

@@ -1,10 +1,11 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+
 {% block title %}Аккаунт{% endblock %}
 {% block content %}
-	<div class="account-frame">
+	<div class="account">
 		<h1>Профиль</h1>
-		<div class="account-menu">
+		<div class="menu">
 			<a href="{% url 'account' %}">
 				<div class="data {% block data_selected %}{% endblock %}">
 					Мои данные
