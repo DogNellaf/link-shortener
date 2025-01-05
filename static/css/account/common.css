@@ -12,15 +12,10 @@
     .content .account h1 {
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 2.08333333333vw;
-        font-weight: 500;
-        line-height: 2.5vw;
-        letter-spacing: -0.02em;
-        text-align: left;
-        color: #141516;
     }
 
     .content .account .menu {
-        margin-top: 3.2vh;
+        margin-top: 0.8vh;
         width: 100%;
         display: inline-flex;
         background-color: #F1F3F5;

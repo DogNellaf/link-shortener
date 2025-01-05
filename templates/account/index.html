@@ -7,27 +7,29 @@
 {% block data_selected %}selected{% endblock %}
 {% block account_content %}
 <div class="avatar">
-    <input type="file" id="avatarInput" name="avatar" accept="image/png,image/jpg,image/jpeg" style="display: none;" />
+    <input type="file" id="avatarInput" name="avatar" accept="image/png,image/jpg,image/jpeg" onchange="upload_avatar(this)" />
     {% if user.avatar %}
-    <div class="change">
-        <button id="changeButton">
-            <img src="{% static 'images/svg/normal/upload.svg' %}" />
-        </button>
-        <p>Изменить</p>
+    <div id="changeButton" class="button">
+        <div class="subbutton">
+            <button>
+                <img src="{% static 'images/svg/normal/upload.svg' %}" />
+            </button>
+            <p>Изменить</p>
+        </div>
     </div>
     
     <div class="image">
         <img src="{{ user.avatar }}">
     </div>
 
-    <div class="remove">
-        <form method="POST" action="{% url 'avatar_remove' %}">
+    <div id="removeButton" class="button" onclick="remove_avatar()">
+        <div class="subbutton">
             {% csrf_token %}
-            <button id="removeButton" type="submit">
+            <button>
                 <img src="{% static 'images/svg/bold/trash.svg' %}" />
             </button>
             <p>Удалить</p>
-        </form>
+        </div>
     </div>
     {% else %}
         <div id="changeButton" class="image-without-avatar">
@@ -43,14 +45,14 @@
 {% endif %}
 <form class="data" method="POST" action="{% url 'account_update_data' %}">
     {% csrf_token %}
-    <div class="namesRow">
-        <input id="firstNameInput" name="first_name" type="text" placeholder="Имя" value="{{ user.first_name }}" />
+    <div class="names">
+        <input id="firstNameInput" name="first_name" type="text" placeholder="Имя" value="{{ user.first_name }}"/>
         <input id="lastNameInput" name="last_name" type="text" placeholder="Фамилия" value="{{ user.last_name }}"/>
     </div>
-    <div class="emailRow">
+    <div class="email">
         <input id="emailInput" name="email" type="email" placeholder="Email" value="{{ user.email }}"/>
     </div>
-    <div class="submitRow">
+    <div class="submit">
         <input id="submitButton" type="submit" class="submit text_label" value="Обновить"/>
     </div>
 </form>
@@ -75,8 +77,21 @@
         document.getElementById('avatarInput').click();
     });
 
-    avatarInput.addEventListener('change', function(event) {
-        const fileInput = event.target;
+    function remove_avatar() {
+        fetch("{% url 'avatar_remove' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        }).then(response => {
+            window.location.reload();
+        }).catch(error => {
+            console.error('Ошибка:', error);
+            alert("Ошибка при удалении аватара.");
+        });
+    }
+
+    function upload_avatar(fileInput) {
         if (fileInput.files.length > 0) {
             const formData = new FormData();
             formData.append('avatar', fileInput.files[0]);
@@ -98,6 +113,6 @@
                 alert("Ошибка при загрузке аватара.");
             });
         }
-    });
+    }
 </script>
 {% endblock %}
