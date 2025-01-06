@@ -9,6 +9,7 @@
         {% block another_css_files %}{% endblock %}
         <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
         <link href="{% static 'css/common.css' %}" rel="stylesheet"/>
+        <link href="{% static 'css/parts/change_background.css' %}" rel="stylesheet"/>
         <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet"/>
         <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
         <script src="{% static 'js/qr-code-styling.js' %}"></script>
@@ -63,15 +64,17 @@
             {% endblock %}
         </div>
         <footer>
-            <a href="{% url 'privacy' %}">
-                <div class="privacy text-label">Правила сервиса</div>
+            <a class="privacy text-label" href="{% url 'privacy' %}">
+                Правила сервиса
             </a>
-            <a href="https://example.com">
-                <div class="company">PR-агентство Operator</div>
+            <a class="company" href="https://example.com">
+                PR-агентство Operator
             </a>
-            <button class="settings" onclick="changeVisible()">
-                <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
-            </button>
+            <div class="settings">
+                <a onclick="changeVisible()">
+                    <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
+                </a>
+            </div>
         </footer>
     </body>
 </html>

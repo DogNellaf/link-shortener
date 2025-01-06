@@ -1,0 +1,60 @@
+@media (orientation: landscape) {
+    #downloadQr .background {
+        position: absolute;
+        width: 100vw;
+        height: 100vh;
+        top: 0;
+        left: 0;
+        background-color: #141516;
+        opacity: 0.4;
+        z-index: 1000;
+    }
+
+    #downloadQr .frame {
+        width: 23.9583333333vw;
+        height: 22.2vh;
+        position: absolute;
+        top: 34.3vh;
+        left: 38.0208333333vw;
+        gap: 0.4vh;
+        border-radius: 2vh;
+        z-index: 1001;
+        background-color: white;
+        padding: 4vh;
+    }
+
+    #downloadQr .frame h1 {
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 1.5625vw;
+        font-weight: 500;
+        line-height: 1.875vw;
+        letter-spacing: -0.02em;
+        text-align: left;
+        color: #141516;
+    }
+
+    #downloadQr .frame button {
+        margin-top: 4vh !important;
+        width: 9.58333333333vw;
+        height: 6.6vh;
+        border: #F1F3F5;
+        border-radius: 2vh;
+        padding: 2.4vh;
+        gap: 1vh;
+        padding-left: 3.72395833333vw;
+        padding-right: 3.72395833333vw;
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.9375vw;
+        font-weight: 500;
+        line-height: 0.9375vw;
+        color: #141516;
+    }
+
+    #downloadQr .frame button:hover {
+        color: #989FA6;
+    }
+}
+
+@media (orientation: portrait) {
+
+}

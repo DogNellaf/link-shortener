@@ -3,6 +3,7 @@
 {% block title %}Это линкер от VI–media{% endblock %}
 {% block another_css_files %}
 	<link href="{% static 'css/index.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/add_favorite.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block index_selected %}selected{% endblock %}
 {% block index_bold %}bold{% endblock %}
@@ -14,19 +15,21 @@
 	{% include 'layouts/parts/copy_alert.html' %}
 {% endblock %}
 {% block content %}
-	<div class="index-frame {% if url != "" %}with-url{% endif %}">
+	<div class="index {% if url != "" %}with-url{% endif %}">
 		<h1>Это линкер от VI–media</h1>
 		<form method="POST" action="{% url 'generate_url' %}">
 		{% csrf_token %}
 			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ url.original_url }}" autofocus/>
-			<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
+			{% if url %}
+				<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
+			{% endif %}
 			<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
 		</form>
 		{% if url %}
 		<hr>
-		<div class="result-frame">
+		<div class="result">
 			<div style="display: inline-block;">
-				<div class="short-url-frame">
+				<div class="short-url">
 					<a id="shortUrlA" href="http://{{ request.get_host }}/{{ url.short_url }}">{{ request.get_host }}/{{ url.short_url }}</a>
 					<br>
 					<span id="copyInfoSpan" hidden>ссылка скопирована в буфер обмена</span>
@@ -53,7 +56,7 @@
 				</button>
 			</div>
 		</div>
-		<div id="shareFrame" class="share-frame" hidden>
+		<div id="shareFrame" class="share" hidden>
 			<a href="https://t.me/share/url?url=http://{{ request.get_host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
 				<button id="shareToTelegramButton">
 					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>

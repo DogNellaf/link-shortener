@@ -1,8 +1,8 @@
 {% load static %}
-<div id="addFavoriteBlock" hidden>
+<div id="addFavorite" hidden>
     <div class="add-favorite-background"></div>
     <form class="add-favorite-frame" method="POST" action="{% url 'make_url_favorite' %}">
-        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="addFavoriteBlock.setAttribute('hidden', 'hidden')"/>               
+        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="addFavorite.setAttribute('hidden', 'hidden')"/>               
         {% csrf_token %}
         <h1>Назовите ссылку</h1>
         <input id="favoriteTitleInput" name="title" type="text" placeholder="Название ссылки" minlength="1" maxlength="50" value="{{ url_title }}"/>

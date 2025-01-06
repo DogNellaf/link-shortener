@@ -4,6 +4,8 @@
 {% block title %}Это QR-генератор от VI–media{% endblock %}
 {% block another_css_files %}
 	<link href="{% static 'css/qr_generator.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/download_qr.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/edit_qr.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block qr_selected %}selected{% endblock %}
 {% block qr_bold %}bold{% endblock %}
@@ -12,11 +14,11 @@
 {% endblock %}
 {% block frames %}
 	{% include 'layouts/parts/download_qr.html' %}
-	{% include 'layouts/parts/qr_editor.html' %}
+	{% include 'layouts/parts/edit_qr.html' %}
 	{% include 'layouts/parts/add_favorite.html' %}
 {% endblock %}
 {% block content %}
-	<div class="qr-frame{% if qr %} with-qr{% endif %}">
+	<div class="qr{% if qr %} with-qr{% endif %}">
 		<h1>Это QR-генератор от VI–media</h1>
 		<form class="url" method="POST" action="{% url 'generate_qr' %}">
 			{% csrf_token %}
@@ -26,9 +28,9 @@
 		</form>
 		{% if qr %}
 		<hr>
-		<div class="result-frame">
+		<div class="result">
 			<div style="display: inline-block;">
-				<div id="qrImage" class="short-url-frame"></div>
+				<div id="qrImage" class="short-url"></div>
 			</div>
 			<div class="buttons">
 				<button id="editButton" class="gray-hovered" {% if not user.is_authenticated %}hidden{%endif%}>
@@ -54,7 +56,7 @@
 				</button>
 			</div>
 		</div>
-		<div id="share_frame" class="share-frame" hidden>
+		<div id="share_frame" class="share" hidden>
 			<a href="https://t.me/share/url?url=http://{{ host }}/qr/{{ url }}&text=Делюсь с вами ссылкой на QR через сервис link.example.com">
 				<button id="shareToTelegramButton">
 					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
@@ -77,11 +79,11 @@
 		submitButton.classList.add("sky-hovered");
 
 		downloadButton.addEventListener('click', function(event) {
-			downloadQrBlock.removeAttribute("hidden");
+			downloadQr.removeAttribute("hidden");
 		})
 
 		editButton.addEventListener('click', function(event) {
-			qrEditorBlock.removeAttribute("hidden");
+			qrEditor.removeAttribute("hidden");
 
 			{% if qr.is_with_background %}
 				changeBackgroundDraw();

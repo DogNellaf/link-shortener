@@ -1,0 +1,52 @@
+@media (orientation: landscape) {
+    #showQr .background {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #141516;
+        opacity: 0.4;
+        z-index: 1000;
+    }
+
+    #showQr #qrFrame {
+        position: fixed;
+        left: 38.0208333333vw;
+        top: 31.8vh;
+        width: 23.9583333333vw;
+        height: 44.2vh;
+        background: #FFFFFF;
+        opacity: 1;
+        box-shadow: 0px 4px 14px 0px #14151626;
+        z-index: 1001;
+        border-radius: 2vh;
+        padding: 4vh;
+    }
+
+    #showQr h1 {
+        font-family: var(--font-family-sf_pro_display-middle);
+        font-size: 1.5625vw;
+        font-weight: 500;
+        line-height: 1.875vw;
+        letter-spacing: -0.02em;
+        text-align: left;
+    }
+
+    #showQr #qrImage {
+        width: 100%;
+        height: 90%;
+        z-index: 1001;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #showQr svg {
+        display: flex;
+    }
+}
+
+@media (orientation: portrait) {
+
+}

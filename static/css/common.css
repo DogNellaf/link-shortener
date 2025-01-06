@@ -1,7 +1,7 @@
 /* Шрифты */
 @font-face {
 	font-family: "SF Pro Display-Medium";
-    font-style: normal;
+    font-style: bold;
     font-weight: 500;
     src: url('/static/fonts/sf-pro-display-medium.otf') format("opentype");
 }
@@ -84,10 +84,6 @@ body {
     color: #989FA6;
 }
 
-#changeBackgroundFrame .active-color {
-    border: 2px solid #1599F5;
-}
-
 #defaultColorButton div {
     background-color: #F1F3F5;
 }
@@ -142,6 +138,10 @@ input::placeholder {
     color: #989FA6;
 }
 
+input:focus {
+    outline: none;
+}
+
 @media (orientation: landscape) {
 
     .logo {
@@ -170,7 +170,8 @@ input::placeholder {
         border-radius: 5vh;
         padding: 4.95458298927vh;
         display: flex;
-        margin-top: 10.4872006606vh;
+        margin-top: 12.7vh;
+        width: 42.7083333333vw;
     }
 
     .have-icon {
@@ -306,13 +307,14 @@ input::placeholder {
     
     body footer {
         background-color: transparent;
-        height: 20vh;
         left: 0px;
         overflow: hidden;
         position: absolute;
-        top: 80vh;
-        width: 100vw;
-        z-index: -999;
+        bottom: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
 
     body footer .privacy {
@@ -324,9 +326,9 @@ input::placeholder {
         line-height: 1.6vh;
         opacity: 0.3;
         text-align: left;
-        position: absolute;
-        left: 1.041666666vw;
-        bottom: 2vh;
+        margin-left: 1.041666666vw;
+        text-decoration: none;
+        width: 10vw;
     }
 
     body footer .company {
@@ -340,180 +342,37 @@ input::placeholder {
         opacity: 0.3;
         text-align: right;
         white-space: nowrap;
-        position: absolute;
-        left: 45.885416666vw;
-        bottom: 2vh;
+        width: 10vw;
     }
 
     body footer .settings {
+        border: none;
+        display: flex;
+        justify-content: end;
+        align-items: center;
+        width: 10vw;
+    }
+
+    body footer .settings a {
         -webkit-backdrop-filter: blur(20px) brightness(100%);
         backdrop-filter: blur(20px) brightness(100%);
         background-color: white;
         border: none;
         border-radius: 50vh;
         height: 4.4vh;
-        left: 97.291666666vw;
-        position: absolute;
-        top: 14.8vh;
         width: 4.4vh;
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 2vh;
+        margin-right: 1.04166666667vw;
     }
 
-    body footer .settings img {
+    body footer .settings a img {
         height: auto;
         width: 1.04166666667vw;
         display: block;
         margin: auto;
-    }
-
-    .add-favorite-background {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background-color: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
-
-    .add-favorite-frame {
-        width: 23.9583333333vw;
-        height: 31.4vh;
-        position: absolute;
-        top: 34.3vh;
-        left: 38.0208333333vw;
-        gap: 0.4vh;
-        border-radius: 2vh;
-        z-index: 1001;
-        background-color: white;
-        padding: 4vh;
-    }
-
-    .add-favorite-frame h1 {
-        font-family: var(--font-family-sf_pro_display-regular);
-        font-size: 1.5625vw;
-        font-weight: 500;
-        line-height: 1.875vw;
-        letter-spacing: -0.02em;
-        text-align: left;
-        color: #141516;
-    }
-
-    .add-favorite-frame input {
-        margin-top: 4vh !important;
-        width: 100%;
-        height: 7vh;
-        border: #F1F3F5;
-        border-radius: 2vh;
-        padding: 2.6vh;
-        padding-right: 2.447916666vw;
-        margin-top: 0;
-        font-family: var(--font-family-sf_pro_display-medium);
-        background-color: var(--wild-sand);
-        font-size: 0.9375vw;
-        color: #141516;
-        line-height: 0.9375vw;
-        outline: none;
-    }
-
-    .add-favorite-frame button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin-top: 2vh !important;
-        width: 100%;
-        height: 6.8vh;
-        border: #F1F3F5;
-        border-radius: 2vh;
-        padding: 2.6vh;
-        padding-right: 2.447916666vw;
-        margin-top: 0;
-        font-family: var(--font-family-sf_pro_display-medium);
-        background-color: var(--wild-sand);
-        font-size: 0.9375vw;
-        font-weight: 500;
-        line-height: 0.9375vw;
-        letter-spacing: -0.01em;
-        color: #989FA6;
-        outline: none;
-    }
-
-    .add-favorite-frame button span {
-        margin-right: 0.52083333333vw;
-        vertical-align: middle;
-    }
-
-    .add-favorite-frame button img {
-        height: 1.04166666667vw;
-        vertical-align: middle;
-    }
-
-    .download-qr-background {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background-color: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
-
-    .download-qr-frame {
-        width: 23.9583333333vw;
-        height: 22.2vh;
-        position: absolute;
-        top: 34.3vh;
-        left: 38.0208333333vw;
-        gap: 0.4vh;
-        border-radius: 2vh;
-        z-index: 1001;
-        background-color: white;
-        padding: 4vh;
-    }
-
-    .download-qr-frame #closeDownloadQrFrameButton {
-        position: absolute;
-        right: 1.04166666667vw;
-        top: 2vh;
-        height: 3.2vh;
-        width: auto;
-    }
-
-    .download-qr-frame h1 {
-        font-family: var(--font-family-sf_pro_display-medium);
-        font-size: 1.5625vw;
-        font-weight: 500;
-        line-height: 1.875vw;
-        letter-spacing: -0.02em;
-        text-align: left;
-        color: #141516;
-    }
-
-    .download-qr-frame button {
-        margin-top: 4vh !important;
-        width: 9.58333333333vw;
-        height: 6.6vh;
-        border: #F1F3F5;
-        border-radius: 2vh;
-        padding: 2.4vh;
-        gap: 1vh;
-        padding-left: 3.72395833333vw;
-        padding-right: 3.72395833333vw;
-        font-family: var(--font-family-sf_pro_display-regular);
-        font-size: 0.9375vw;
-        font-weight: 500;
-        line-height: 0.9375vw;
-        letter-spacing: -0.01em;
-        letter-spacing: -0.01em;
-        color: #141516;
-    }
-
-    .download-qr-frame button:hover {
-        color: #989FA6;
     }
 
     .cross {
@@ -527,89 +386,6 @@ input::placeholder {
 
     .cross:hover {
         filter: invert(5%) sepia(6%) saturate(712%) hue-rotate(169deg) brightness(101%) contrast(92%);
-    }
-
-    #showQrFrame .background {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
-
-    #showQrFrame #qrFrame {
-        position: fixed;
-        left: 38.0208333333vw;
-        top: 31.8vh;
-        width: 23.9583333333vw;
-        height: 44.2vh;
-        background: #FFFFFF;
-        opacity: 1;
-        box-shadow: 0px 4px 14px 0px #14151626;
-        z-index: 1001;
-        border-radius: 2vh;
-        padding: 4vh;
-    }
-
-    #showQrFrame h1 {
-        font-family: var(--font-family-sf_pro_display-middle);
-        font-size: 1.5625vw;
-        font-weight: 500;
-        line-height: 1.875vw;
-        letter-spacing: -0.02em;
-        text-align: left;
-    }
-
-    #showQrFrame #qrImageFrame {
-        width: 100%;
-        height: 90%;
-        z-index: 1001;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #showQrFrame svg {
-        display: flex;
-    }
-
-    #changeBackgroundFrame {
-        position: absolute;
-        width: 16.25vw;
-        height: 15.8vh;
-        background-color: white;
-        padding: 3.2vh;
-        border-radius: 2vh;
-        right: 1.04166666667vw;
-        bottom: 7.2vh;
-        box-shadow: 0px 4px 14px 0px #14151626;
-    }
-
-    #changeBackgroundFrame h1 {
-        font-family: var(--font-family-sf_pro_display-middle);
-        font-size: 0.9375vw;
-        font-weight: 500;
-        line-height: 0.9375vw;
-        text-align: left;
-        color: #141516;
-    }
-
-    #changeBackgroundFrame button {
-        height: 2.91666666667vw;
-        width: 2.91666666667vw;
-        border: 2px solid #F1F3F5;
-        border-radius: 5vh;
-        background: none;
-        padding: 0.24vw;
-    }
-
-    #changeBackgroundFrame button div {
-        height: 2.29166666667vw;
-        width: 2.29166666667vw;
-        border-radius: 5vh;
     }
 }
 

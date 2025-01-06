@@ -58,7 +58,7 @@ function setWithBackground(value) {
     isWithBackground = value;
 }
 
-qrColorPickerFrame.addEventListener('click',
+qrColorPicker.addEventListener('click',
     _ => qrColor.click()
 );
 
@@ -74,7 +74,7 @@ backgroundDrawToogle.addEventListener('input',
     _ => changeBackgroundDraw()
 );
 
-backgroundColorPickerFrame.addEventListener('click', 
+backgroundColorPicker.addEventListener('click', 
     _ => backgroundColor.click()
 );
 

@@ -1,9 +1,9 @@
 {% load static %}
-<form id="qrEditorBlock" method="POST" action="{% url 'qr_update' %}" enctype="multipart/form-data" hidden>
+<form id="qrEditor" method="POST" action="{% url 'qr_update' %}" enctype="multipart/form-data" hidden>
     {% csrf_token %}
     <div class="background"></div>
     <div class="frame">
-        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="qrEditorBlock.setAttribute('hidden', 'hidden'); qrEditorCanvas.innerHTML = '';"/>
+        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="qrEditor.setAttribute('hidden', 'hidden'); qrEditorCanvas.innerHTML = '';"/>
         <div class="qr-background">
             <div class="qr-image">
                 <div id="qrEditorCanvas"></div>
@@ -14,7 +14,7 @@
                 <div class="left">
                     <p>Цвет QR-кода</p>
                 </div>
-                <div id="qrColorPickerFrame" class="right">
+                <div id="qrColorPicker" class="right">
                     <p id="qrColorLabel">#101010</p>
                     <input type="color" id="qrColor" name="qrColor" value="#101010" />
                 </div>
@@ -37,7 +37,7 @@
                 <div class="left">
                     <p>Цвет фона</p>
                 </div>
-                <div id="backgroundColorPickerFrame" class="right">
+                <div id="backgroundColorPicker" class="right">
                     <p id="backgroundColorLabel">#FFFFFF</p>
                     <input type="color" id="backgroundColor" name="backgroundColor" value="#FFFFFF" />
                 </div>
@@ -52,10 +52,10 @@
                 </div>
             </div>
         </div>
-        <div class="submit-button-frame">
+        <div class="submit-button">
             <input type="submit" value="Сохранить"/>
         </div>
         <input type="text" name="url" value="{{ url }}" hidden/>
     </div>
 </form>
-<script src="{% static 'js/parts/qr_editor.js' %}"></script>
+<script src="{% static 'js/parts/edit_qr.js' %}"></script>

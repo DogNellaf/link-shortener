@@ -112,9 +112,9 @@ isColorFrameVisible = false;
 
 function changeVisible() {
     if (isColorFrameVisible) {
-        changeBackgroundFrame.setAttribute("hidden", "hidden");
+        changeBackground.setAttribute("hidden", "hidden");
     } else {
-        changeBackgroundFrame.removeAttribute("hidden");
+        changeBackground.removeAttribute("hidden");
     }
     isColorFrameVisible = !isColorFrameVisible;
 };
