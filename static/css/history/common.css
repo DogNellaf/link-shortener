@@ -95,7 +95,61 @@
         width: 49.5%;
     }
 
-    .content .frame .list .list-item .left .original_url a {
+    .content .frame .history .calendar-button {
+        margin-top: 2vh;
+        width: 3.125vw;
+        height: 3.125vw;
+    }
+
+    .content .frame .history .calendar-button img {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .content .frame .history .list {
+        display: grid;
+        height: 41.0895660203vh;
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    .content .frame .history .list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .content .frame .history .list .date-title {
+        margin-left: 15.9895833333vw;
+        margin-top: 4vh;
+        border: 2px solid #F1F3F5;
+        height: 3.3vh;
+        width: 4.47916666667vw;
+        padding-top: 0.8vh;
+        padding-bottom: 0.8vh;
+        border-radius: 500px;
+        text-align: center;
+        font-family: SF Pro Display;
+        font-size: 0.72916666666vw;
+        font-weight: 500;
+        line-height: 0.875vw;
+        color: #989FA6;
+        letter-spacing: -0.01em;
+    }
+
+    .content .frame .history .list .list-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 11.3vh;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid #F1F3F5;
+    }
+
+    .content .frame .list .list-item .left {
+        display: inline-flex;
+    }
+    
+    .content .frame .list .list-item .left a {
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 1.04166666667vw;
         font-weight: 500;

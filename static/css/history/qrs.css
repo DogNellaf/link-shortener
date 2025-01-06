@@ -1,24 +1,26 @@
 @media (orientation: landscape) {
 
-    .content .history .favorite .list .date-title {
-        margin-left: 15.9895833333vw;
-        margin-top: 4vh;
-        border: 2px solid #F1F3F5;
-        height: 3.3vh;
-        width: 4.47916666667vw;
-        padding-top: 0.8vh;
-        padding-bottom: 0.8vh;
-        border-radius: 500px;
-        text-align: center;
-        font-family: SF Pro Display;
-        font-size: 0.72916666666vw;
-        font-weight: 500;
-        line-height: 0.875vw;
-        color: #989FA6;
-        letter-spacing: -0.01em;
+    .content .frame a {
+        color: #141516 !important;
     }
 
-    .content .history .list .list-item .original-url {
+    .content .frame .left {
+        opacity: 1;
+    }
+
+    .content .frame .left:hover {
+        opacity: 0.3;
+    }
+
+    .content .frame .history .list .list-item {
+        height: 8vh;
+    }
+
+    .content .frame .history .list .list-item .left {
+        width: 24.6354166667vw;
+    }
+
+    .content .frame .history .list .list-item .original-url {
         margin-left: 0.83333333333vw;
         text-align: left;
         text-overflow: ellipsis;
@@ -30,7 +32,7 @@
         color: #141516;
     }
 
-    .content .history .favorite .list .list-item .right {
+    .content .frame .history .list .list-item .right {
         text-align: right;
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 0.83333333333vw;
@@ -38,7 +40,7 @@
         color: #989FA6;
     }
 
-    .content .history .list .list-item .right p {
+    .content .frame .history .list .list-item .right p {
         margin: 0;
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 0.83333333333vw;

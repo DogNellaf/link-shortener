@@ -31,10 +31,10 @@
 					</div>
 				</div>
 				<div class="right">
-					<button class="downloadButton" onclick="showDownloadWithParams('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {% qr.is_with_background|yesno:"true,false" %})">
+					<button class="downloadButton" onclick="showDownloadWithParams('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {{ qr.is_with_background|yesno:"true,false" }})">
 						<img src="{% static 'images/svg/bold/download.svg' %}" />
 					</button>
-					<button class="showButton" onclick="showQR('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {% qr.is_with_background|yesno:"true,false" %})">
+					<button class="showButton" onclick="showQR('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {{ qr.is_with_background|yesno:"true,false" }})">
 						<img src="{% static 'images/svg/bold/show.svg' %}" />
 					</button>
 					<button class="deleteButton" onclick="showDeleteFrame('{{ qr.short_url.short_url }}');">
