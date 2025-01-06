@@ -4,6 +4,7 @@
 {% block another_css_files %}
 	<link href="{% static 'css/index.css' %}" rel="stylesheet"/>
 	<link href="{% static 'css/parts/add_favorite.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/copy_alert.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block index_selected %}selected{% endblock %}
 {% block index_bold %}bold{% endblock %}
@@ -56,7 +57,7 @@
 				</button>
 			</div>
 		</div>
-		<div id="shareFrame" class="share" hidden>
+		<div id="share" class="share" hidden>
 			<a href="https://t.me/share/url?url=http://{{ request.get_host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
 				<button id="shareToTelegramButton">
 					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
@@ -83,7 +84,7 @@
 						sendRemoveUrlButton.click();
 					{% else %}
 						favoriteUrlInput.value = "{{ url.short_url }}";
-						addFavoriteBlock.removeAttribute("hidden");
+						addFavorite.removeAttribute("hidden");
 					{% endif %}
 				{% else %}
 					document.location.href = "{% url 'registration' %}";
@@ -91,18 +92,18 @@
 			});
 			
 			copyButton.addEventListener('click', function(event) {
-				copyAlertFrame.removeAttribute("hidden");
+				copyAlert.removeAttribute("hidden");
 				navigator.clipboard.writeText(shortUrlA.innerHTML);
 				setTimeout(() => {
-					copyAlertFrame.setAttribute("hidden", "hidden");
+					copyAlert.setAttribute("hidden", "hidden");
 				}, 3000);
 			})
 
 			shareButton.addEventListener('click', function(event) {
 				if (isShareFrameHidden)
-					shareFrame.removeAttribute("hidden");
+					share.removeAttribute("hidden");
 				else
-					shareFrame.setAttribute("hidden", "hidden");
+					share.setAttribute("hidden", "hidden");
 				
 				isShareFrameHidden = !isShareFrameHidden;
 			})
