@@ -59,8 +59,8 @@
 
     .content .qr .cross-small {
         position: absolute;
-        left: 58.5416666667vw;
-        top: 29.5vh;
+        left: 58.3vw;
+        top: 28.5vh;
         width: 0.65572916666vw;
         filter: invert(77%) sepia(2%) saturate(1396%) hue-rotate(169deg) brightness(82%) contrast(91%);
     }
@@ -133,8 +133,8 @@
     .content .qr .share {
         width: 16.875vw;
         height: 13.6vh;
-        top: 51.6vh;
-        left: 30.625vw;
+        top: 60vh;
+        left: 59.2708333333vw;
         border-radius: 2vh;
         padding: 1.6vh;
         gap: 0.4vh;

@@ -6,6 +6,7 @@
 	<link href="{% static 'css/qr_generator.css' %}" rel="stylesheet"/>
 	<link href="{% static 'css/parts/download_qr.css' %}" rel="stylesheet"/>
 	<link href="{% static 'css/parts/edit_qr.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/add_favorite.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block qr_selected %}selected{% endblock %}
 {% block qr_bold %}bold{% endblock %}
@@ -121,7 +122,7 @@
 					sendRemoveUrlButton.click();
 				{% else %}
 					favoriteUrlInput.value = "{{ url }}";
-					addFavoriteBlock.removeAttribute("hidden");
+					addFavorite.removeAttribute("hidden");
 				{% endif %}
 			{% else %}
 				document.location.href = "{% url 'registration' %}";
