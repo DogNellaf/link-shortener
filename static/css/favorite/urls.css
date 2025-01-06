@@ -1,5 +1,5 @@
 @media (orientation: landscape) {
-    #edit .background {
+    .content .edit .background {
         position: fixed;
         left: 0;
         top: 0;
@@ -10,7 +10,7 @@
         z-index: 1000;
     }
 
-    #edit form {
+    .content .edit form {
         position: fixed;
         left: 38.0208333333vw;
         top: 37.2vh;
@@ -24,7 +24,7 @@
         padding: 4vh;
     }
 
-    #edit h1 {
+    .content .edit h1 {
         font-family: var(--font-family-sf_pro_display-middle);
         font-size: 1.5625vw;
         font-weight: 500;
@@ -33,7 +33,7 @@
         text-align: left;
     }
 
-    #edit .title-input {
+    .content .edit .title-input {
         margin-top: 4vh;
         height: 7vh;
         width: 19.7916666667vw;
@@ -50,7 +50,7 @@
         text-align: left;
     }
 
-    #edit .edit-submit {
+    .content .edit .edit-submit {
         margin-top: 2vh;
         height: 6.6vh;
         width: 19.7916666667vw;
@@ -65,11 +65,25 @@
         color: #989FA6;
     }
 
-    #share a {
+    .content .share {
+        width: 16.875vw;
+        height: 13.6vh;
+        top: 50.5vh;
+        left: 59.2708333333vw;
+        border-radius: 2vh;
+        padding: 1.6vh;
+        gap: 0.4vh;
+        background-color: white;
+        position: absolute;
+        z-index: 10;
+        box-shadow: 0px 4px 14px 0px #14151626;
+    }
+
+    .content .share a {
         text-decoration: none;
     }
 
-    #share button {
+    .content .share button {
         width: 15.208333333vw;
         height: 5vh;
         border-radius: 1vh;
@@ -86,18 +100,18 @@
         align-items: center;
     }
 
-    #share button img {
+    .content .share button img {
         max-width: 0.83333333333vw;
         width: auto;
         height: 0.83333333333vw;
         display: inline-block;
     }
 
-    #share button span {
+    .content .share button span {
         display: inline-block;
     }
 
-    #share button:hover {
+    .content .share button:hover {
         background-color: #F1F3F5;
     }
 }

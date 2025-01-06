@@ -4,6 +4,7 @@
 	<link href="{% static 'css/history/common.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/favorite/common.css' %}" rel="stylesheet"/>
 	<link href="{% static 'css/favorite/urls.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/copy_alert.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block urls_bold %}class="bold"{% endblock %}
 {% block favorite_url %}{% url 'favorite_urls' %}{% endblock %}
@@ -72,14 +73,14 @@
 			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="edit.setAttribute('hidden', 'hidden')"/>
 		</form>
 	</div>
-	<div id="delete" class="delete" hidden>
+	<div id="deleteFrame" class="delete" hidden>
 		<div class="background"></div>
 		<form method="post" action="{% url 'delete_url_title' %}">
 			{% csrf_token %}
-			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="delete.setAttribute('hidden', 'hidden')"/>
+			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="deleteFrame.setAttribute('hidden', 'hidden')"/>
 			<h1>Удалить ссылку?</h1>
-			<input id="deleteCancel" type="button" value="Отмена" onclick="delete.setAttribute('hidden', 'hidden')"/>
-			<input id="deleteSubmit" type="submit" value="Удалить"/>
+			<input class="cancel" type="button" value="Отмена" onclick="deleteFrame.setAttribute('hidden', 'hidden')"/>
+			<input class="submit" type="submit" value="Удалить"/>
 			<input id="urlToDelete" name="url" type="text" hidden/>
 		</form>
 	</div>

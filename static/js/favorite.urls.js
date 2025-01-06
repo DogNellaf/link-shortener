@@ -4,38 +4,38 @@ var lastButton = null;
 function showShareFrame(button, shortUrl) {
     if (lastButton != button) {
         selectedUrl = shortUrl;
-        telegram_url.href = "https://t.me/share/url?url=" + shortUrl + "&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com";
-        whatsapp_url.href = "https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой " + shortUrl + " через сервис link.example.com";
+        telegramUrl.href = "https://t.me/share/url?url=" + shortUrl + "&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com";
+        whatsappUrl.href = "https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой " + shortUrl + " через сервис link.example.com";
         let coords = button.getBoundingClientRect();
-        let bottom = coords.bottom - 80;
-        let left = coords.left - 600;
-        share_frame.setAttribute("style", "top: " + bottom + "px; position: absolute; left: " + left + "px;");
-        share_frame.removeAttribute("hidden");
+        let bottom = coords.bottom + 20;
+        let left = coords.left - 100;
+        share.setAttribute("style", "top: " + bottom + "px; position: absolute; left: " + left + "px;");
+        share.removeAttribute("hidden");
         lastButton = button;
     } else {
-        share_frame.setAttribute("hidden", "hidden");
+        share.setAttribute("hidden", "hidden");
         lastButton = null;
     }
 }
 
 function showEditFrame(title, shortUrl) {
-    url_to_edit.value = shortUrl;
+    urlToEdit.value = shortUrl;
     titleInput.value = title;
     changeEditActive();
-    edit_frame.removeAttribute("hidden");
+    edit.removeAttribute("hidden");
 }
 
 function copyUrl(shortUrl) {
     copyAlert.removeAttribute("hidden");
     navigator.clipboard.writeText(shortUrl);
     setTimeout(() => {
-        copyAlertFrame.setAttribute("hidden", "hidden");
+        copyAlert.setAttribute("hidden", "hidden");
     }, 3000);
 }
 
 function showDeleteFrame(shortUrl) {
-    url_to_delete.value = shortUrl;
-    delete_frame.removeAttribute("hidden");
+    urlToDelete.value = shortUrl;
+    deleteFrame.removeAttribute("hidden");
 }
 
 document.querySelector('.search input').addEventListener('input', function () {
@@ -45,7 +45,7 @@ document.querySelector('.search input').addEventListener('input', function () {
     listItems.forEach(item => {
         const titleText = item.querySelector('.title p').textContent.toLowerCase();
         if (titleText.includes(searchText)) {
-            item.style.display = 'block';
+            item.removeAttribute("style");
         } else {
             item.style.display = 'none';
         }
