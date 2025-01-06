@@ -24,7 +24,7 @@
 			{% csrf_token %}
 			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}" autofocus/>
 			<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
-			<input id="submitButton" type="submit" class="submit text_label" value="Сократить"/>
+			<input id="submitButton" type="submit" class="submit text-label" value="Сократить"/>
 		</form>
 		{% if qr %}
 		<hr>

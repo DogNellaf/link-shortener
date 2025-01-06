@@ -1,5 +1,5 @@
 @media (orientation: landscape) {
-    #delete_frame form {
+    #delete form {
         position: fixed;
         left: 38.0208333333vw;
         top: 41.8vh;
@@ -13,7 +13,7 @@
         padding: 4vh;
     }
 
-    #delete_frame h1 {
+    #delete h1 {
         font-family: var(--font-family-sf_pro_display-middle);
         font-size: 1.5625vw;
         font-weight: 500;
@@ -22,7 +22,7 @@
         text-align: left;
     }
 
-    #delete_frame #delete-submit {
+    #delete #deleteSubmit {
         margin-top: 4vh;
         height: 6.6vh;
         width: 9.58333333333vw;
@@ -38,7 +38,7 @@
         color: white;
     }
 
-    #delete_frame #delete-cancel {
+    #delete #deleteCancel {
         margin-top: 4vh;
         height: 6.6vh;
         width: 9.58333333333vw;

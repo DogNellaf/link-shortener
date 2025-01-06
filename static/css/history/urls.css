@@ -55,7 +55,7 @@
         margin-top: 2.8vh;
     }
 
-    .content .history .list .list-item .left .original_url {
+    .content .history .list .list-item .left .original-url {
         text-align: left;
         width: 20.8333333333vw;
         text-overflow: ellipsis;
@@ -64,13 +64,13 @@
         margin-left: 0;
     }
 
-    .content .history .list .list-item .left .short_url {
+    .content .history .list .list-item .left .short-url {
         width: 100%;
         margin-top: 0.8vh;
         margin-bottom: 2.8vh;
     }
 
-    .content .history .list .list-item .left .short_url a {
+    .content .history .list .list-item .left .short-url a {
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 1.25vw;
         font-weight: 500;

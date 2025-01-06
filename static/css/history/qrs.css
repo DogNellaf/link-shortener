@@ -31,7 +31,7 @@
         letter-spacing: -0.01em;
     }
 
-    .content .history .list .list-item .original_url {
+    .content .history .list .list-item .original-url {
         margin-left: 0.83333333333vw;
         text-align: left;
         text-overflow: ellipsis;

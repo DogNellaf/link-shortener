@@ -21,10 +21,10 @@
 				{% for url in urls %}
 					<div class="list-item">
 						<div class="left">
-							<div class="original_url">
+							<div class="original-url">
 								<a href="{{ url.original_url }}">{{ url.original_url }}</a>
 							</div>
-							<div class="short_url">
+							<div class="short-url">
 								<a href="http://{{ request.get_host }}/{{ url.short_url }}">{{ request.get_host }}/{{ url.short_url }}</a>
 							</div>
 						</div>
