@@ -10,7 +10,7 @@
 	<div class="calendar">
 
 	</div>
-	<div class="history">
+	<div class="frame">
 		<div class="title-bar">
 			<a href="{% url 'favorite_urls' %}">
 				<h1 {% block urls_bold %} {% endblock %}>Мои ссылки</h1>
@@ -32,10 +32,8 @@
 				</div>
 			</a>
 		</div>
-		<div class="history">
-			{% block history_content %}
-	
-			{% endblock %}
-		</div>
+		{% block history_content %}
+
+		{% endblock %}
 	</div>
 {% endblock %}

@@ -1,18 +1,5 @@
 @media (orientation: landscape) {
 
-    .content .history .favorite .list {
-        margin-top: 2vh;
-        display: flex;
-        flex-direction: column;
-        height: 35vh;
-        overflow-y: auto;
-        scrollbar-width: none;
-    }
-
-    .content .history .favorite .list::-webkit-scrollbar {
-        display: none;
-    }
-
     .content .history .favorite .list .date-title {
         margin-left: 15.9895833333vw;
         margin-top: 4vh;
@@ -43,7 +30,7 @@
         color: #141516;
     }
 
-    .content .history .list .list-item .right {
+    .content .history .favorite .list .list-item .right {
         text-align: right;
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 0.83333333333vw;
