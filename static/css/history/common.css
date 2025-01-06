@@ -1,5 +1,5 @@
 @media (orientation: landscape) {
-    .content .history-frame .title-bar {
+    .content .history .title-bar {
         color: #989FA6;
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 2.08333333333vw;
@@ -9,7 +9,7 @@
         display: inline;
     }
 
-    .content .history-frame .title-bar h1 {
+    .content .history .title-bar h1 {
         display: inline;
         color: #989FA6;
         font-family: var(--font-family-sf_pro_display-medium);
@@ -20,20 +20,20 @@
         display: inline;
     }
 
-    .content .history-frame .title-bar span {
+    .content .history .title-bar span {
         margin-left: 0.83333333333vw;
         margin-right: 0.83333333333vw;
     }
     
-    .content .history-frame {
+    .content .history {
         height: 55.5vh;
     }
 
-    .content .history-frame a {
+    .content .history a {
         text-decoration: none;
     }
 
-    .content .history-frame .title-bar {
+    .content .history .title-bar {
         color: #989FA6;
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 2.08333333333vw;
@@ -43,20 +43,20 @@
         display: inline;
     }
 
-    .content .history-frame .title-bar span {
+    .content .history .title-bar span {
         margin-left: 0.83333333333vw;
         margin-right: 0.83333333333vw;
     }
 
-    .content .history-frame .bold {
+    .content .history .bold {
         color: #141516 !important;
     }
 
-    .content .history-frame hr {
+    .content .history hr {
         margin: 0;
     }
 
-    .content .history-frame .history-menu {
+    .content .history .menu {
         height: 5.1vh;
         width: 36.4583333333vw;
         background: #F1F3F5;
@@ -65,7 +65,7 @@
         margin-top: 3.2vh;
     }
 
-    .content .history-frame .history-menu div {
+    .content .history .menu div {
         height: 5.1vh;
         width: 18.0729166667vw;
         padding: 1.4vh;
@@ -79,23 +79,23 @@
         border-radius: 1vh;
     }
 
-    .content .history-frame .history-menu .selected {
+    .content .history .menu .selected {
         background: #FFFFFF !important;
         box-shadow: 0px 4px 15px 0px #2424241A;
         color: #141516 !important;
     }
 
-    .content .history-frame .history-menu .favorite-menu-item {
+    .content .history .menu .favorite {
         display: inline-block;
         width: 49.5%;
     }
 
-    .content .history-frame .history-menu .history-menu-item {
+    .content .history .menu .history {
         display: inline-block;
         width: 49.5%;
     }
 
-    .content .history-frame .list .list-item .left .original_url a {
+    .content .history .list .list-item .left .original_url a {
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 1.04166666667vw;
         font-weight: 500;

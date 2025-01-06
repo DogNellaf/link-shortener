@@ -1,6 +1,6 @@
 function showDeleteFrame(shortUrl) {
-    url_to_delete.value = shortUrl;
-    delete_frame.removeAttribute("hidden");
+    urlToDelete.value = shortUrl;
+    delete.removeAttribute("hidden");
 }
 
 document.querySelector('.search input').addEventListener('input', function () {

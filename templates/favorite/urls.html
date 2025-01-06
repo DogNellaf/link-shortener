@@ -13,7 +13,7 @@
 	{% include 'layouts/parts/copy_alert.html' %}
 {% endblock %}
 {% block history_content %}
-	<div class="favorite-frame">
+	<div class="favorite">
 		<div class="search">
 			<input type="text" placeholder="Поиск" />
 			<img src="{% static 'images/svg/normal/search.svg' %}" />
@@ -47,40 +47,40 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div id="share_frame" class="share-frame" hidden>
+	<div id="share" class="share" hidden>
 		<a id="telegram_url" href="https://t.me/share/url?url=http://{{ host }}/qr/{{ url }}&text=Делюсь с вами ссылкой на QR через сервис link.example.com">
 			<button id="shareToTelegramButton">
 				<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
 				<span>Отправить в Telegram</span>
 			</button>
 		</a>
-		<a id="whatsapp_url" href="https://api.whatsapp.com/send?text=Делюсь с вами QR http://{{ host }}/qr/{{ url }} через сервис link.example.com">
+		<a id="whatsappUrl" href="https://api.whatsapp.com/send?text=Делюсь с вами QR http://{{ host }}/qr/{{ url }} через сервис link.example.com">
 			<button id="shareToWhatsAppButton">
 				<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
 				<span>Отправить в WhatsApp</span>
 			</button>
 		</a>
 	</div>
-	<div id="edit_frame" class="edit-frame" hidden>
+	<div id="edit" class="edit" hidden>
 		<div class="background"></div>
 		<form method="post" action="{% url 'update_url_title' %}">
 			{% csrf_token %}
 			<h1>Название ссылки</h1>
 			<input id="titleInput" minlength="1" class="title-input" name="title" type="text" placeholder="Название"/>
 			<input id="editSubmitButton" class="edit-submit" type="submit"/>
-			<input id="url_to_edit" name="url" type="text" hidden />
-			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="edit_frame.setAttribute('hidden', 'hidden')"/>
+			<input id="urlToEdit" name="url" type="text" hidden />
+			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="edit.setAttribute('hidden', 'hidden')"/>
 		</form>
 	</div>
-	<div id="delete_frame" class="delete-frame" hidden>
+	<div id="delete" class="delete" hidden>
 		<div class="background"></div>
 		<form method="post" action="{% url 'delete_url_title' %}">
 			{% csrf_token %}
-			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="delete_frame.setAttribute('hidden', 'hidden')"/>
+			<img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="delete.setAttribute('hidden', 'hidden')"/>
 			<h1>Удалить ссылку?</h1>
-			<input id="delete-cancel" type="button" value="Отмена" onclick="delete_frame.setAttribute('hidden', 'hidden')"/>
-			<input id="delete-submit" type="submit" value="Удалить"/>
-			<input id="url_to_delete" name="url" type="text" hidden/>
+			<input id="deleteCancel" type="button" value="Отмена" onclick="delete.setAttribute('hidden', 'hidden')"/>
+			<input id="deleteSubmit" type="submit" value="Удалить"/>
+			<input id="urlToDelete" name="url" type="text" hidden/>
 		</form>
 	</div>
 	<script src="{% static 'js/favorite.urls.js' %}"></script>

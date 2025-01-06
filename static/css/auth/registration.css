@@ -1,9 +1,9 @@
 @media (orientation: landscape) {
-    .registration-frame {
+    .registration {
         width: 17.7083333333vw;
     }
 
-    .registration-frame h1 {
+    .registration h1 {
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 2.08333333333vw;
         font-weight: 500;
@@ -11,7 +11,7 @@
         text-align: left;
     }
 
-    .registration-frame form input {
+    .registration form input {
         width: 17.7083333333vw;
         height: 7vh;
         border: none;
@@ -33,21 +33,21 @@
         outline: none;
     }
 
-    .registration-frame #passwordInput {
+    .registration #passwordInput {
         margin-top: 1.2vh;
     }
 
-    .registration-frame #passwordAnotherInput {
+    .registration #passwordAnotherInput {
         margin-top: 1.2vh;
     }
 
-    .registration-frame #submitButton {
+    .registration #submitButton {
         margin-top: 2vh;
         text-align: center;
         color: #989FA6;
     }
 
-    .registration-frame .links {
+    .registration .links {
         margin-top: 4vh;
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 0.9375vw;
@@ -57,7 +57,7 @@
         text-decoration: none;
     }
 
-    .registration-frame .links a {
+    .registration .links a {
         display: inline-block;
         font-family: var(--font-family-sf_pro_display-regular);
         font-size: 0.9375vw;
@@ -68,7 +68,7 @@
         text-align: center;
     }
 
-    .registration-frame .links #loginLink {
+    .registration .links #loginLink {
         margin-right: 3.28125vw;
         width: 100%;
     }

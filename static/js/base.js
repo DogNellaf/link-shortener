@@ -6,11 +6,11 @@ let lastQrColor = "";
 let lastBackgroundColor = "";
 let isWithBackground = false;
 
-function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_background) {
+function drawQR(canvas, url, logoPath, qrColor, backgroundColor, isWithBackground) {
     lastUrl = url;
-    lastLogoPath = logo_path;
-    lastQrColor = qr_color;
-    lastBackgroundColor = background_color;
+    lastLogoPath = logoPath;
+    lastQrColor = qrColor;
+    lastBackgroundColor = backgroundColor;
 
     var qr = new QRCodeStyling({
         type: "svg",
@@ -38,7 +38,7 @@ function drawQR(canvas, url, logo_path, qr_color, background_color, is_with_back
         },
         backgroundOptions: {
           round: 0,
-          color: is_with_background? lastBackgroundColor : "transparent"
+          color: isWithBackground? lastBackgroundColor : "transparent"
         },
         image: lastLogoPath,
         dotsOptionsHelper: {

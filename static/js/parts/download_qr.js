@@ -87,8 +87,8 @@ downloadPngButton.addEventListener('click', async function() {
     downloadQrBlock.setAttribute("hidden", "hidden");
 });
 
-function showDownloadWithParams(url, logo_path, qr_color, background_color, is_with_background) {
-    drawQR(qrImage, url, logo_path, qr_color, background_color, is_with_background)
+function showDownloadWithParams(url, logoPath, qrColor, backgroundColor, isWithBackground) {
+    drawQR(qrImage, url, logoPath, qrColor, backgroundColor, isWithBackground)
     downloadQrBlock.removeAttribute("hidden");
 }
 

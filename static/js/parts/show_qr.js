@@ -1,4 +1,4 @@
-function showQR(url, logo_path, qr_color, background_color, is_with_background) {
-    drawQR(qrImage, url, logo_path, qr_color, background_color, is_with_background)
+function showQR(url, logoPath, qrColor, backgroundColor, isWithBackground) {
+    drawQR(qrImage, url, logoPath, qrColor, backgroundColor, isWithBackground)
     showQr.removeAttribute("hidden");
 }

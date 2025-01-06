@@ -1,7 +1,7 @@
 {% load static %}
 <div id="addFavorite" hidden>
-    <div class="add-favorite-background"></div>
-    <form class="add-favorite-frame" method="POST" action="{% url 'make_url_favorite' %}">
+    <div class="background"></div>
+    <form class="frame" method="POST" action="{% url 'make_url_favorite' %}">
         <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="addFavorite.setAttribute('hidden', 'hidden')"/>               
         {% csrf_token %}
         <h1>Назовите ссылку</h1>

@@ -91,10 +91,7 @@ logo.addEventListener('change', (e) => {
     if (selectedFile != null) {
         var reader = new FileReader();
   
-        reader.onload = function(e) {
-            changeLogoPath(e.target.result);
-        };
-      
+        reader.onload = changeLogoPath(e.target.result); /* TODO: проверить работу */
         reader.readAsDataURL(selectedFile);
     }
 });

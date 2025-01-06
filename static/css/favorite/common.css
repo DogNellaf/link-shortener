@@ -1,5 +1,5 @@
 @media (orientation: landscape) {
-    .content .history-frame .favorite-frame .search {
+    .content .history .favorite .search {
         margin-top: 2vh;
         width: 36.4583333333vw;
         height: 6vh;
@@ -7,7 +7,7 @@
         outline: none;
     }
 
-    .content .history-frame .favorite-frame .search input {
+    .content .history .favorite .search input {
         width: 100%;
         height: 100%;
         padding-top: 2vh;
@@ -23,7 +23,7 @@
         outline: none;
     }
 
-    .content .history-frame .favorite-frame .search img {
+    .content .history .favorite .search img {
         width: 1.04166666667vw;
         height: auto;
         position: absolute;
@@ -32,11 +32,11 @@
         filter: invert(71%) sepia(13%) saturate(181%) hue-rotate(169deg) brightness(87%) contrast(88%);
     }
 
-    .content .history-frame .favorite-frame .search img:hover {
+    .content .history .favorite .search img:hover {
         filter: invert(3%) sepia(4%) saturate(1876%) hue-rotate(169deg) brightness(101%) contrast(89%);
     }
 
-    .content .history-frame .favorite-frame .list .list-item {
+    .content .history .favorite .list .list-item {
         flex-shrink: 0;
         height: 11.3vh;
         width: 100%;
@@ -46,13 +46,13 @@
         margin: 0;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .left {
+    .content .history .favorite .list .list-item .left {
         display: inline-block;
         width: 11.6145833333vw;
         margin-top: 2.8vh;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .left .title {
+    .content .history .favorite .list .list-item .left .title {
         width: 100%;
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 1.04166666667vw;
@@ -63,11 +63,11 @@
         color: #141516;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .left .title p {
+    .content .history .favorite .list .list-item .left .title p {
         margin: 0;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .left .url {
+    .content .history .favorite .list .list-item .left .url {
         width: 100%;
         font-family: var(--font-family-sf_pro_display-medium);
         font-size: 1.25vw;
@@ -79,11 +79,11 @@
         margin-top: 0.8vh;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .left .url p {
+    .content .history .favorite .list .list-item .left .url p {
         margin: 0;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .right {
+    .content .history .favorite .list .list-item .right {
         display: inline-flex;
         width: 15vw;
         margin-top: 3.25vh;
@@ -91,7 +91,7 @@
         gap: 0.41666666666vw;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .right button {
+    .content .history .favorite .list .list-item .right button {
         height: 2.5vw;
         width: 2.5vw;
         display: inline-block;
@@ -103,7 +103,7 @@
         align-items: center;
     }
 
-    .content .history-frame .favorite-frame .list .list-item .right button img {
+    .content .history .favorite .list .list-item .right button img {
         height: 0.83333333333vw;
         width: 0.83333333333vw;
     }

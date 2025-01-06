@@ -56,7 +56,7 @@
 				</button>
 			</div>
 		</div>
-		<div id="share_frame" class="share" hidden>
+		<div id="share" class="share" hidden>
 			<a href="https://t.me/share/url?url=http://{{ host }}/qr/{{ url }}&text=Делюсь с вами ссылкой на QR через сервис link.example.com">
 				<button id="shareToTelegramButton">
 					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
@@ -74,7 +74,7 @@
 	</div>
 	{% if qr %}
 	<script>
-		var is_share_frame_hidden = true;
+		var isShareFrameHidden = true;
 		submitButton.classList.add("active");
 		submitButton.classList.add("sky-hovered");
 
@@ -106,12 +106,12 @@
 		})
 
 		shareButton.addEventListener('click', function(event) {
-			if (is_share_frame_hidden) {
-				share_frame.removeAttribute("hidden");
-				is_share_frame_hidden = false;
+			if (isShareFrameHidden) {
+				share.removeAttribute("hidden");
+				isShareFrameHidden = false;
 			} else {
-				share_frame.setAttribute("hidden", "hidden");
-				is_share_frame_hidden = true;
+				share.setAttribute("hidden", "hidden");
+				isShareFrameHidden = true;
 			}
 		})
 
