@@ -3,6 +3,11 @@ function showDeleteFrame(shortUrl) {
     deleteFrame.removeAttribute("hidden");
 }
 
+function showQrFrame(url, logoPath, qrColor, backgroundColor, isWithBackground) {
+    drawQR(qrImage, url, logoPath, qrColor, backgroundColor, isWithBackground)
+    showQr.removeAttribute("hidden");
+}
+
 document.querySelector('.search input').addEventListener('input', function () {
     const searchText = this.value.toLowerCase();
     const listItems = document.querySelectorAll('.list .list-item');

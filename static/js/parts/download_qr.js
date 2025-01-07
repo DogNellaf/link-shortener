@@ -31,7 +31,7 @@ downloadSvgButton.addEventListener('click', async function() {
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
-        downloadQrBlock.setAttribute("hidden", "hidden");
+        downloadQr.setAttribute("hidden", "hidden");
     }, 100);
 });
 
@@ -84,14 +84,14 @@ downloadPngButton.addEventListener('click', async function() {
     };
 
     img.src = 'data:image/svg+xml;base64,' + btoa(unescape(encodeURIComponent(svgData)));
-    downloadQrBlock.setAttribute("hidden", "hidden");
+    downloadQr.setAttribute("hidden", "hidden");
 });
 
 function showDownloadWithParams(url, logoPath, qrColor, backgroundColor, isWithBackground) {
     drawQR(qrImage, url, logoPath, qrColor, backgroundColor, isWithBackground)
-    downloadQrBlock.removeAttribute("hidden");
+    downloadQr.removeAttribute("hidden");
 }
 
 function showDownload() {
-    downloadQrBlock.removeAttribute("hidden");
+    downloadQr.removeAttribute("hidden");
 }

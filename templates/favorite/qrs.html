@@ -4,6 +4,8 @@
 	<link href="{% static 'css/history/common.css' %}" rel="stylesheet"/>
     <link href="{% static 'css/favorite/common.css' %}" rel="stylesheet"/>
 	<link href="{% static 'css/favorite/qrs.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/show_qr.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/download_qr.css' %}" rel="stylesheet"/>
 {% endblock %}
 {% block qrs_bold %}class="bold"{% endblock %}
 {% block favorite_url %}{% url 'favorite_qrs' %}{% endblock %}
@@ -31,10 +33,10 @@
 					</div>
 				</div>
 				<div class="right">
-					<button class="downloadButton" onclick="showDownloadWithParams('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {{ qr.is_with_background|yesno:"true,false" }})">
+					<button class="downloadButton" onclick="showDownloadWithParams('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {{ qr.logo|yesno:"true,false" }})">
 						<img src="{% static 'images/svg/bold/download.svg' %}" />
 					</button>
-					<button class="showButton" onclick="showQR('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {{ qr.is_with_background|yesno:"true,false" }})">
+					<button class="showButton" onclick="showQrFrame('{{ qr.short_url.short_url }}', '/media/{{ qr.logo }}', '#{{ qr.qr_color }}', '#{{ qr.background_color }}', {{ qr.logo|yesno:"true,false" }})">
 						<img src="{% static 'images/svg/bold/show.svg' %}" />
 					</button>
 					<button class="deleteButton" onclick="showDeleteFrame('{{ qr.short_url.short_url }}');">
@@ -45,14 +47,14 @@
 			{% endfor %}
 		</div>
 	</div>
-	<div id="delete" class="delete" hidden>
+	<div id="deleteFrame" class="delete" hidden>
 		<div class="background"></div>
 		<form method="post" action="{% url 'delete_qr' %}">
-            <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="delete.setAttribute('hidden', 'hidden')"/>
+            <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="deleteFrame.setAttribute('hidden', 'hidden')"/>
 			{% csrf_token %}
 			<h1>Удалить QR?</h1>
-			<input id="deleteCancel" type="button" value="Отмена" onclick="delete.setAttribute('hidden', 'hidden')"/>
-			<input id="deleteSubmit" type="submit" value="Удалить"/>
+			<input class="cancel" type="button" value="Отмена" onclick="deleteFrame.setAttribute('hidden', 'hidden')"/>
+			<input class="submit" type="submit" value="Удалить"/>
 			<input id="urlToDelete" name="url" type="text" hidden/>
 		</form>
 	</div>
