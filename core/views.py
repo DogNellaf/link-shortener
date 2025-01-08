@@ -11,6 +11,7 @@ from core.models import ShortedUrl, Qr
 from core.utils import create_shorted_url
 
 from os.path import join
+from datetime import datetime
 
 QR_CODE_OPTIONS = settings.QR_CODE_OPTIONS
 MONTHS = settings.MONTHS
@@ -181,11 +182,19 @@ def history_urls(request):
     """Отображение страницы Мои ссылки - история"""
     user = request.user
 
+    if 'date' not in request.GET:
+        current_date = datetime.now()
+    else:
+        current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
+
     if not user.is_authenticated:
         return redirect('login')
-    else:
+    elif 'date' not in request.GET:
         urls = ShortedUrl.objects.filter(author = user, is_only_qr=False)
-        urls = urls.order_by('-created_at')[:100]
+    else:
+        urls = ShortedUrl.objects.filter(author = user, is_only_qr=False, created_at__date=current_date)
+
+    urls = urls.order_by('-created_at')[:100]
 
     urls_by_dates = {}
 
@@ -201,7 +210,8 @@ def history_urls(request):
             urls_by_dates[created_at_date_title] = [url]
 
     return render(request, "history/urls.html", {
-        'urls_by_dates': urls_by_dates
+        'urls_by_dates': urls_by_dates,
+        'current_date': current_date
     })
 
 def favorite_qrs(request):
@@ -236,11 +246,19 @@ def history_qrs(request):
     """Отображение страницы Мои QR-коды - история"""
     user = request.user
 
+    if 'date' not in request.GET:
+        current_date = datetime.now()
+    else:
+        current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
+
     if not user.is_authenticated:
         return redirect('login')
-    else:
+    elif 'date' not in request.GET:
         urls = ShortedUrl.objects.filter(author = user, is_only_qr=True)
-        urls = urls.order_by('-created_at')[:100]
+    else:
+        urls = ShortedUrl.objects.filter(author = user, is_only_qr=True, created_at__date=current_date)
+
+    urls = urls.order_by('-created_at')[:100]
 
     urls_by_dates = {}
 
@@ -256,7 +274,8 @@ def history_qrs(request):
             urls_by_dates[created_at_date_title] = [url]
 
     return render(request, "history/qrs.html", {
-        'urls_by_dates': urls_by_dates
+        'urls_by_dates': urls_by_dates,
+        'current_date': current_date
     })
 
 def price(request):

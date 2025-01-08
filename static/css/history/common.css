@@ -111,6 +111,11 @@
         height: 41.0895660203vh;
         overflow-y: auto;
         scrollbar-width: none;
+        align-content: start; /* Элементы располагаются сверху */
+    }
+    
+    .content .frame .history .list .list-item:only-child {
+        margin-top: 0; /* Убираем отступы сверху, если требуется */
     }
 
     .content .frame .history .list::-webkit-scrollbar {

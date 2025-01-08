@@ -1,6 +1,9 @@
 {% extends 'layouts/auth.html' %}
 {% load static %}
 {% block title %}Авторизация{% endblock %}
+{% block another_css_files %}
+	<link href="{% static 'css/auth/login.css' %}" rel="stylesheet"/>
+{% endblock %}
 {% block content %}
   <div class="login">
     <h1>Логин</h1>
@@ -43,6 +46,8 @@
       passwordInput.addEventListener("input", function () {
         checkActive();
       });
+
+      checkActive();
     </script>
   </div>
 {% endblock %}

@@ -3,6 +3,10 @@
 {% block another_css_files %}
     <link href="{% static 'css/history/common.css' %}" rel="stylesheet"/>
 	<link href="{% static 'css/history/urls.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/date_picker.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block frames %}
+	{% include 'layouts/parts/date_picker.html' %}
 {% endblock %}
 {% block urls_bold %}class="bold"{% endblock %}
 {% block favorite_url %}{% url 'favorite_urls' %}{% endblock %}
@@ -10,7 +14,7 @@
 {% block history_menu_selected %}selected{% endblock %}
 {% block history_content %}
 	<div class="history">
-		<div class="calendar-button">
+		<div class="calendar-button" onclick="datePicker.removeAttribute('hidden')">
 			<img src="{% static 'images/svg/normal/calendar.svg' %}" />
 		</div>
 		<div class="list">
