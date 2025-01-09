@@ -1,12 +1,4 @@
-if (crossButton) {
-    crossButton.addEventListener("click", function () {
-        urlInputField.value = "";
-        submitButton.classList.remove("active");
-        submitButton.classList.remove("sky-hovered");
-    });
-}
-
-urlInputField.addEventListener("input", function () {
+function checkActive() {
     if (urlInputField.value == "") {
         submitButton.classList.remove("active");
         submitButton.classList.remove("sky-hovered");
@@ -16,4 +8,14 @@ urlInputField.addEventListener("input", function () {
         submitButton.classList.add("active");
         submitButton.classList.add("sky-hovered");
     }
+}
+
+crossButton.addEventListener("click", function () {
+    urlInputField.value = "";
+    submitButton.classList.remove("active");
+    submitButton.classList.remove("sky-hovered");
 });
+
+urlInputField.addEventListener("input", checkActive);
+
+checkActive();
