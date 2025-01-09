@@ -16,6 +16,8 @@ crossButton.addEventListener("click", function () {
     submitButton.classList.remove("sky-hovered");
 });
 
-urlInputField.addEventListener("input", checkActive);
+urlInputField.addEventListener("input", function () {
+    checkActive();
+});
 
 checkActive();

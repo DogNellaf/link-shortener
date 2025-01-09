@@ -599,15 +599,11 @@ input:focus {
         background-color: white;
         overflow: hidden;
         width: 100%;
-        position: fixed; /* Меняем на fixed */
-        bottom: 0; /* Закрепляем у нижнего края */
-        left: 0;
         display: flex;
         align-items: center;
         flex-direction: column-reverse;
         justify-content: flex-end;
         height: 28.4210526316vw;
-        z-index: 1000; /* Убедитесь, что футер перекрывает остальные элементы */
     }
 
     body footer .privacy {
@@ -631,7 +627,6 @@ input:focus {
         font-style: normal;
         font-weight: 400;
         opacity: 0.3;
-        margin-top: 8.42105263158vw;
         text-align: right;
         white-space: nowrap;
         height: 3.68421052632vw;
@@ -668,8 +663,8 @@ input:focus {
         position: absolute;
         top: 2.61vh;
         right: 2.61vh;
-        height: 0.87395833333vw;
-        width: 0.87395833333vw;
+        height: 4.41578947368vw;
+        width: 4.41578947368vw;
         filter: invert(77%) sepia(2%) saturate(1396%) hue-rotate(169deg) brightness(82%) contrast(91%);
     }
 

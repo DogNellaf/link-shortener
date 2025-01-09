@@ -322,12 +322,12 @@
 
     .content .index .share {
         width: 72.1052631579vw;
-        height: 11.4285714286vh;
-        top: 61.5vh;
+        height: 25.2631578947vw;
+        top: 130vw;
         left: 13.9473684211vw;
-        border-radius: 2vh;
-        padding: 1.6vh;
-        gap: 0.4vh;
+        border-radius: 3.15789473684vw;
+        padding: 3.15789473684vw;
+        gap: 3.15789473684vw;
         background-color: white;
         position: absolute;
         z-index: 10;
@@ -340,15 +340,15 @@
 
     .content .index .share button {
         width: 67.8947368421vw;
-        height: 5vh;
-        border-radius: 1vh;
-        padding: 1.6vh;
-        gap: 0.8vh;
+        height: 10.5263157895vw;
+        border-radius: 2.63157894737vw;
+        padding: 3.15789473684vw;
+        gap: 2.10526315789vw;
         border: none;
         background-color: #FFFFFF;
         font-family: var(--font-family-sf_pro_display-medium);
         color: #141516;
-        font-size: 1.90476190476vh;
+        font-size: 4.21052631579vw;
         font-weight: 500;
         display: flex;
         align-items: center;
