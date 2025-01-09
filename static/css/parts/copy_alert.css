@@ -31,9 +31,44 @@
         display: inline-flex;
         width: 0.81822916666vw;
         height: 0.81822916666vw;
-    }    
+    }
 }
 
 @media (orientation: portrait) {
+    #copyAlert {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
+        position: absolute;
+        top: 3vh;
+        height: 5.6vh;
+        width: 94.7368421053vw;
+        left: 2.63157894737vw;
+        padding-left: 5.26315789474vw;
+        border-radius: 1vh;
+        background-color: #141516;
+    
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 1.90476190476vh;
+        font-weight: 500;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        color: white;
+        z-index: 9999;
+    }
+    
+    #copyAlert p {
+        margin: 0;
+        display: inline-flex;
+    }
+    
+    #copyAlert img {
+        margin: 0;
+        display: inline-flex;
+        width: 1.49880952381vh;
+        height: 1.49880952381vh;
+        margin-right: 5.26315789474vw;
+    }
 }

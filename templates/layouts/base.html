@@ -18,19 +18,13 @@
         {% block frames %}
         {% endblock %}
         {% include 'layouts/parts/change_background.html' %}
-        <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Это линкер от VI–media">
         <header>
-            <div class="account">
-                <a href="{% url 'account' %}">
-                    {% if user.is_authenticated %}
-                        <span class="bold">{{ user.first_name }} {{ user.last_name|first }}.</span>
-                    {% else %}
-                        <span class="bold">Войти</span>
-                    {% endif %}
-                    <img src="{% static 'images/svg/normal/account.svg' %}" alt="Аккаунт">
-                </a>
+            <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Это линкер от VI–media">
+            <div class="menu-placeholder">
+                <span>Меню</span>
+                <img src="{% static 'images/svg/normal/menu-placeholder-up.svg' %}"/>
             </div>
-            <div class="menu">
+            <div class="menu">                
                 <a href="{% url 'index' %}">
                     <div class="index have-icon {% block index_selected %}{% endblock %}">
                         <div class="menu-font text-label {% block index_bold %}{% endblock %}">Линкер</div>
@@ -53,6 +47,18 @@
                     <div class="price have-icon {% block price_selected %}{% endblock %}">
                         <div class="text-label menu-font {% block price_bold %}{% endblock %}">Тарифы</div>
                         {% block price_icon %}<img src="{% static 'images/svg/normal/price.svg' %}" alt="Тарифы"/>{% endblock %}
+                    </div>
+                </a>
+            </div>
+            <div class="account">
+                <a href="{% url 'account' %}">
+                    {% if user.is_authenticated %}
+                        <span class="bold">{{ user.first_name }} {{ user.last_name|first }}.</span>
+                    {% else %}
+                        <span class="bold">Войти</span>
+                    {% endif %}
+                    <div class="icon">
+                        <img src="{% static 'images/svg/normal/account.svg' %}" alt="Аккаунт">
                     </div>
                 </a>
             </div>

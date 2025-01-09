@@ -21,9 +21,7 @@
 		<form method="POST" action="{% url 'generate_url' %}">
 		{% csrf_token %}
 			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ url.original_url }}" autofocus/>
-			{% if url %}
-				<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
-			{% endif %}
+			<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
 			<input id="submitButton" type="submit" class="submit text-label" value="Сократить"/>
 		</form>
 		{% if url %}

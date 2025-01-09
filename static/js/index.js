@@ -1,9 +1,10 @@
-
-crossButton.addEventListener("click", function () {
-    urlInputField.value = "";
-    submitButton.classList.remove("active");
-    submitButton.classList.remove("sky-hovered");
-});
+if (crossButton) {
+    crossButton.addEventListener("click", function () {
+        urlInputField.value = "";
+        submitButton.classList.remove("active");
+        submitButton.classList.remove("sky-hovered");
+    });
+}
 
 urlInputField.addEventListener("input", function () {
     if (urlInputField.value == "") {
