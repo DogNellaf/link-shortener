@@ -76,7 +76,7 @@
     .content .index .result {
         display: flex;
         align-items: center;
-        margin-top: 4vh;
+        margin-top: 8.42105263158vw;
     }
 
     .content .index .result .short-url {
@@ -322,7 +322,6 @@
 
     .content .index .share {
         width: 72.1052631579vw;
-        height: 25.2631578947vw;
         top: 130vw;
         left: 13.9473684211vw;
         border-radius: 3.15789473684vw;

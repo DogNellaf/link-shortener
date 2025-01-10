@@ -1,14 +1,15 @@
+#addFavorite .background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #141516;
+    opacity: 0.4;
+    z-index: 1000;
+}
+
 @media (orientation: landscape) {
-    #addFavorite .background {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background-color: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
 
     #addFavorite .frame {
         width: 23.9583333333vw;
@@ -84,16 +85,6 @@
 }
 
 @media (orientation: portrait) {
-    #addFavorite .background {
-        position: absolute;
-        width: 100vw;
-        height: 100vh;
-        top: 0;
-        left: 0;
-        background-color: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
 
     #addFavorite .frame {
         width: 100%;

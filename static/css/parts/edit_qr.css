@@ -1,16 +1,15 @@
+#qrEditor .background {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #141516;
+    opacity: 0.4;
+    z-index: 1000;
+}
 
 @media (orientation: landscape) {
-    #qrEditor .background {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
-
     #qrEditor .frame {
         position: fixed;
         left: 38.0208333333vw;
@@ -278,5 +277,264 @@
 }
 
 @media (orientation: portrait) {
+    #qrEditor .frame {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        border-radius: 2vh;
+        z-index: 1001;
+        background-color: white;
+        padding-top: 15.7894736842vw;
+        padding-left: 5.26315789474vw;
+        padding-right: 5.26315789474vw;
+    }
 
+    #qrEditor p {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 4.21052631579vw;
+        font-weight: 400;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        margin: 0;
+        color: #141516;
+    }
+
+    #qrEditor .frame .qr-background {
+        height: 28vh;
+        width: 100%;
+        border-radius: 3.15789473684vw;
+        background-image: url('/static/images/png/qr_background.png');
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        display: flex;
+        margin-top: 2vh;
+    }
+
+    #qrEditor .frame .qr-background .qr-image {
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        flex-shrink: 0;
+        display: flex;
+        margin: auto;
+    }
+
+    #qrEditor .frame .qr-background .qr-image svg {
+        height: 100%;
+        width: 100%;
+    }
+
+    #qrEditor .frame .controls {
+        display: inline-flex;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 2.8vh;
+    }
+
+    #qrEditor .frame .controls div {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #qrEditor .frame .controls .left {
+        display: flex;
+        align-items: center;
+
+    }
+
+    #qrEditor .frame .controls .right {
+        display: flex;
+        width: 39.4736842105vw;
+        height: 14.7368421053vw;
+        gap: 0px;
+        border-radius: 5.26315789474vw;
+        justify-content: center;
+        align-items: center;
+        background-color: #F1F3F5;
+    }
+
+    #qrEditor .frame .controls .right p {
+        display: flex;
+        align-items: center;
+        margin-right: 1.09375vw;
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 4.21052631579vw;
+        font-weight: 600;
+        text-align: left;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+    }
+
+    #qrEditor .frame .controls .color-picker #qrColor {
+        width: 6.31578947368vw;
+        height: 6.31578947368vw;
+        border-radius: 50%;
+        border: 1px solid #989FA6;
+        padding: 0; 
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+    }
+
+    #qrEditor .frame .controls .color-picker #qrColor::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+
+    #qrEditor .frame .controls .color-picker #qrColor::-webkit-color-swatch {
+        border: none;
+        border-radius: 50%;
+        background-color: black;
+    }
+
+    #qrEditor .frame .controls .background-toogle {
+        margin-top: 1.2vh;
+        padding: 0;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch {
+        position: relative;
+        display: inline-flex;
+        width: 100%;
+        height: 100%;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch input {
+        width: 0;
+        height: 0;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch .slider {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        transition: background-color 0.4s;
+        margin: 0;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch .slider .label {
+        flex: 1;
+        text-align: center;
+        font-weight: bold;
+        color: white;
+        user-select: none;
+        transition: color 0.4s;
+        height: 100%;
+        font-family: var(--font-family-sf_pro_display-regular) !important;
+        font-size: 4.21052631579vw;
+        font-weight: 500;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch .slider .yes {
+        border-radius: 20px 0 0 20px;
+        color: #141516;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch .slider .no {
+        border-radius: 0 20px 20px 0;
+        color: #141516;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-family: var(--font-family-sf_pro_display-regular) !important;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch input:checked + .slider .yes {
+        background-color: white;
+        border-radius: 5.26315789474vw;
+        box-shadow: 0px 4px 15px 0px #2424241A;
+    }
+
+    #qrEditor .frame .controls .background-toogle .right .switch input:not(:checked) + .slider .no {
+        background-color: white;
+        border-radius: 5.26315789474vw;
+        box-shadow: 0px 4px 15px 0px #2424241A;
+    }
+
+
+    #qrEditor .frame .controls .background-color-picker {
+        margin-top: 1.2vh;
+    }
+
+    #qrEditor .frame .controls .background-color-picker #backgroundColor {
+        width: 6.31578947368vw;
+        height: 6.31578947368vw;
+        border-radius: 50%;
+        border: 1px solid #989FA6;
+        padding: 0; 
+        -webkit-appearance: none;
+        appearance: none;
+        cursor: pointer;
+    }
+
+    #qrEditor .frame .controls .background-color-picker #backgroundColor::-webkit-color-swatch-wrapper {
+        padding: 0;
+    }
+
+    #qrEditor .frame .controls .background-color-picker #backgroundColor::-webkit-color-swatch {
+        border: none;
+        border-radius: 50%;
+        background-color: black;
+    }
+
+    #qrEditor .frame .controls .image-picker img{
+        width: 4.21052631579vw;
+        height: 4.21052631579vw;
+    }
+
+    #qrEditor .frame .controls .image-picker {
+        margin-top: 1.2vh;
+    }
+
+    #qrEditor .frame .submit-button input {
+        margin-top: 8.42105263158vw;
+        margin-bottom: 15.7894736842vw;
+        height: 15.2631578947vw;
+        width: 100%;
+        background-color: #1599F5;
+        border: none;
+        color: white;
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 4.21052631579vw;
+        font-weight: 500;
+        text-underline-position: from-font;
+        text-decoration-skip-ink: none;
+        border-radius: 3.15789473684vw;
+    }
+
+    #qrEditor h1 {
+        font-family: var(--font-family-sf_pro_display-middle);
+        font-size: 1.5625vw;
+        font-weight: 500;
+        line-height: 1.875vw;
+        text-align: left;
+    }
+
+    #qrEditor #qrImage {
+        width: 100%;
+        height: 90%;
+        z-index: 1001;
+    }
+
+    #qrEditor .segno {
+        width: 100%;
+        height: 100%;
+        z-index: 1001;
+    }
 }

@@ -20,7 +20,7 @@
 {% endblock %}
 {% block content %}
 	<div class="qr{% if qr %} with-qr{% endif %}">
-		<h1>Это QR-генератор от VI–media</h1>
+		<h1>Это QR-генератор</h1>
 		<form class="url" method="POST" action="{% url 'generate_qr' %}">
 			{% csrf_token %}
 			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ original_url }}" autofocus/>
@@ -75,6 +75,11 @@
 	</div>
 	{% if qr %}
 	<script>
+		if (window.innerHeight > window.innerWidth) {
+			qrSizeInPixels = (window.innerWidth * 31.5789473684) / 100;
+			logoSizeInPixels = (window.innerWidth * 31.5789473684) / 100;
+		}
+
 		var isShareFrameHidden = true;
 		submitButton.classList.add("active");
 		submitButton.classList.add("sky-hovered");

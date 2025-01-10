@@ -1,5 +1,5 @@
-const qrSizeInPixels = (window.innerWidth * 12.5) / 100;
-const logoSizeInPixels = (window.innerWidth * 3) / 100;
+let qrSizeInPixels = (window.innerWidth * 12.5) / 100;
+let logoSizeInPixels = (window.innerWidth * 3) / 100;
 let lastUrl = "";
 let lastLogoPath = "";
 let lastQrColor = "";
