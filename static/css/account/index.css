@@ -146,5 +146,147 @@
 }
 
 @media (orientation: portrait) {
+    .content {
+        height: 80vh !important;
+    }
 
+    .content .account .avatar {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin-top: 5.26315789474vw;
+        vertical-align: middle;
+        width: 100%;
+        gap: 4.73684210526vw;
+    }
+
+    .content .account .avatar .button {
+        height: 16.3157894737vw;
+        display: flex;
+        text-align: center;
+        vertical-align: middle;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .content .account .avatar .button .subbutton {
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        align-items: center;
+    }
+
+    .content .account .avatar button {
+        height: 10.5263157895vw;
+        width: 10.5263157895vw;
+        background-color: #F1F3F5;
+        border: none;
+        border-radius: 13.1578947368vw;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .content .account .avatar button img {
+        height: 4.73684210526vw;
+        width: 4.73684210526vw;
+        display: flex;
+    }
+
+    .content .account .avatar p {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 3.68421052632vw;
+        font-weight: 500;
+        text-align: center;
+        margin-top: 2.10526315789vw;
+        color: #141516;
+    }
+
+    .content .account .image {
+        display: inline-block;
+    }
+
+    .content .account .image img {
+        height: 42.1052631579vw;
+        width: 42.1052631579vw;
+        display: inline-block;
+        border-radius: 500px;
+        object-fit: cover;
+    }
+
+    .content .account .image-without-avatar {
+        margin-left: auto;
+        margin-right: auto;
+        height: 42.1052631579vw;
+        width: 42.1052631579vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #F1F3F5;
+        border-radius: 500px;
+    }
+
+    .content .account .image-without-avatar .upload {
+        padding: 9.1vh 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content .account .image-without-avatar .upload img {
+        height: 4.73684210526vw;
+        width: 4.73684210526vw;        
+        margin-bottom: 0.5vh;
+    }
+
+    .content .account .image-without-avatar .upload p {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 3.68421052632vw;
+        font-weight: 500;
+        line-height: 3.68421052632vw;
+        text-align: center;
+        margin: 0;
+        margin-top: 1.6vh;
+    }
+
+    .content .account .data {
+        margin-top: 4vh;
+        width: 100%;
+        display: inline-block;
+    }
+
+    .content .account .data .names {
+        width: 100%;
+        display: flex;
+        gap: 3.15789473684vw;
+        flex-direction: column; 
+    }
+
+    .content .account .data .email {
+        margin-top: 3.15789473684vw;
+        width: 100%;
+    }
+
+    .content .account .data .email input {
+        height: 7vh;
+        width: 100%;
+    }
+
+    .content .account .data .submit {
+        margin-top: 3.15789473684vw;
+        width: 100%;
+    }
+
+    .content .account .data .submit input {
+        margin: 0;
+        width: 100%;
+    }
+
+    #avatarInput {
+        display: none;
+    }
 }

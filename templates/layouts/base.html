@@ -20,32 +20,32 @@
         {% include 'layouts/parts/change_background.html' %}
         <header>
             <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Это линкер от VI–media">
-            <div class="menu-placeholder">
+            <div id="menuPlaceholder" class="menu-placeholder" onclick="changeMenuState()">
                 <span>Меню</span>
-                <img src="{% static 'images/svg/normal/menu-placeholder-up.svg' %}"/>
+                <img id="menuPlaceholderImage" src="{% static 'images/svg/normal/menu-placeholder-down.svg' %}"/>
             </div>
-            <div class="menu">                
+            <div id="menu" class="menu" hidden>                
                 <a href="{% url 'index' %}">
                     <div class="index have-icon {% block index_selected %}{% endblock %}">
-                        <div class="menu-font text-label {% block index_bold %}{% endblock %}">Линкер</div>
+                        <div>Линкер</div>
                         {% block index_icon %}<img src="{% static 'images/svg/normal/index.svg' %}" alt="Линкер">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'qr_generator' %}">
                     <div class="qr have-icon {% block qr_selected %}{% endblock %}">
-                        <div class="menu-font text-label {% block qr_bold %}{% endblock %}">QR-генератор</div>
+                        <div>QR-генератор</div>
                         {% block qr_icon %}<img src="{% static 'images/svg/normal/qr.svg' %}" alt="QR-генератор">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'favorite_urls' %}">
                     <div class="history have-icon {% block history_selected %}{% endblock %}">
-                        <div class="text-label menu-font {% block history_bold %}{% endblock %}">Мои ссылки и QR-коды</div>
+                        <div>Мои ссылки и QR-коды</div>
                         {% block history_icon %}<img src="{% static 'images/svg/normal/history.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
                     </div>
                 </a>
                 <a href="{% url 'price' %}">
                     <div class="price have-icon {% block price_selected %}{% endblock %}">
-                        <div class="text-label menu-font {% block price_bold %}{% endblock %}">Тарифы</div>
+                        <div>Тарифы</div>
                         {% block price_icon %}<img src="{% static 'images/svg/normal/price.svg' %}" alt="Тарифы"/>{% endblock %}
                     </div>
                 </a>
@@ -82,5 +82,21 @@
                 </a>
             </div>
         </footer>
+        <script>
+            function changeMenuState() {
+                if (menu.hasAttribute("hidden")) {
+                  menu.removeAttribute("hidden");
+                  menuPlaceholderImage.setAttribute("src", "{% static 'images/svg/normal/menu-placeholder-up.svg' %}");
+                } else {
+                  menu.setAttribute("hidden", "hidden");
+                  menuPlaceholderImage.setAttribute("src", "{% static 'images/svg/normal/menu-placeholder-down.svg' %}");
+                }
+            }
+
+            // если placeholder отображается, скрываем меню
+            if (window.getComputedStyle(menuPlaceholder).display === 'none') {
+                menu.removeAttribute("hidden");
+            }
+        </script>
     </body>
 </html>

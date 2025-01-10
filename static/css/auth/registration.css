@@ -70,4 +70,26 @@
 
 @media (orientation: portrait) {
 
+    .content .registration {
+        width: 100%;
+    }
+    
+    .content .registration form {
+        display: flex;
+        flex-direction: column;
+        gap: 2.10526315789vw;
+        margin-top: 7.89473684211vw;
+    }
+
+    .registration #submitButton {
+        margin-top: 3.16315789474vw;
+        text-align: center;
+        color: #989FA6;
+    }
+
+    .registration .links {
+        margin-top: 10.5263157895vw;
+        width: 100%;
+        text-align: center;
+    }
 }

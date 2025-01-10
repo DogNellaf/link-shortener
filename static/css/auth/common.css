@@ -36,5 +36,43 @@
 }
 
 @media (orientation: portrait) {
+    .content a {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 4.21052631579vw;
+        font-weight: 500;
+        color: #989FA6;
+        text-decoration: none;
+        text-align: center;
+    }
 
+    .content p {
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 4.21052631579vw;
+        font-weight: 400;
+        text-align: left;
+        color: #141516;
+        width: 100%;
+    }
+
+    .content h1 {
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 7.36842105263vw;
+        font-weight: 500;
+        text-align: left;
+    }
+
+    .content input {
+        width: 100%;
+        height: 15.2631578947vw;
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 4.73684210526vw;
+        font-weight: 400;
+        border-radius: 3.15789473684vw;
+        background-color: #F1F3F5;
+        padding-left: 6.84210526316vw;
+        padding-right: 6.84210526316vw;
+        border: none;
+        text-align: left;
+        color: #141516;
+    }
 }
