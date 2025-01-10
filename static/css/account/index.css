@@ -146,10 +146,6 @@
 }
 
 @media (orientation: portrait) {
-    .content {
-        height: 80vh !important;
-    }
-
     .content .account .avatar {
         display: flex;
         flex-direction: row;
@@ -268,22 +264,14 @@
 
     .content .account .data .email {
         margin-top: 3.15789473684vw;
-        width: 100%;
-    }
-
-    .content .account .data .email input {
-        height: 7vh;
-        width: 100%;
     }
 
     .content .account .data .submit {
         margin-top: 3.15789473684vw;
-        width: 100%;
     }
 
     .content .account .data .submit input {
         margin: 0;
-        width: 100%;
     }
 
     #avatarInput {

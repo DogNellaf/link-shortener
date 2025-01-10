@@ -403,6 +403,7 @@ input:focus {
 
     body {
         display: flex;
+        height: auto;
     }
 
     .logo-auth {
@@ -423,7 +424,8 @@ input:focus {
         display: flex;
         margin-top: 5.26315789474vw;
         width: 100%;
-        height: 168.684210526vw;
+        min-height: 1350px;
+        height: auto;
     }
 
     .have-icon {
@@ -575,13 +577,13 @@ input:focus {
     
     body footer {
         background-color: white;
-        overflow: hidden;
         width: 100%;
         display: flex;
         align-items: center;
         flex-direction: column-reverse;
         justify-content: flex-end;
-        height: 28.4210526316vw;
+        height: 250px;
+        padding-top: 32px;
     }
 
     body footer .privacy {
