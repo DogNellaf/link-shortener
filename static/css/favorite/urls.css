@@ -1,14 +1,15 @@
+.content .edit .background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: #141516;
+    opacity: 0.4;
+    z-index: 1000;
+}
+
 @media (orientation: landscape) {
-    .content .edit .background {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100vw;
-        height: 100vh;
-        background: #141516;
-        opacity: 0.4;
-        z-index: 1000;
-    }
 
     .content .edit form {
         position: fixed;
@@ -117,5 +118,100 @@
 }
 
 @media (orientation: portrait) {
+    .content .edit form {
+        width: 100%;
+        height: 79.2105263158vw;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        gap: 0.4vh;
+        border-radius: 2vh;
+        z-index: 1001;
+        background-color: white;
+        padding: 4vh;
+    }
 
+    .content .edit h1 {
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 6.31578947368vw;
+        font-weight: 500;
+        text-align: left;
+        color: #141516;
+    }
+
+    .content .edit input {
+        margin-top: 6.31578947368vw !important;
+        width: 100%;
+        height: 15.2631578947vw;
+        border: #F1F3F5;
+        border-radius: 3.15789473684vw;
+        padding: 6.84210526316vw;
+        padding-right: 2.447916666vw;
+        margin-top: 0;
+        font-family: var(--font-family-sf_pro_display-regular);
+        background-color: var(--wild-sand);
+        font-size: 4.73684210526vw;
+        color: #141516;
+        outline: none;
+    }
+
+    .content .edit input[type="submit"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 3.15789473684vw !important;
+        width: 100%;
+        height: 15.2631578947vw;
+        border: #F1F3F5;
+        border-radius: 3.15789473684vw;
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 4.73684210526vw;
+        outline: none;
+        padding: 0;
+    }
+
+    .content .share {
+        width: 72.1052631579vw;
+        top: 130vw;
+        left: 13.9473684211vw;
+        border-radius: 3.15789473684vw;
+        padding: 3.15789473684vw;
+        gap: 3.15789473684vw;
+        background-color: white;
+        position: absolute;
+        z-index: 10;
+        box-shadow: 0px 4px 14px 0px #14151626;
+    }
+
+    .content .share a {
+        text-decoration: none;
+    }
+
+    .content .share button {
+        width: 67.8947368421vw;
+        height: 10.5263157895vw;
+        border-radius: 2.63157894737vw;
+        padding: 3.15789473684vw;
+        gap: 2.10526315789vw;
+        border: none;
+        background-color: #FFFFFF;
+        font-family: var(--font-family-sf_pro_display-medium);
+        color: #141516;
+        font-size: 4.21052631579vw;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+
+    .content .share button img {
+        width: 4.21052631579vw;
+    }
+
+    .content .share button span {
+        display: inline-block;
+    }
+
+    .content .share button:hover {
+        background-color: #F1F3F5;
+    }
 }

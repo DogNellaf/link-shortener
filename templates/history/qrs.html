@@ -19,9 +19,11 @@
 		</div>
 		<div class="list">
 			{% for date, urls in urls_by_dates.items %}
-			<div class="date-title">
-				{{ date }}
-			</div>
+				<div class="date-item">
+					<div class="date-title">
+						{{ date }}
+					</div>
+				</div>
 				{% for url in urls %}
 					<div class="list-item">
 						<div class="left">

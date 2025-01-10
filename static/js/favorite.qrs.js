@@ -4,6 +4,9 @@ function showDeleteFrame(shortUrl) {
 }
 
 function showQrFrame(url, logoPath, qrColor, backgroundColor, isWithBackground) {
+    if (logoPath == "/media/") {
+        logoPath = "";
+    }
     drawQR(qrImage, url, logoPath, qrColor, backgroundColor, isWithBackground)
     showQr.removeAttribute("hidden");
 }

@@ -58,6 +58,12 @@
 			<input id="urlToDelete" name="url" type="text" hidden/>
 		</form>
 	</div>
+	<script>
+		if (window.innerHeight > window.innerWidth) {
+			qrSizeInPixels = (window.innerWidth * 50) / 100;
+			logoSizeInPixels = (window.innerWidth * 50) / 100;
+		}
+	</script>
 	<script src="{% static 'js/favorite.qrs.js' %}"></script>
 	<script src="{% static 'js/parts/show_qr.js' %}"></script>
 	<script src="{% static 'js/parts/download_qr.js' %}"></script>
