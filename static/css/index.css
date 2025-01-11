@@ -76,7 +76,6 @@
     .content .index .result {
         display: flex;
         align-items: center;
-        margin-top: 8.42105263158vw;
     }
 
     .content .index .result .short-url {

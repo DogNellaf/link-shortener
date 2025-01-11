@@ -27,7 +27,7 @@ function showEditFrame(title, shortUrl) {
 
 function copyUrl(shortUrl) {
     copyAlert.removeAttribute("hidden");
-    navigator.clipboard.writeText(shortUrl);
+    copyTextFallback(shortUrl);
     setTimeout(() => {
         copyAlert.setAttribute("hidden", "hidden");
     }, 3000);

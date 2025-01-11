@@ -70,7 +70,7 @@
 			</a>
 		</div>
 		<script>
-			navigator.clipboard.writeText(shortUrlA.innerHTML);
+			copyTextFallback(shortUrlA.innerHTML);
 			copyInfoSpan.removeAttribute("hidden");
 			submitButton.classList.add("active");
 			submitButton.classList.add("sky-hovered");
@@ -91,7 +91,7 @@
 			
 			copyButton.addEventListener('click', function(event) {
 				copyAlert.removeAttribute("hidden");
-				navigator.clipboard.writeText(shortUrlA.innerHTML);
+				copyTextFallback(shortUrlA.innerHTML);
 				setTimeout(() => {
 					copyAlert.setAttribute("hidden", "hidden");
 				}, 3000);

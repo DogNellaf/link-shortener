@@ -151,3 +151,22 @@ function closeFrame(frame) {
     qrEditorCanvas.innerHTML = "";
     frame.setAttribute("hidden", "hidden");
 }
+
+function copyTextFallback(text) {
+  const tempInput = document.createElement("textarea");
+  tempInput.value = text; // Устанавливаем текст, который нужно скопировать
+  tempInput.style.position = "absolute";
+  tempInput.style.left = "-9999px"; // Прячем элемент за пределами видимости
+  document.body.appendChild(tempInput);
+
+  // Выделяем текст и выполняем команду копирования
+  tempInput.select();
+  try {
+      document.execCommand("copy");
+  } catch (err) {
+      console.error("Не удалось скопировать текст: ", err);
+  }
+
+  // Удаляем временный элемент
+  document.body.removeChild(tempInput);
+}
