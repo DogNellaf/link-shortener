@@ -1,68 +1,118 @@
-# Сервис по сокращению ссылок
+# URL Shortener
 
-Веб-сервис для сокращения ссылок на Django. Пользователи могут регистрироваться,
-создавать и удалять короткие ссылки, добавлять их в избранное и генерировать QR-код.
+> 🇬🇧 English | [🇷🇺 Русский](README.ru.md)
 
-> ⚠️ Проект находится в ранней стадии разработки. На текущий момент готов каркас
-> Django-проекта и панель администратора; пользовательский функционал в разработке.
+A web service for shortening URLs and generating QR codes, built with Django. Create short links, save them to favourites, track history, and generate styled QR codes — all with or without an account.
 
-## Стек разработки
+## Features
 
-* Python 3.11
-* Django 5.1
-* SQLite (для разработки; в дальнейшем планируется PostgreSQL 16)
+- Short link generation (anonymous and authenticated)
+- Custom link titles
+- Favourites and history for links and QR codes
+- QR code generator with colour and logo customisation
+- Deep-link support for iOS apps (YouTube, Telegram, Instagram, Google Docs/Drive/Sheets)
+- User registration, login, and password recovery via email
+- Profile management: name, email, avatar
+- Responsive UI built with Bootstrap 5
+- Django admin panel for content management
 
-## Быстрый старт
+## Tech Stack
 
-Клонируйте репозиторий:
+| Layer | Technology |
+|---|---|
+| Backend | Python 3.11, Django 5.1 |
+| Database | SQLite (development) / PostgreSQL (production) |
+| Frontend | Bootstrap 5, Vanilla JS |
+| QR codes | segno, django-qr-code |
+| Image processing | Pillow |
+| Static files | WhiteNoise |
+| Deployment | Docker, Gunicorn |
+
+## Requirements
+
+- Python 3.11+
+- pip
+
+## Installation
 
 ```bash
+# Clone the repository
 git clone https://github.com/DogNellaf/link-shortener
 cd link-shortener
-```
 
-Создайте и активируйте виртуальное окружение:
+# Create and activate a virtual environment
+python -m venv .venv
+source .venv/bin/activate       # Linux / macOS
+.venv\Scripts\Activate.ps1      # Windows (PowerShell)
 
-```bash
-# Linux / macOS
-python3.11 -m venv .venv
-source .venv/bin/activate
+# Install dependencies
+pip install -r requirements.txt
 
-# Windows (PowerShell)
-py -3.11 -m venv .venv
-.venv\Scripts\Activate.ps1
-```
-
-Установите зависимости:
-
-```bash
-pip install -r r.txt
-```
-
-Примените миграции и запустите сервер разработки:
-
-```bash
+# Apply migrations
 python manage.py migrate
+
+# (Optional) Create an admin account
+python manage.py createsuperuser
+
+# Run the development server
 python manage.py runserver
 ```
 
-Сервис будет доступен по адресу http://127.0.0.1:8000/.
+The service will be available at `http://127.0.0.1:8000/`.
 
-Чтобы получить доступ к панели администратора, создайте суперпользователя:
+### Docker
 
 ```bash
-python manage.py createsuperuser
+docker-compose up --build
 ```
 
-## Эндпоинты
+## Environment Variables
 
-| Метод | Путь       | Описание                          | Статус       |
-|-------|------------|-----------------------------------|--------------|
-| GET   | `/admin/`  | Панель администратора Django      | Готово       |
-| POST  | `/`        | Создание короткой ссылки          | В разработке |
-| GET   | `/<code>/` | Переход по короткой ссылке        | В разработке |
-| GET   | `/qr/<code>/` | Генерация QR-кода для ссылки    | В разработке |
+| Variable | Description | Default |
+|---|---|---|
+| `SECRET_KEY` | Django secret key | insecure dev key |
+| `DEBUG` | Enable debug mode (`True`/`False`) | `True` |
+| `ALLOWED_HOSTS` | Comma-separated list of allowed hosts | `*` |
+| `IS_FOR_RENDER` | Use PostgreSQL and WhiteNoise static storage | `false` |
+| `DB_NAME` | PostgreSQL database name | `linkshortener` |
+| `DB_USER` | PostgreSQL user | `db_user` |
+| `DB_PASSWORD` | PostgreSQL password | _(empty)_ |
+| `DB_HOST` | PostgreSQL host | `localhost` |
+| `DB_PORT` | PostgreSQL port | `5432` |
+| `EMAIL_HOST_USER` | SMTP login for password recovery emails | _(empty)_ |
+| `EMAIL_HOST_PASSWORD` | SMTP password | _(empty)_ |
 
-## Лицензия
+## Running Tests
 
-Проект распространяется по лицензии MIT. Подробности в файле [LICENSE](LICENSE).
+```bash
+python manage.py test core custom_auth account
+```
+
+## Project Structure
+
+```
+link-shortener/
+├── linkshortener/         # Django project settings and root URL conf
+├── core/                  # URL shortening: models, views, utils, tests
+│   ├── models.py          # ShortedUrl and Qr models
+│   ├── views.py           # View functions
+│   ├── utils.py           # Short-code generation
+│   └── tests.py           # Test suite
+├── custom_auth/           # Authentication: registration, login, password reset
+│   ├── models.py          # CustomUser and PasswordResetCode models
+│   ├── views.py           # Auth views
+│   └── tests.py           # Test suite
+├── account/               # User profile management
+│   ├── views.py           # Account views
+│   └── tests.py           # Test suite
+├── templates/             # HTML templates
+├── static/                # CSS, JS, images, fonts
+├── media/                 # User-uploaded files (avatars, QR logos)
+├── Dockerfile
+├── docker-compose.yml
+└── requirements.txt
+```
+
+## License
+
+[CC BY-NC 4.0](LICENSE) — attribution required for any use; commercial use requires prior written permission from the copyright holder.

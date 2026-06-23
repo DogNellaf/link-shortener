@@ -113,28 +113,29 @@ def password_reset_verify(request):
         if reset_code.is_expired():
             return HttpResponse("Код истек.", status=400)
 
-        return redirect('auth/password_reset_confirm.html', user_id=reset_code.user.id)
+        return redirect('password_reset_confirm', code=reset_code.code)
 
     return render(request, 'auth/password_reset_verify.html')
 
 def password_reset_confirm(request, code: str):
-    """Обрабатывает POST запрос применения нового пароля"""
+    """Сбрасывает пароль и отправляет новый на почту. Вызывается через AJAX."""
+    reset_code = get_object_or_404(PasswordResetCode, code=code)
+
     if request.method == 'POST':
-        code = get_object_or_404(PasswordResetCode, code=code)
         password = get_random_string(length=18)
-        code.user.set_password(password)
-        code.user.save()
+        reset_code.user.set_password(password)
+        reset_code.user.save()
 
         send_mail(
             'Восстановление пароля',
             f'Ваш новый пароль: {password}',
             settings.DEFAULT_FROM_EMAIL,
-            [code.user.email],
+            [reset_code.user.email],
             fail_silently=False,
         )
 
-        code.delete()
+        reset_code.delete()
 
         return HttpResponse("Пароль успешно изменен", status=200)
 
-    return Http404()
+    raise Http404()

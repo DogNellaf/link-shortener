@@ -10,10 +10,10 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
-    env_file:
-      - ./.env
+      - POSTGRES_DB=linkshortener
     ports:
       - "5433:5432"
+
   web:
     build:
       context: .
@@ -27,3 +27,15 @@ services:
       - "8000:8000"
     depends_on:
       - db
+    environment:
+      - IS_FOR_RENDER=true
+      - DB_NAME=linkshortener
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+    env_file:
+      - ./.env
+
+volumes:
+  postgres_data:

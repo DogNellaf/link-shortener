@@ -35,7 +35,6 @@ class PasswordResetCode(models.Model):
         auto_now_add=True
     )
 
-    @classmethod
     def is_expired(self) -> bool:
         """Возвращает результат проверки истек ли код"""
         return tz.now() > self.created_at + tz.timedelta(minutes=RESET_PASSWORD_CODE_LIFETIME)

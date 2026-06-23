@@ -5,18 +5,16 @@ import os
 from pathlib import Path
 from qr_code.qrcode.utils import QRCodeOptions
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'CHANGE_ME_SECRET_KEY'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY',
+    'CHANGE_ME_SECRET_KEY'
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', 'True').lower() == 'true'
 
-ALLOWED_HOSTS = ['*']
-
-# Application definition
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -68,20 +66,18 @@ LOGIN_REDIRECT_URL = '/'
 
 AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
-IS_FOR_RENDER = True
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+# Set IS_FOR_RENDER=true in the environment to switch to PostgreSQL and WhiteNoise static storage
+IS_FOR_RENDER = os.environ.get('IS_FOR_RENDER', '').lower() == 'true'
 
 if IS_FOR_RENDER:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'linkshortener',
-            'USER': 'db_user',
-            'PASSWORD': 'CHANGE_ME_DB_PASSWORD',
-            'HOST': 'localhost',
-            'PORT': '5432',
+            'NAME': os.environ.get('DB_NAME', 'linkshortener'),
+            'USER': os.environ.get('DB_USER', 'db_user'),
+            'PASSWORD': os.environ.get('DB_PASSWORD', ''),
+            'HOST': os.environ.get('DB_HOST', 'localhost'),
+            'PORT': os.environ.get('DB_PORT', '5432'),
         }
     }
 else:
@@ -92,28 +88,12 @@ else:
         }
     }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
-
-
-# Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'ru-ru'
 
@@ -123,42 +103,23 @@ USE_I18N = True
 
 USE_TZ = True
 
-# import locale
-# locale.setlocale(
-#     category=locale.LC_ALL,
-#     locale="Russian"
-# )
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
-
-
-
 STATIC_URL = '/static/'
 
 if IS_FOR_RENDER:
     STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 else:
     STATICFILES_DIRS = [
         os.path.join(BASE_DIR, 'static'),
     ]
 
-if IS_FOR_RENDER:
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Длина уникальной короткой ссылки
 SHORT_URL_LENGTH = 6
 
-# Схемы переадресации приложений для IOS
 APP_SCHEMES = {
     "docs.google.com": "googledocs://",
     "drive.google.com": "googledrive://",
@@ -168,10 +129,8 @@ APP_SCHEMES = {
     "instagram.com": "instagram://"
 }
 
-# Параметры генератора QR
 QR_CODE_OPTIONS = QRCodeOptions(size=256)
 
-# Словарь родительных падежей
 MONTHS = {
     1: 'января',
     2: 'февраля',
@@ -187,20 +146,18 @@ MONTHS = {
     12: 'декабря'
 }
 
-# Настройки для модуля восстановления пароля
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
-EMAIL_HOST_USER = 'info@example.com'
-EMAIL_HOST_PASSWORD = 'CHANGE_ME_SMTP_PASSWORD'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 SERVER_EMAIL = EMAIL_HOST_USER
 EMAIL_ADMIN = EMAIL_HOST_USER
 
-# Время жизни кода восстановления пароля - в минутах
 RESET_PASSWORD_CODE_LIFETIME = 10
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"

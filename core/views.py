@@ -1,11 +1,13 @@
 """Содержит endpoints проекта"""
 
+import json
 from urllib.parse import urlparse
 
 from django.conf import settings
 from django.http import HttpResponseNotFound, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.files.storage import FileSystemStorage
+from django.utils.html import escape
 
 from core.models import ShortedUrl, Qr
 from core.utils import create_shorted_url
@@ -41,7 +43,8 @@ def generate_url(request):
     if request.method == "POST":
         url = request.POST['url']
 
-        if not urlparse(url).scheme:
+        parsed = urlparse(url)
+        if parsed.scheme not in ('http', 'https'):
             return redirect(linker)
 
         shorted_url = create_shorted_url(
@@ -87,7 +90,8 @@ def generate_qr(request):
     if request.method == "POST":
         url = request.POST['url']
 
-        if not urlparse(url).scheme:
+        parsed = urlparse(url)
+        if parsed.scheme not in ('http', 'https'):
             return redirect(qr_generator)
 
         shorted_url = create_shorted_url(
@@ -116,7 +120,7 @@ def update_url_title(request):
             shorted_url.title = title
             shorted_url.save()
 
-    return redirect(request.META['HTTP_REFERER'])
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def update_qr_params(request):
     """Метод обновляет параметры QR кода"""
@@ -145,12 +149,12 @@ def update_qr_params(request):
                 if 'logo' in request.FILES:
                     file = request.FILES['logo']
                     fs = FileSystemStorage()
-                    
+
                     path = join(settings.MEDIA_ROOT, f"{file.name}")
                     qr.logo = fs.save(path, file)
                 qr.save()
 
-    return redirect(request.META['HTTP_REFERER'])
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def delete_url(request):
     """Метод удаляет ссылку из избранного"""
@@ -165,7 +169,7 @@ def delete_url(request):
             url.is_favorite = False
             url.save()
 
-    return redirect(request.META['HTTP_REFERER'])
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def favorite_urls(request):
     """Отображение страницы Мои ссылки - избранное"""
@@ -182,35 +186,25 @@ def history_urls(request):
     """Отображение страницы Мои ссылки - история"""
     user = request.user
 
-    if 'date' not in request.GET:
-        current_date = datetime.now()
-    else:
-        current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
-
     if not user.is_authenticated:
         return redirect('login')
-    elif 'date' not in request.GET:
-        urls = ShortedUrl.objects.filter(author = user, is_only_qr=False)
+
+    current_date = datetime.now()
+    if 'date' in request.GET:
+        try:
+            current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
+        except ValueError:
+            pass
+
+    if 'date' in request.GET:
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=False, created_at__date=current_date)
     else:
-        urls = ShortedUrl.objects.filter(author = user, is_only_qr=False, created_at__date=current_date)
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=False)
 
     urls = urls.order_by('-created_at')[:100]
 
-    urls_by_dates = {}
-
-    for url in urls:
-        created_at_date = url.created_at.date()
-        month = MONTHS[created_at_date.month]
-        day = created_at_date.day
-        created_at_date_title = f"{day} {month}"
-        dates = urls_by_dates.keys()
-        if created_at_date_title in dates:
-            urls_by_dates[created_at_date_title].append(url)
-        else:
-            urls_by_dates[created_at_date_title] = [url]
-
     return render(request, "history/urls.html", {
-        'urls_by_dates': urls_by_dates,
+        'urls_by_dates': _group_urls_by_date(urls),
         'current_date': current_date
     })
 
@@ -240,47 +234,49 @@ def delete_qr(request):
             url.is_favorite = False
             url.save()
 
-    return redirect(request.META['HTTP_REFERER'])
+    return redirect(request.META.get('HTTP_REFERER', '/'))
 
 def history_qrs(request):
     """Отображение страницы Мои QR-коды - история"""
     user = request.user
 
-    if 'date' not in request.GET:
-        current_date = datetime.now()
-    else:
-        current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
-
     if not user.is_authenticated:
         return redirect('login')
-    elif 'date' not in request.GET:
-        urls = ShortedUrl.objects.filter(author = user, is_only_qr=True)
+
+    current_date = datetime.now()
+    if 'date' in request.GET:
+        try:
+            current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
+        except ValueError:
+            pass
+
+    if 'date' in request.GET:
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=True, created_at__date=current_date)
     else:
-        urls = ShortedUrl.objects.filter(author = user, is_only_qr=True, created_at__date=current_date)
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=True)
 
     urls = urls.order_by('-created_at')[:100]
 
-    urls_by_dates = {}
-
-    for url in urls:
-        created_at_date = url.created_at.date()
-        month = MONTHS[created_at_date.month]
-        day = created_at_date.day
-        created_at_date_title = f"{day} {month}"
-        dates = urls_by_dates.keys()
-        if created_at_date_title in dates:
-            urls_by_dates[created_at_date_title].append(url)
-        else:
-            urls_by_dates[created_at_date_title] = [url]
-
     return render(request, "history/qrs.html", {
-        'urls_by_dates': urls_by_dates,
+        'urls_by_dates': _group_urls_by_date(urls),
         'current_date': current_date
     })
 
 def price(request):
     """Отображение страницы Тарифы"""
     return render(request, "price.html")
+
+
+def _group_urls_by_date(urls):
+    """Группирует QuerySet ссылок по дате создания, возвращает OrderedDict."""
+    result = {}
+    for url in urls:
+        created_at_date = url.created_at.date()
+        month = MONTHS[created_at_date.month]
+        label = f"{created_at_date.day} {month}"
+        result.setdefault(label, []).append(url)
+    return result
+
 
 def make_url_favorite(request):
     """Делает ссылку избранной"""
@@ -289,18 +285,19 @@ def make_url_favorite(request):
         return redirect('login')
 
     if request.method == "POST":
-        short_url = request.POST['url']
+        short_url_code = request.POST['url']
         title = request.POST['title']
 
-        short_url = get_object_or_404(ShortedUrl, short_url = short_url)
+        short_url = get_object_or_404(ShortedUrl, short_url=short_url_code)
         short_url.title = title
         short_url.is_favorite = True
         short_url.save()
 
-    if short_url.is_only_qr:
-        return redirect(qr_generator, url=short_url.short_url)
-    else:
+        if short_url.is_only_qr:
+            return redirect(qr_generator, url=short_url.short_url)
         return redirect(linker, url=short_url.short_url)
+
+    return redirect(linker)
 
 def remove_url_favorite(request):
     """Удаляет ссылку из избранного"""
@@ -327,23 +324,23 @@ def privacy(request):
     return render(request, "privacy.html")
 
 def redirect_with_js(request, app_url, fallback_url):
-    html_content = f"""
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Redirecting...</title>
-    </head>
-    <body>
-        <script>
-            window.location = "{app_url}";
-            setTimeout(function() {{
-                window.location = "{fallback_url}";
-            }}, 2000);
-        </script>
-        <p>If you are not redirected, <a href="{app_url}">click here</a>.</p>
-    </body>
-    </html>
-    """
+    # Replace </ with <\/ so </script> in a URL cannot break out of the <script> block.
+    app_url_js = json.dumps(app_url).replace('</', '<\\/')
+    fallback_url_js = json.dumps(fallback_url).replace('</', '<\\/')
+    safe_href = escape(app_url)
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head><title>Redirecting...</title></head>
+<body>
+    <script>
+        window.location = {app_url_js};
+        setTimeout(function() {{
+            window.location = {fallback_url_js};
+        }}, 2000);
+    </script>
+    <p>If you are not redirected, <a href="{safe_href}">click here</a>.</p>
+</body>
+</html>"""
     return HttpResponse(html_content, content_type="text/html")
 
 def redirect_to_url(request, url=""):

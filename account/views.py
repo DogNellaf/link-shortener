@@ -1,9 +1,7 @@
 """Содержит основные методы взаимодействия с аккаунтом"""
-from django.core.files.storage import FileSystemStorage
-from django.contrib.auth.hashers import make_password
 from django.shortcuts import render, redirect
 from django.http import HttpResponseNotFound
-from django.conf import settings
+from django.contrib.auth import update_session_auth_hash
 
 from core.models import CustomUser
 
@@ -38,8 +36,9 @@ def account_update_password(request):
                 'answer': 'Пароли не совпадают'
             })
 
-        user.password = make_password(password1)
+        user.set_password(password1)
         user.save()
+        update_session_auth_hash(request, user)
 
         return render(request, "account/password.html", {
             'user': user,
@@ -64,7 +63,7 @@ def account_update_data(request):
         if same_users.exists():
             same_user = same_users.first()
             if same_user.pk != user.pk:
-                return render(request, "auth/account.html", {
+                return render(request, "account/index.html", {
                     'user': user,
                     'answer': 'Email уже занят'
                 })
@@ -96,10 +95,7 @@ def avatar_update(request):
         return redirect('login')
 
     if request.method == "POST":
-        avatar = request.FILES['avatar']
-        fs = FileSystemStorage(location=settings.MEDIA_ROOT)
-        filename = fs.save(avatar.name, avatar)
-        user.avatar = fs.url(filename)
+        user.avatar = request.FILES['avatar']
         user.save()
         return redirect(account)
 
