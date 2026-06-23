@@ -1,3 +1,369 @@
-from django.shortcuts import render
+"""Содержит endpoints проекта"""
 
-# Create your views here.
+import json
+from urllib.parse import urlparse
+
+from django.conf import settings
+from django.http import HttpResponseNotFound, HttpResponse
+from django.shortcuts import render, redirect, get_object_or_404
+from django.core.files.storage import FileSystemStorage
+from django.utils.html import escape
+
+from core.models import ShortedUrl, Qr
+from core.utils import create_shorted_url
+
+from os.path import join
+from datetime import datetime
+
+QR_CODE_OPTIONS = settings.QR_CODE_OPTIONS
+MONTHS = settings.MONTHS
+APP_SCHEMES = settings.APP_SCHEMES
+
+def index(request):
+    """Стартовая страница, переадресующая пользователя с пустого пути / на линкер"""
+    return redirect("linker")
+
+def linker(request, url=""):
+    """Отображение view главной страницы линкера"""
+
+    short_url = None
+    title = ""
+
+    if url != "":
+        short_url = get_object_or_404(ShortedUrl, short_url = url)
+        title = short_url.title
+
+    return render(request, "index.html", {
+        'url': short_url,
+        'url_title': title
+    })
+
+def generate_url(request):
+    """Генерирует ссылку для текущего пользователя или анонимно"""
+    if request.method == "POST":
+        url = request.POST['url']
+
+        parsed = urlparse(url)
+        if parsed.scheme not in ('http', 'https'):
+            return redirect(linker)
+
+        shorted_url = create_shorted_url(
+            user=request.user,
+            original_url=url
+        )
+
+        return redirect(linker, url=shorted_url.short_url)
+
+    return redirect(linker)
+
+def qr_generator(request, url = ""):
+    """Отображение страницы QR-генератора"""
+
+    original_url = ""
+    is_favorite = False
+    url_title = ""
+    qr = None
+
+    if url != "":
+        short_url = get_object_or_404(ShortedUrl, short_url = url, is_only_qr=True)
+        original_url = short_url.original_url
+        is_favorite = short_url.is_favorite
+        url_title = short_url.title
+
+        if Qr.objects.filter(short_url=short_url).exists():
+            qr = Qr.objects.filter(short_url=short_url).first()
+        else:
+            qr = Qr(short_url = short_url)
+            qr.save()
+
+    return render(request, "qr_generator.html", {
+        'host': request.get_host(),
+        'qr': qr,
+        'url': url,
+        'original_url': original_url,
+        'is_favorite': is_favorite,
+        'url_title': url_title,
+    })
+
+def generate_qr(request):
+    """Создает QR код по ссылке"""
+    if request.method == "POST":
+        url = request.POST['url']
+
+        parsed = urlparse(url)
+        if parsed.scheme not in ('http', 'https'):
+            return redirect(qr_generator)
+
+        shorted_url = create_shorted_url(
+            user=request.user,
+            original_url=url
+        )
+
+        shorted_url.is_only_qr = True
+        shorted_url.save()
+
+        return redirect(qr_generator, url=shorted_url.short_url)
+
+    return redirect(qr_generator)
+
+def update_url_title(request):
+    """Метод обновляет название ссылки"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        title = request.POST['title']
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url)
+        if urls.exists():
+            shorted_url = urls.first()
+            shorted_url.title = title
+            shorted_url.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def update_qr_params(request):
+    """Метод обновляет параметры QR кода"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        qr_color = request.POST['qrColor']
+
+        if 'IsWithBackground' in request.POST:
+            is_with_background = True
+        else:
+            is_with_background = False
+
+        background_color = request.POST['backgroundColor']
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url)
+        if urls.exists():
+            shorted_url = urls.first()
+            qrls = Qr.objects.filter(short_url = shorted_url)
+            if qrls.exists():
+                qr = qrls.first()
+                qr.qr_color = qr_color.replace("#", "")
+                qr.background_color = background_color.replace("#", "")
+                qr.is_with_background = is_with_background
+                if 'logo' in request.FILES:
+                    file = request.FILES['logo']
+                    fs = FileSystemStorage()
+
+                    path = join(settings.MEDIA_ROOT, f"{file.name}")
+                    qr.logo = fs.save(path, file)
+                qr.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def delete_url(request):
+    """Метод удаляет ссылку из избранного"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url)
+        if urls.exists():
+            url = urls.first()
+            url.is_favorite = False
+            url.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def favorite_urls(request):
+    """Отображение страницы Мои ссылки - избранное"""
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect('login')
+    else:
+        urls = ShortedUrl.objects.filter(author = user, is_favorite = True, is_only_qr = False)
+
+    return render(request, "favorite/urls.html", {'urls': urls})
+
+def history_urls(request):
+    """Отображение страницы Мои ссылки - история"""
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect('login')
+
+    current_date = datetime.now()
+    if 'date' in request.GET:
+        try:
+            current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
+        except ValueError:
+            pass
+
+    if 'date' in request.GET:
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=False, created_at__date=current_date)
+    else:
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=False)
+
+    urls = urls.order_by('-created_at')[:100]
+
+    return render(request, "history/urls.html", {
+        'urls_by_dates': _group_urls_by_date(urls),
+        'current_date': current_date
+    })
+
+def favorite_qrs(request):
+    """Отображение страницы Мои QR-коды - избранное"""
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect('login')
+    else:
+        qrs = Qr.objects.filter(short_url__author = user, short_url__is_favorite = True)
+
+    return render(request, "favorite/qrs.html", {
+        'qrs': qrs
+    })
+
+def delete_qr(request):
+    """Метод удаляет QR-код из избранного"""
+    user = request.user
+
+    if request.method == "POST" and user.is_authenticated:
+        url = request.POST['url']
+
+        urls = ShortedUrl.objects.filter(author = user, short_url = url, is_only_qr = True)
+        if urls.exists():
+            url = urls.first()
+            url.is_favorite = False
+            url.save()
+
+    return redirect(request.META.get('HTTP_REFERER', '/'))
+
+def history_qrs(request):
+    """Отображение страницы Мои QR-коды - история"""
+    user = request.user
+
+    if not user.is_authenticated:
+        return redirect('login')
+
+    current_date = datetime.now()
+    if 'date' in request.GET:
+        try:
+            current_date = datetime.strptime(request.GET['date'], "%d.%m.%Y")
+        except ValueError:
+            pass
+
+    if 'date' in request.GET:
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=True, created_at__date=current_date)
+    else:
+        urls = ShortedUrl.objects.filter(author=user, is_only_qr=True)
+
+    urls = urls.order_by('-created_at')[:100]
+
+    return render(request, "history/qrs.html", {
+        'urls_by_dates': _group_urls_by_date(urls),
+        'current_date': current_date
+    })
+
+def price(request):
+    """Отображение страницы Тарифы"""
+    return render(request, "price.html")
+
+
+def _group_urls_by_date(urls):
+    """Группирует QuerySet ссылок по дате создания, возвращает OrderedDict."""
+    result = {}
+    for url in urls:
+        created_at_date = url.created_at.date()
+        month = MONTHS[created_at_date.month]
+        label = f"{created_at_date.day} {month}"
+        result.setdefault(label, []).append(url)
+    return result
+
+
+def make_url_favorite(request):
+    """Делает ссылку избранной"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        short_url_code = request.POST['url']
+        title = request.POST['title']
+
+        short_url = get_object_or_404(ShortedUrl, short_url=short_url_code)
+        short_url.title = title
+        short_url.is_favorite = True
+        short_url.save()
+
+        if short_url.is_only_qr:
+            return redirect(qr_generator, url=short_url.short_url)
+        return redirect(linker, url=short_url.short_url)
+
+    return redirect(linker)
+
+def remove_url_favorite(request):
+    """Удаляет ссылку из избранного"""
+    user = request.user
+    if not user.is_authenticated:
+        return redirect('login')
+
+    if request.method == "POST":
+        url = request.POST['url']
+
+        url = get_object_or_404(ShortedUrl, short_url = url)
+        url.is_favorite = False
+        url.save()
+
+        if url.is_only_qr:
+            return redirect(qr_generator, url=url.short_url)
+
+        return redirect(linker, url=url.short_url)
+
+    return redirect(linker)
+
+def privacy(request):
+    """Отображение страницы правил сервиса"""
+    return render(request, "privacy.html")
+
+def redirect_with_js(request, app_url, fallback_url):
+    # Replace </ with <\/ so </script> in a URL cannot break out of the <script> block.
+    app_url_js = json.dumps(app_url).replace('</', '<\\/')
+    fallback_url_js = json.dumps(fallback_url).replace('</', '<\\/')
+    safe_href = escape(app_url)
+    html_content = f"""<!DOCTYPE html>
+<html>
+<head><title>Redirecting...</title></head>
+<body>
+    <script>
+        window.location = {app_url_js};
+        setTimeout(function() {{
+            window.location = {fallback_url_js};
+        }}, 2000);
+    </script>
+    <p>If you are not redirected, <a href="{safe_href}">click here</a>.</p>
+</body>
+</html>"""
+    return HttpResponse(html_content, content_type="text/html")
+
+def redirect_to_url(request, url=""):
+    """Переадресует пользователя на приложение или веб-версию ссылки"""
+    if not url:
+        return HttpResponseNotFound()
+
+    short_url = get_object_or_404(ShortedUrl, short_url=url)
+    original_url = short_url.original_url
+
+    parsed_url = urlparse(original_url)
+    netloc = parsed_url.netloc.replace("www.", "")
+    app_scheme = APP_SCHEMES.get(netloc)
+
+    app_url = original_url
+
+    if app_scheme:
+        path = parsed_url.path.lstrip("/")
+        if "google" not in app_scheme:
+            app_url = app_scheme + path
+            if parsed_url.query:
+                app_url += "?" + parsed_url.query
+        else:
+            app_url = app_scheme + original_url
+
+    return redirect_with_js(request, app_url, original_url)

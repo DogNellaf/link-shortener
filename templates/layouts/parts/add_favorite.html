@@ -1,0 +1,30 @@
+{% load static %}
+<div id="addFavorite" hidden>
+    <div class="background"></div>
+    <form class="frame" method="POST" action="{% url 'make_url_favorite' %}">
+        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="addFavorite.setAttribute('hidden', 'hidden')"/>               
+        {% csrf_token %}
+        <h1>Назовите ссылку</h1>
+        <input id="favoriteTitleInput" name="title" type="text" placeholder="Название ссылки" minlength="1" maxlength="50" value="{{ url_title }}"/>
+        <input id="favoriteUrlInput" name="url" type="hidden" value=""/>
+        <button id="favoriteSubmitButton" type="submit">
+            <span>Добавить в избранное</span>
+            <img id="favoriteSubmitIcon" src="{% static 'images/svg/normal/heart.svg' %}"/>
+        </button>
+    </form>
+</div>
+<script>
+    function changeFavoriteActive() {
+        if (favoriteTitleInput.value.trim() !== "") {
+            favoriteSubmitButton.classList.add("active");
+            favoriteSubmitIcon.setAttribute("src", "{% static 'images/svg/normal/heart-white.svg' %}");
+        } else {
+            favoriteSubmitButton.classList.remove("active");
+            favoriteSubmitIcon.setAttribute("src", "{% static 'images/svg/normal/heart.svg' %}");
+        }
+    };
+    
+    changeFavoriteActive();
+    
+    favoriteTitleInput.addEventListener("input", changeFavoriteActive);
+</script>

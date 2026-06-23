@@ -1,0 +1,118 @@
+{% extends 'layouts/account.html' %}
+{% load static %}
+{% block another_css_files %}
+    <link href="{% static 'css/account/common.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/account/index.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block data_selected %}selected{% endblock %}
+{% block account_content %}
+<div class="avatar">
+    <input type="file" id="avatarInput" name="avatar" accept="image/png,image/jpg,image/jpeg" onchange="upload_avatar(this)" />
+    {% if user.avatar %}
+    <div id="changeButton" class="button">
+        <div class="subbutton">
+            <button>
+                <img src="{% static 'images/svg/normal/upload.svg' %}" />
+            </button>
+            <p>Изменить</p>
+        </div>
+    </div>
+    
+    <div class="image">
+        <img src="{{ user.avatar }}">
+    </div>
+
+    <div id="removeButton" class="button" onclick="remove_avatar()">
+        <div class="subbutton">
+            {% csrf_token %}
+            <button>
+                <img src="{% static 'images/svg/bold/trash.svg' %}" />
+            </button>
+            <p>Удалить</p>
+        </div>
+    </div>
+    {% else %}
+        <div id="changeButton" class="image-without-avatar">
+            <div class="upload">
+                <img src="{% static 'images/svg/bold/upload.svg' %}">
+                <p>Загрузить аватар</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% if error %}
+<p class="error">{{ error }}</p>
+{% endif %}
+<form class="data" method="POST" action="{% url 'account_update_data' %}">
+    {% csrf_token %}
+    <div class="names">
+        <input id="firstNameInput" name="first_name" type="text" placeholder="Имя" value="{{ user.first_name }}"/>
+        <input id="lastNameInput" name="last_name" type="text" placeholder="Фамилия" value="{{ user.last_name }}"/>
+    </div>
+    <div class="email">
+        <input id="emailInput" name="email" type="email" placeholder="Email" value="{{ user.email }}"/>
+    </div>
+    <div class="submit">
+        <input id="submitButton" type="submit" class="submit text-label" value="Обновить"/>
+    </div>
+</form>
+<script>
+    function changeActive() {
+        if (firstNameInput.value.trim() !== "" && lastNameInput.value.trim() !== "" && emailInput.value.trim() !== "") {
+            submitButton.classList.add("active");
+            submitButton.removeAttribute("disabled");
+        } else {
+            submitButton.classList.remove("active");
+            submitButton.setAttribute("disabled", "disabled");
+        }
+    };
+
+    changeActive();
+
+    firstNameInput.addEventListener("input", changeActive);
+    lastNameInput.addEventListener("input", changeActive);
+    emailInput.addEventListener("input", changeActive);
+
+    changeButton.addEventListener('click', function() {
+        document.getElementById('avatarInput').click();
+    });
+
+    function remove_avatar() {
+        fetch("{% url 'avatar_remove' %}", {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': '{{ csrf_token }}'
+            }
+        }).then(response => {
+            window.location.reload();
+        }).catch(error => {
+            console.error('Ошибка:', error);
+            alert("Ошибка при удалении аватара.");
+        });
+    }
+
+    function upload_avatar(fileInput) {
+        if (fileInput.files.length > 0) {
+            const formData = new FormData();
+            formData.append('avatar', fileInput.files[0]);
+
+            fetch("{% url 'avatar_update' %}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: formData
+            }).then(response => {
+                if (response.ok) {
+                    window.location.reload();
+                } else {
+                    alert("Ошибка при загрузке аватара.");
+                }
+            }).catch(error => {
+                console.error('Ошибка:', error);
+                alert("Ошибка при загрузке аватара.");
+            });
+        }
+    }
+</script>
+{% endblock %}

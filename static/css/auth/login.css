@@ -1,0 +1,89 @@
+@media (orientation: landscape) {
+
+    .content .login h1 {
+        font-family: var(--font-family-sf_pro_display-medium);
+        font-size: 2.08333333333vw;
+        font-weight: 500;
+        line-height: 2.5vw;
+        text-align: left;
+    }
+
+    .content .login form input {
+        width: 100%;
+        height: 7vh;
+        border: none;
+        border-radius: 2vh;
+        padding: 2.6vh;
+        gap: 1vh;
+        background-color: #F1F3F5;
+
+        font-family: var(--font-family-sf_pro_display-regular);
+        font-size: 0.9375vw;
+        font-weight: 500;
+        line-height: 0.9375vw;
+        text-align: left;
+        color: #141516;
+    }
+
+    .content .login #emailInput {
+        margin-top: 3vh;
+    }
+
+    .content .login #passwordInput {
+        margin-top: 1.2vh;
+    }
+
+    .content .login .links {
+        margin-top: 4vh;
+        display: inline-flex;
+        width: 100%;
+    }
+
+    .content .login .links #resetPasswordLink {
+        margin-left: 0;
+    }
+
+    .content .login .links #registrationLink {
+        margin-left: auto;
+        order: 2;
+    }
+
+    .content .login #submitButton {
+        margin-top: 2vh;
+        text-align: center;
+        color: #989FA6;
+    }
+}
+
+@media (orientation: portrait) {
+    .content .login {
+        width: 100%;
+    }
+
+    .content .login #emailInput {
+        margin-top: 7.89473684211vw;
+    }
+
+    .content .login #passwordInput {
+        margin-top: 2.10526315789vw;
+    }
+
+    .content .login .links {
+        margin-top: 10.5263157895vw;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        gap: 5.26315789474vw;
+    }
+
+    .content .login .links a {
+        font-size: 4.21052631579vw;
+        height: 100%;
+    }
+
+    .content .login #submitButton {
+        margin-top: 5.26315789474vw;
+        text-align: center;
+        color: #989FA6;
+    }
+}

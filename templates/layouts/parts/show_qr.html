@@ -1,0 +1,11 @@
+{% load static %}
+<div id="showQr" class="show-qr" hidden>
+    <div class="background"></div>
+    <div id="qr" class="qr">
+        <img class="cross" src="{% static 'images/svg/normal/cross.svg' %}" onclick="showQr.setAttribute('hidden', 'hidden')"/>
+        <h1>Ваш QR</h1>
+        <div id="qrImage" class="image">
+        
+        </div>
+    </div>
+</div>

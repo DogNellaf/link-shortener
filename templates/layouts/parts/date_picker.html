@@ -1,0 +1,125 @@
+{% load static %}
+<div id="datePicker" hidden>
+    <div class="background"></div>
+    <div class="calendar-frame">
+        <div class="calendar-header">
+            <span id="currentMonth"></span>
+            <div>
+                <button class="arrow-button" onclick="changeMonth(-1)">
+                    <img src="{% static 'images/svg/normal/date-button-up.svg' %}" />
+                </button>
+                <button class="arrow-button" onclick="changeMonth(1)">
+                    <img src="{% static 'images/svg/normal/date-button-down.svg' %}" />
+                </button>
+            </div>
+        </div>
+        <div id="calendarGrid" class="calendar-grid">
+            <div class="calendar-row">
+                <span>Пн</span>
+                <span>Вт</span>
+                <span>Ср</span>
+                <span>Чт</span>
+                <span>Пт</span>
+                <span>Сб</span>
+                <span>Вс</span>
+            </div>
+            <div id="daysContainer"></div>
+        </div>
+        <button class="close-button" onclick="reset()">Сбросить</button>
+        <button class="close-button" onclick="datePicker.setAttribute('hidden', 'hidden')">Закрыть</button>
+    </div>
+</div>
+
+<script>
+    function reset() {
+        const url = new URL(document.location);
+        const searchParams = url.searchParams;
+        searchParams.delete("date");
+        document.location = url.toString();
+    }
+
+    // Функция для добавления ведущего нуля
+    function addLeadingZero(number) {
+        return number < 10 ? `0${number}` : number;
+    }
+
+    const datePickerObj = {
+        currentDate: new Date("{{ current_date|date:'m.d.Y' }}"), // Берём дату из переменной шаблонизатора
+        renderCalendar() {
+            const daysContainer = document.getElementById("daysContainer");
+            const currentMonth = document.getElementById("currentMonth");
+            daysContainer.innerHTML = "";
+
+            const year = this.currentDate.getFullYear();
+            const month = this.currentDate.getMonth();
+            const firstDay = new Date(year, month, 1).getDay();
+            const lastDate = new Date(year, month + 1, 0).getDate();
+            const prevLastDate = new Date(year, month, 0).getDate();
+
+            const monthNames = [
+                "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
+                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+            ];
+            currentMonth.innerText = `${monthNames[month]} ${year} г.`;
+
+            const days = [];
+            
+            // Добавление последних дней предыдущего месяца
+            const startDay = firstDay === 0 ? 6 : firstDay - 1;
+            for (let i = startDay; i > 0; i--) {
+                days.push({ text: prevLastDate - i + 1, className: "inactive" });
+            }
+
+            // Добавление дней текущего месяца
+            for (let i = 1; i <= lastDate; i++) {
+                const isActive = 
+                    i === this.currentDate.getDate() &&
+                    month === new Date("{{ current_date|date:'m.d.Y' }}").getMonth() &&
+                    year === new Date("{{ current_date|date:'m.d.Y' }}").getFullYear();
+                days.push({ text: i, className: isActive ? "active" : "" });
+            }
+
+            // Добавление первых дней следующего месяца
+            const totalDays = startDay + lastDate;
+            const nextDays = 42 - totalDays;
+            for (let i = 1; i <= nextDays; i++) {
+                days.push({ text: i, className: "inactive" });
+            }
+
+            // Создание строк из 7 дней
+            for (let i = 0; i < days.length; i += 7) {
+                const row = document.createElement("div");
+                row.classList.add("calendar-row");
+                for (let j = 0; j < 7; j++) {
+                    if (i + j < days.length) {
+                        const day = days[i + j];
+                        const dayElement = document.createElement("a");
+                        dayElement.classList.add("calendar-day");
+                        if (day.className) {
+                            dayElement.classList.add(day.className);
+                        }
+                        dayElement.innerText = day.text;
+                        const dayText = addLeadingZero(day.text);
+                        const monthText = addLeadingZero(month + 1);
+                        dayElement.setAttribute(
+                            "href",
+                            `?date=${dayText}.${monthText}.${year}`
+                        );
+                        row.appendChild(dayElement);
+                    }
+                }
+                daysContainer.appendChild(row);
+            }
+        }
+    };
+
+    function changeMonth(step) {
+        datePickerObj.currentDate.setMonth(datePickerObj.currentDate.getMonth() + step);
+        datePickerObj.renderCalendar();
+    }
+
+    // Инициализация календаря с текущей датой из шаблонизатора
+    document.addEventListener("DOMContentLoaded", () => {
+        datePickerObj.renderCalendar();
+    });
+</script>
