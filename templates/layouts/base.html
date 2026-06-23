@@ -1,0 +1,102 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        <style>{% block style %}{% endblock %}</style>
+        {% block another_css_files %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <link href="{% static 'css/common.css' %}" rel="stylesheet"/>
+        <link href="{% static 'css/parts/change_background.css' %}" rel="stylesheet"/>
+        <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet"/>
+        <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/qr-code-styling.js' %}"></script>
+    </head>
+    <body>
+        {% block frames %}
+        {% endblock %}
+        {% include 'layouts/parts/change_background.html' %}
+        <header>
+            <img class="logo" src="{% static 'images/png/logo.png' %}" alt="Это линкер от VI–media">
+            <div id="menuPlaceholder" class="menu-placeholder" onclick="changeMenuState()">
+                <span>Меню</span>
+                <img id="menuPlaceholderImage" src="{% static 'images/svg/normal/menu-placeholder-down.svg' %}"/>
+            </div>
+            <div id="menu" class="menu" hidden>                
+                <a href="{% url 'index' %}">
+                    <div class="index have-icon {% block index_selected %}{% endblock %}">
+                        <div>Линкер</div>
+                        {% block index_icon %}<img src="{% static 'images/svg/normal/index.svg' %}" alt="Линкер">{% endblock %}
+                    </div>
+                </a>
+                <a href="{% url 'qr_generator' %}">
+                    <div class="qr have-icon {% block qr_selected %}{% endblock %}">
+                        <div>QR-генератор</div>
+                        {% block qr_icon %}<img src="{% static 'images/svg/normal/qr.svg' %}" alt="QR-генератор">{% endblock %}
+                    </div>
+                </a>
+                <a href="{% url 'favorite_urls' %}">
+                    <div class="history have-icon {% block history_selected %}{% endblock %}">
+                        <div>Мои ссылки и QR-коды</div>
+                        {% block history_icon %}<img src="{% static 'images/svg/normal/history.svg' %}" alt="Мои ссылки и QR-коды">{% endblock %}
+                    </div>
+                </a>
+                <a href="{% url 'price' %}">
+                    <div class="price have-icon {% block price_selected %}{% endblock %}">
+                        <div>Тарифы</div>
+                        {% block price_icon %}<img src="{% static 'images/svg/normal/price.svg' %}" alt="Тарифы"/>{% endblock %}
+                    </div>
+                </a>
+            </div>
+            <div class="account">
+                <a href="{% url 'account' %}">
+                    {% if user.is_authenticated %}
+                        <span class="bold">{{ user.first_name }} {{ user.last_name|first }}.</span>
+                    {% else %}
+                        <span class="bold">Войти</span>
+                    {% endif %}
+                    <div class="icon">
+                        <img src="{% static 'images/svg/normal/account.svg' %}" alt="Аккаунт">
+                    </div>
+                </a>
+            </div>
+        </header>
+        <script src="{% static 'js/base.js' %}"></script>
+        <div class="content {% block content_class %}{% endblock %}">
+            {% block content %}
+    
+            {% endblock %}
+        </div>
+        <footer>
+            <a class="privacy text-label" href="{% url 'privacy' %}">
+                Правила сервиса
+            </a>
+            <a class="company" href="https://example.com">
+                PR-агентство Operator
+            </a>
+            <div class="settings">
+                <a onclick="changeVisible()">
+                    <img src="{% static 'images/svg/normal/settings.svg' %}" alt="Настройки"/>
+                </a>
+            </div>
+        </footer>
+        <script>
+            function changeMenuState() {
+                if (menu.hasAttribute("hidden")) {
+                  menu.removeAttribute("hidden");
+                  menuPlaceholderImage.setAttribute("src", "{% static 'images/svg/normal/menu-placeholder-up.svg' %}");
+                } else {
+                  menu.setAttribute("hidden", "hidden");
+                  menuPlaceholderImage.setAttribute("src", "{% static 'images/svg/normal/menu-placeholder-down.svg' %}");
+                }
+            }
+
+            // если placeholder отображается, скрываем меню
+            if (window.getComputedStyle(menuPlaceholder).display === 'none') {
+                menu.removeAttribute("hidden");
+            }
+        </script>
+    </body>
+</html>

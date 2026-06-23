@@ -1,3 +1,6 @@
+"""Модуль содержит настройки админ панели приложения"""
 from django.contrib import admin
+from core.models import ShortedUrl, Qr
 
-# Register your models here.
+admin.site.register(ShortedUrl)
+admin.site.register(Qr)

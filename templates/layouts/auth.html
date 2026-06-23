@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}{% endblock %}</title>
+        {% block another_css_files %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+        <link href="{% static 'css/common.css' %}" rel="stylesheet"/>
+        <link href="{% static 'css/auth/common.css' %}" rel="stylesheet"/>
+        <link href="{% static 'css/bootstrap/bootstrap.min.css' %}" rel="stylesheet"/>
+        <script src="{% static 'js/bootstrap/bootstrap.bundle.min.js' %}"></script>
+        <script src="{% static 'js/qr-code-styling.js' %}"></script>
+    </head>
+    <body style="background: #f1f3f5;">
+        <img class="logo-auth" src="{% static 'images/png/logo.png' %}" alt="Operator">
+        <div class="content {% block content_class %}{% endblock %}">
+            {% block content %}
+    
+            {% endblock %}
+        </div>
+        <footer>
+            <a href="{% url 'privacy' %}">
+                <div class="privacy text-label">Правила сервиса</div>
+            </a>
+            <a href="https://example.com/?ysclid=m2om2ezwy1636399194">
+                <div class="company">PR-агентство Operator</div>
+            </a>
+        </footer>
+    </body>
+</html>

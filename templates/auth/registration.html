@@ -1,0 +1,63 @@
+{% extends 'layouts/auth.html' %}
+{% load static %}
+{% block title %}Авторизация{% endblock %}
+{% block another_css_files %}
+	<link href="{% static 'css/auth/registration.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block content %}
+	<div class="registration">
+		<h1>Регистрация</h1>
+
+		{% if error %}
+		  <p class="error">{{ error }}</p>
+		{% endif %}
+	  
+		<form method="post" action="{% url 'registration' %}">
+		  {% csrf_token %}
+		  <input id="firstNameInput" name="firstName" type="text" placeholder="Имя" value="{{ first_name }}"/>
+		  <input id="lastNameInput" name="lastName" type="text" placeholder="Фамилия" value="{{ last_name }}" />
+		  <input id="emailInput" name="email" type="email" placeholder="Email" value="{{ email }}"/>
+		  <input id="passwordInput" name="password" type="password" placeholder="Пароль" />
+		  <input id="passwordAnotherInput" name="passwordAnother" type="password" placeholder="Пароль еще раз" />
+		  <input id="submitButton" type="submit" value="Зарегистрироваться" />
+		</form>
+	  
+		<div class="links">
+		  <a id="loginLink" href="{% url 'login' %}">Авторизация</a>
+		</div>
+	  
+		<script>
+		  function checkActive() {
+				if (firstNameInput.value == "" || lastNameInput.value == "" || emailInput.value == "" || passwordInput.value == "" || passwordAnotherInput.value == "") {
+				  submitButton.classList.remove("active");
+				  submitButton.classList.remove("sky-hovered");
+				  submitButton.removeAttribute("type");
+			  } else {
+				  submitButton.classList.add("active");
+				  submitButton.classList.add("sky-hovered");
+				  submitButton.setAttribute("type", "submit");
+			  }
+		  }
+	  
+		  firstNameInput.addEventListener("input", function () {
+			  checkActive();
+		  });
+	  
+		  lastNameInput.addEventListener("input", function () {
+			  checkActive();
+		  });
+	  
+		  emailInput.addEventListener("input", function () {
+			  checkActive();
+		  });
+	  
+		  passwordInput.addEventListener("input", function () {
+			  checkActive();
+		  });
+	  
+		  passwordAnotherInput.addEventListener("input", function () {
+			  checkActive();
+		  });
+		</script>
+	</div>
+{% endblock %}

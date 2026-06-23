@@ -1,0 +1,112 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}Это линкер от VI–media{% endblock %}
+{% block another_css_files %}
+	<link href="{% static 'css/index.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/add_favorite.css' %}" rel="stylesheet"/>
+	<link href="{% static 'css/parts/copy_alert.css' %}" rel="stylesheet"/>
+{% endblock %}
+{% block index_selected %}selected{% endblock %}
+{% block index_bold %}bold{% endblock %}
+{% block index_icon %}
+	<img src="{% static 'images/svg/bold/index.svg' %}" alt="Линкер">
+{% endblock %}
+{% block frames %}
+	{% include 'layouts/parts/add_favorite.html' %}
+	{% include 'layouts/parts/copy_alert.html' %}
+{% endblock %}
+{% block content %}
+	<div class="index {% if url != "" %}with-url{% endif %}">
+		<h1>Это линкер от VI–media</h1>
+		<form method="POST" action="{% url 'generate_url' %}">
+		{% csrf_token %}
+			<input name="url" id="urlInputField" class="url" type="text" placeholder="Нажмите ctrl+v или вставьте ссылку" value="{{ url.original_url }}" autofocus/>
+			<img id="crossButton" class="cross-small" src="{% static 'images/svg/normal/cross.svg' %}"/>
+			<input id="submitButton" type="submit" class="submit text-label" value="Сократить"/>
+		</form>
+		{% if url %}
+		<hr>
+		<div class="result">
+			<div style="display: inline-block;">
+				<div class="short-url">
+					<a id="shortUrlA" href="http://{{ request.get_host }}/{{ url.short_url }}">{{ request.get_host }}/{{ url.short_url }}</a>
+					<br>
+					<span id="copyInfoSpan" hidden>ссылка скопирована в буфер обмена</span>
+				</div>
+			</div>
+			<div class="buttons">
+				<button class="gray-hovered" id="copyButton">
+					<img src="{% static 'images/svg/bold/copy.svg' %}" />
+				</button>
+				<button class="gray-hovered" id="shareButton">
+					<img src="{% static 'images/svg/bold/share.svg' %}" />
+				</button>
+				<button class="gray-hovered" id="favoriteButton">
+					{% if not url.is_favorite %}
+						<img src="{% static 'images/svg/bold/heart.svg' %}" />
+					{% else %}
+						<img src="{% static 'images/svg/bold/heart-fill.svg' %}" />	
+						<form method="POST" action="{% url 'remove_url_favorite' %}" hidden>
+							{% csrf_token %}
+							<input name="url" type="text" value="{{ url.short_url }}"/>
+							<input id="sendRemoveUrlButton" type="submit"/>
+						</form>
+					{% endif %}
+				</button>
+			</div>
+		</div>
+		<div id="share" class="share" hidden>
+			<a href="https://t.me/share/url?url=http://{{ request.get_host }}/{{ url }}&text=Делюсь с вами сокращенной ссылкой через сервис link.example.com">
+				<button id="shareToTelegramButton">
+					<img src="{% static 'images/svg/bold/telegram.svg' %}"/>
+					<span>Отправить в Telegram</span>
+				</button>
+			</a>
+			<a href="https://api.whatsapp.com/send?text=Делюсь с вами сокращенной ссылкой http://{{ request.get_host }}/{{ url }} через сервис link.example.com">
+				<button id="shareToWhatsAppButton">
+					<img src="{% static 'images/svg/bold/whatsapp.svg' %}"/>
+					<span>Отправить в WhatsApp</span>
+				</button>
+			</a>
+		</div>
+		<script>
+			copyTextFallback(shortUrlA.innerHTML);
+			copyInfoSpan.removeAttribute("hidden");
+			submitButton.classList.add("active");
+			submitButton.classList.add("sky-hovered");
+
+			var isShareFrameHidden = true;
+			favoriteButton.addEventListener("click", function () {
+				{% if user.is_authenticated %}
+					{% if url.is_favorite %}
+						sendRemoveUrlButton.click();
+					{% else %}
+						favoriteUrlInput.value = "{{ url.short_url }}";
+						addFavorite.removeAttribute("hidden");
+					{% endif %}
+				{% else %}
+					document.location.href = "{% url 'registration' %}";
+				{% endif %}
+			});
+			
+			copyButton.addEventListener('click', function(event) {
+				copyAlert.removeAttribute("hidden");
+				copyTextFallback(shortUrlA.innerHTML);
+				setTimeout(() => {
+					copyAlert.setAttribute("hidden", "hidden");
+				}, 3000);
+			})
+
+			shareButton.addEventListener('click', function(event) {
+				if (isShareFrameHidden)
+					share.removeAttribute("hidden");
+				else
+					share.setAttribute("hidden", "hidden");
+				
+				isShareFrameHidden = !isShareFrameHidden;
+			})
+		</script>
+		{% endif %}
+	</div>
+	<script src="{% static 'js/index.js' %}"></script>
+{% endblock %}

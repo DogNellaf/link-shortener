@@ -1,0 +1,39 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block title %}Мои ссылки и QR коды{% endblock %}
+{% block history_selected %}selected{% endblock %}
+{% block history_bold %}bold{% endblock %}
+{% block history_icon %}
+	<img src="{% static 'images/svg/bold/history.svg' %}" alt="Мои ссылки и QR-коды">
+{% endblock %}
+{% block content %}
+	<div class="calendar">
+
+	</div>
+	<div class="frame">
+		<div class="title-bar">
+			<a href="{% url 'favorite_urls' %}">
+				<h1 {% block urls_bold %} {% endblock %}>Мои ссылки</h1>
+			</a>
+			<span>/</span> 
+			<a href="{% url 'favorite_qrs' %}">
+				<h1 {% block qrs_bold %} {% endblock %}>Мои QR-коды</h1>
+			</a>
+		</div>
+		<div class="menu">
+			<a href="{% block favorite_url %}{% endblock %}">
+				<div class="favorite {% block favorite_menu_selected %}{% endblock %}">
+					Избранное
+				</div>
+			</a>
+			<a href="{% block history_url %}{% endblock %}">
+				<div class="history {% block history_menu_selected %}{% endblock %}">
+					Все ссылки
+				</div>
+			</a>
+		</div>
+		{% block history_content %}
+
+		{% endblock %}
+	</div>
+{% endblock %}
