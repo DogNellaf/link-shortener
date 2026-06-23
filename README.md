@@ -115,4 +115,4 @@ link-shortener/
 
 ## License
 
-[CC BY-NC 4.0](LICENSE) — attribution required for any use; commercial use requires prior written permission from the copyright holder.
+[CC BY-NC 4.0](LICENSE)
